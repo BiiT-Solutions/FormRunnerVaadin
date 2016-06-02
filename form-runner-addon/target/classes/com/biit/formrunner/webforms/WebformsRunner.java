@@ -1,0 +1,330 @@
+package com.biit.formrunner.webforms;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.biit.form.entity.BaseForm;
+import com.biit.form.entity.BaseGroup;
+import com.biit.form.entity.BaseQuestion;
+import com.biit.form.entity.BaseQuestionWithValue;
+import com.biit.form.entity.TreeObject;
+import com.biit.form.exceptions.CharacterNotAllowedException;
+import com.biit.form.exceptions.ElementIsReadOnly;
+import com.biit.form.exceptions.NotValidChildException;
+import com.biit.form.result.FormResult;
+import com.biit.form.result.QuestionWithValueResult;
+import com.biit.form.result.RepeatableGroupResult;
+import com.biit.form.runner.logger.FormRunnerLogger;
+import com.biit.form.submitted.ISubmittedForm;
+import com.biit.form.submitted.ISubmittedObject;
+import com.biit.form.submitted.ISubmittedQuestion;
+import com.biit.formrunner.common.FieldValueChanged;
+import com.biit.formrunner.common.IRunnerElement;
+import com.biit.formrunner.common.Result;
+import com.biit.formrunner.common.ResultGroup;
+import com.biit.formrunner.common.ResultQuestion;
+import com.biit.formrunner.common.Runner;
+import com.biit.formrunner.common.exceptions.PathDoesNotExist;
+import com.biit.formrunner.orbeon.OrbeonFormRunnerEquivalence;
+import com.biit.formrunner.orbeon.OrbeonFormRunnerMatcher;
+import com.biit.persistence.entity.exceptions.FieldTooLongException;
+import com.biit.webforms.computed.ComputedFlowView;
+import com.biit.webforms.condition.parser.WebformsParser;
+import com.biit.webforms.condition.parser.expressions.WebformsExpression;
+import com.biit.webforms.persistence.entity.Category;
+import com.biit.webforms.persistence.entity.Flow;
+import com.biit.webforms.persistence.entity.Form;
+import com.biit.webforms.persistence.entity.condition.Token;
+import com.biit.webforms.persistence.entity.condition.TokenComparationAnswer;
+import com.biit.webforms.persistence.entity.condition.TokenComparationValue;
+import com.biit.webforms.persistence.entity.condition.TokenWithQuestion;
+import com.biit.webforms.utils.parser.exceptions.EmptyParenthesisException;
+import com.biit.webforms.utils.parser.exceptions.ExpectedTokenNotFound;
+import com.biit.webforms.utils.parser.exceptions.ExpressionNotWellFormedException;
+import com.biit.webforms.utils.parser.exceptions.IncompleteBinaryOperatorException;
+import com.biit.webforms.utils.parser.exceptions.MissingParenthesisException;
+import com.biit.webforms.utils.parser.exceptions.NoMoreTokensException;
+import com.biit.webforms.utils.parser.exceptions.ParseException;
+import com.vaadin.ui.UI;
+
+public class WebformsRunner extends Runner {
+	private static final long serialVersionUID = -3424863413256347805L;
+	public static final int IMAGE_MINIMUM_WIDTH = 1200;
+
+	private Form form;
+	private ComputedFlowView computedFlowView;
+	private boolean valueNotSaved = false;
+
+	private int tabIndexDelta;
+
+	public void loadForm(Form form) {
+		setLoading(true);
+		this.form = form;
+		this.computedFlowView = form.getComputedFlowsView();
+		for (TreeObject child : form.getChildren()) {
+			WebformsRunnerGroup runnerGroup = new WebformsRunnerGroup((Category) child, this);
+			this.addElement(runnerGroup);
+			runnerGroup.addValueChangedListeners(new FieldValueChanged() {
+
+				@Override
+				public void valueChanged(IRunnerElement runnerElement) {
+					valueNotSaved = true;
+				}
+			});
+		}
+
+		// Hide all the elements
+		List<TreeObject> elements = form.getAll(BaseQuestion.class);
+		int tabIndex = tabIndexDelta;
+		for (TreeObject element : elements) {
+			try {
+				setRelevance(element.getPath(), false);
+				setTabIndex(element.getPath(), tabIndex);
+				tabIndex++;
+			} catch (PathDoesNotExist e) {
+				// Not possible.
+				FormRunnerLogger.errorMessage(WebformsRunner.class.getName(), e);
+				break;
+			}
+		}
+
+		setLoading(false);
+
+		try {
+			evaluate(computedFlowView.getFirstElement().getPath());
+		} catch (PathDoesNotExist e) {
+			// Not possible.
+			e.printStackTrace();
+		}
+
+		// Show image if exists and there is room enough
+		if (isImagesEnabled() && UI.getCurrent().getPage().getBrowserWindowWidth() >= IMAGE_MINIMUM_WIDTH && form.getImage() != null) {
+			setImageLayoutVisible();
+			setImage(form.getImage());
+		} else {
+			setImageLayoutUnvisible();
+		}
+	}
+
+	private void setTabIndex(List<String> path, int tabIndex) throws PathDoesNotExist {
+		IRunnerElement element = getElement(path);
+		element.setTabIndex(tabIndex);
+	}
+
+	@Override
+	public void evaluate(List<String> path) throws PathDoesNotExist {
+		TreeObject start = form.getChild(path);
+		ArrayList<TreeObject> children = new ArrayList<>(form.getAllChildrenInHierarchy(BaseQuestion.class));
+		for (int i = children.indexOf(start); i < children.size(); i++) {
+			boolean relevance = false;
+			// If first question of form relevance is true
+			if (computedFlowView.getFirstElement().equals(children.get(i))) {
+				relevance = true;
+			} else {
+				// Check parents
+				for (Flow flow : computedFlowView.getFlowsByDestiny(children.get(i))) {
+					// Relevance is true if in previous iteration was true or if
+					// previous element is visible and the flow is valid.
+					relevance = relevance || (getRelevance(flow.getOrigin().getPath()) && checkIsValidFlow(flow));
+				}
+			}
+
+			// Set relevance
+			setRelevance(children.get(i).getPath(), relevance);
+		}
+	}
+
+	private boolean checkIsValidFlow(Flow flow) throws PathDoesNotExist {
+		List<Token> condition = flow.getConditionSimpleTokens();
+		if (condition == null || condition.isEmpty()) {
+			// Empty condition, valid flow.
+			return true;
+		}
+
+		for (Token token : condition) {
+			if (token instanceof TokenWithQuestion) {
+				TokenWithQuestion tokenToEvaluate = (TokenWithQuestion) token;
+				List<String> pathToQuestion = tokenToEvaluate.getQuestion().getPath();
+				IRunnerElement element = getElement(pathToQuestion);
+				if (token instanceof TokenComparationAnswer) {
+					evaluateToken((TokenComparationAnswer) token, element);
+					continue;
+				}
+				if (token instanceof TokenComparationValue) {
+					evaluateToken((TokenComparationValue) token, element);
+					continue;
+				}
+			}
+		}
+		try {
+			WebformsExpression expression = (WebformsExpression) (new WebformsParser(condition.iterator())).parseCompleteExpression();
+			Boolean value = expression.evaluate();
+			return value != null && value;
+		} catch (ParseException | ExpectedTokenNotFound | NoMoreTokensException | IncompleteBinaryOperatorException
+				| MissingParenthesisException | ExpressionNotWellFormedException | EmptyParenthesisException e) {
+			// If the form is valid this should never happen.
+			FormRunnerLogger.errorMessage(this.getClass().getName(), e);
+			return false;
+		}
+	}
+
+	private void evaluateToken(TokenComparationValue token, IRunnerElement element) {
+		// If the question is not visible we evaluate with empty list.
+		if (!element.getRelevance() || (element.isMandatory() && !element.isFilled())) {
+			token.evaluate(null);
+			return;
+		} else {
+			List<Result> answers = element.getAnswers();
+			if (!answers.isEmpty()) {
+				ResultQuestion answer = (ResultQuestion) answers.get(0);
+				token.evaluate(answer.getAnswers().get(0));
+			} else {
+				// Evaluate as empty
+				token.evaluate("");
+			}
+		}
+	}
+
+	private void evaluateToken(TokenComparationAnswer token, IRunnerElement element) {
+		// If the question is not visible we evaluate with null or visible but
+		// not filled.
+		if (!element.getRelevance() || (element.isMandatory() && !element.isFilled())) {
+			token.evaluate(null);
+			return;
+		} else {
+			List<Result> answers = element.getAnswers();
+			if (!answers.isEmpty()) {
+				ResultQuestion answer = (ResultQuestion) answers.get(0);
+				token.evaluate(answer.getAnswers());
+			} else {
+				// Evaluate as empty
+				token.evaluate(new ArrayList<String>());
+			}
+		}
+	}
+
+	public void getOrbeonValues(ISubmittedForm orbeonForm, OrbeonFormRunnerMatcher orbeonFormRunnerMatcher) throws PathDoesNotExist {
+		if (orbeonForm != null) {
+			// Stores equivalences according to the answer of the USMO Form
+			// Runner
+			Map<String, OrbeonFormRunnerEquivalence> equivalences = new HashMap<>();
+			List<ISubmittedObject> questions = orbeonForm.getChildren(ISubmittedQuestion.class);
+			for (ISubmittedObject element : questions) {
+				ISubmittedQuestion orbeonQuestion = (ISubmittedQuestion) element;
+				// Translate Orbeon path to form runner path.
+				OrbeonFormRunnerEquivalence equivalence = orbeonFormRunnerMatcher.getFormRunnerEquivalence(orbeonQuestion);
+				if (equivalence != null) {
+					// Select the correct equivalence filtered by priority. High
+					// priority must be preferred.
+					if (equivalences.get(equivalence.getFormRunnerPath()) == null) {
+						equivalences.put(equivalence.getFormRunnerPath(), equivalence);
+					} else if (equivalences.get(equivalence.getFormRunnerPath()).getPriority() < equivalence.getPriority()) {
+						equivalences.put(equivalence.getFormRunnerPath(), equivalence);
+					}
+				}
+			}
+
+			FormRunnerLogger.debug(this.getClass().getName(), "Stored Equivalences: " + equivalences + "");
+			for (OrbeonFormRunnerEquivalence equivalence : equivalences.values()) {
+				List<String> formRunnerElementPath = equivalence.getPathAsList();
+				if (formRunnerElementPath != null && !formRunnerElementPath.isEmpty()) {
+					// Translate Orbeon answer to Form Runner value.
+					FormRunnerLogger.debug(this.getClass().getName(), "Question '" + equivalence.getFormRunnerPath()
+							+ "' default value obtained from Orbeon question '" + equivalence.getOrbeonPath() + "'. Value is "
+							+ equivalence.getFormRunnerAnswers());
+					setAnswers(formRunnerElementPath, new ArrayList<>(equivalence.getFormRunnerAnswers()));
+				} else {
+					FormRunnerLogger.debug(this.getClass().getName(), "Orbeon value not applied in examination: '" + equivalence + "'");
+				}
+			}
+		}
+	}
+
+	public void loadFormResult(FormResult formResult) {
+		List<TreeObject> questions = formResult.getAll(BaseQuestionWithValue.class);
+
+		for (TreeObject element : questions) {
+			BaseQuestionWithValue question = (BaseQuestionWithValue) element;
+			try {
+				setAnswers(question.getPath(), question.getQuestionValues());
+			} catch (PathDoesNotExist e) {
+				// Element does not exists is due to form restructuration.
+				FormRunnerLogger.warning(this.getClass().getName(), e.getMessage());
+			}
+		}
+
+		// Evaluate again from the first element.
+		try {
+			evaluate(computedFlowView.getFirstElement().getPath());
+		} catch (PathDoesNotExist e) {
+			// Not possible.
+			FormRunnerLogger.severe(this.getClass().getName(), "Error in form '" + form + "'.");
+			FormRunnerLogger.errorMessage(this.getClass().getName(), e);
+		}
+	}
+
+	public FormResult save() {
+		if (form == null) {
+			return null;
+		}
+		try {
+			FormResult result = new FormResult();
+			result.setLabel(form.getLabel());
+			result.setOrganizationId(form.getOrganizationId());
+			result.setVersion(form.getVersion());
+
+			for (Result answerGroup : getAnswers()) {
+				addGroupInformation(result, (ResultGroup) answerGroup);
+			}
+
+			return result;
+		} catch (FieldTooLongException | CharacterNotAllowedException | NotValidChildException | ElementIsReadOnly e) {
+			// This should never happen form and form result have the same
+			// restriction
+			FormRunnerLogger.severe(this.getClass().getName(), "Error in form '" + form + "'.");
+			FormRunnerLogger.errorMessage(this.getClass().getName(), e);
+			return null;
+		}
+	}
+
+	private void addGroupInformation(BaseForm result, ResultGroup element) throws FieldTooLongException, CharacterNotAllowedException,
+			NotValidChildException, ElementIsReadOnly {
+		com.biit.form.result.CategoryResult category = new com.biit.form.result.CategoryResult();
+		category.setName(element.getPath());
+		for (Result answerElement : element.getAnswerElements()) {
+			addGroupInformation(category, answerElement);
+		}
+		result.addChild(category);
+	}
+
+	private void addGroupInformation(BaseGroup parentResultGroup, Result answerElement) throws FieldTooLongException,
+			CharacterNotAllowedException, NotValidChildException, ElementIsReadOnly {
+		if (answerElement instanceof ResultQuestion) {
+			QuestionWithValueResult resultQuestion = new QuestionWithValueResult();
+			resultQuestion.setName(answerElement.getPath());
+			resultQuestion.addQuestionValues(((ResultQuestion) answerElement).getAnswerArray());
+			parentResultGroup.addChild(resultQuestion);
+		} else {
+			RepeatableGroupResult resultGroup = new RepeatableGroupResult();
+			resultGroup.setName(answerElement.getPath());
+			for (Result element : ((ResultGroup) answerElement).getAnswerElements()) {
+				addGroupInformation(resultGroup, element);
+			}
+			parentResultGroup.addChild(resultGroup);
+		}
+	}
+
+	public boolean isValueNotSaved() {
+		return valueNotSaved;
+	}
+
+	public void setValueNotSaved(boolean valueNotSaved) {
+		this.valueNotSaved = valueNotSaved;
+	}
+
+	public void setTabIndexDelta(int tabIndexDelta) {
+		this.tabIndexDelta = tabIndexDelta;
+	}
+}
