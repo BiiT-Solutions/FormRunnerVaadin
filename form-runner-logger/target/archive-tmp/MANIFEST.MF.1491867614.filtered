@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Vaadin-Package-Version: 1
-Vaadin-Addon: form-runner-logger-1.0-SNAPSHOT.jar
-Vaadin-License-Title: Apache License 2.0
-Implementation-Vendor: ${project.organization.name}
-Implementation-Title: form-runner logger
-Implementation-Version: 1.0-SNAPSHOT
