@@ -1,3 +1,5 @@
 .settings
 .project
 /form-runner-demo/src/main/webapp/VAADIN/widgetsets
+release.properties
+pom.xml.releaseBackup
