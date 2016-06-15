@@ -47,7 +47,7 @@ public class OrbeonFormRunnerMatcher {
 		return null;
 	}
 
-	public void setEquivalences(Set<OrbeonFormRunnerEquivalence> equivalences) {
+	protected void setEquivalences(Set<OrbeonFormRunnerEquivalence> equivalences) {
 		this.equivalences = equivalences;
 	}
 
