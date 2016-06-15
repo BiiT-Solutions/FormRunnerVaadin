@@ -29,6 +29,15 @@ public class OrbeonFormRunnerMatcher {
 		return null;
 	}
 
+	public OrbeonFormRunnerEquivalence getFormRunnerEquivalence(String orbeonPath) {
+		for (OrbeonFormRunnerEquivalence equivalence : equivalences) {
+			if (equivalence.getOrbeonPath().equals(orbeonPath)) {
+				return equivalence;
+			}
+		}
+		return null;
+	}
+
 	public String getFormRunnerAnswerEquivalence(String orbeonAnswer) {
 		for (OrbeonFormRunnerEquivalence equivalence : equivalences) {
 			if (equivalence.getOrbeonPath().equals(orbeonAnswer)) {

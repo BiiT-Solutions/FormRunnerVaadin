@@ -3,7 +3,9 @@ package com.biit.formrunner.orbeon;
 public enum Operator {
 
 	COPY("copy"),
-
+	
+	GET("get"),
+	
 	// Useful to convert birthday to age.
 	YEARS_TO_NOW("yearsToNow");
 

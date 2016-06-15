@@ -87,6 +87,7 @@ public class OrbeonFormRunnerEquivalence {
 
 	public String getFormRunnerValue(String originalValue) {
 		switch (getOperator()) {
+		case GET:
 		case COPY:
 			// Translate if needed
 			if (translations.get(originalValue) != null) {
