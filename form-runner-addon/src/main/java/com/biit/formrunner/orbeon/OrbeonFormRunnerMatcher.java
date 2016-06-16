@@ -49,7 +49,7 @@ public class OrbeonFormRunnerMatcher {
 	 * @param orbeonForm
 	 */
 	public void updateOrbeonAnswers(ISubmittedForm orbeonForm) {
-		if (isEnabled()) {
+		if (isEnabled() && orbeonForm != null) {
 			List<ISubmittedObject> questions = orbeonForm.getChildren(ISubmittedQuestion.class);
 			for (ISubmittedObject element : questions) {
 				ISubmittedQuestion orbeonQuestion = (ISubmittedQuestion) element;
