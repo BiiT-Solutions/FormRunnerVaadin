@@ -24,8 +24,6 @@ public class OrbeonFormRunnerMatcher {
 	public OrbeonFormRunnerEquivalence getFormRunnerEquivalence(ISubmittedQuestion orbeonQuestion) {
 		for (OrbeonFormRunnerEquivalence equivalence : equivalences) {
 			if (equivalence.getOrbeonPath().equals(orbeonQuestion.getPathName())) {
-				// Update Orbeon element
-				equivalence.setOrbeonQuestion(orbeonQuestion);
 				// Has value, use it. If not, skip to a second equivalence
 				// definition.
 				if (equivalence.getOrbeonQuestion().getAnswers() != null && !equivalence.getOrbeonQuestion().getAnswers().iterator().next().isEmpty()) {

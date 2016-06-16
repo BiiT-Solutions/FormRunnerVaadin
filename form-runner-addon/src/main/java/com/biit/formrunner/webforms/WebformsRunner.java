@@ -207,6 +207,7 @@ public class WebformsRunner extends Runner {
 
 	public void getOrbeonValues(ISubmittedForm orbeonForm, OrbeonFormRunnerMatcher orbeonFormRunnerMatcher) throws PathDoesNotExist {
 		if (orbeonForm != null) {
+			orbeonFormRunnerMatcher.updateOrbeonAnswers(orbeonForm);
 			// Stores equivalences according to the answer of the USMO Form
 			// Runner
 			Map<String, OrbeonFormRunnerEquivalence> equivalences = new HashMap<>();
