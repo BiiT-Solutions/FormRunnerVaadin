@@ -1,4 +1,4 @@
-package com.biit.formrunner.webforms;
+package com.biit.formrunner.common;
 
 public interface ValueModifier {
 

@@ -13,6 +13,7 @@ import com.biit.form.entity.TreeObject;
 import com.biit.form.result.QuestionWithValueResult;
 import com.biit.formrunner.common.IRunnerElement;
 import com.biit.formrunner.common.ImagePreview;
+import com.biit.formrunner.common.NumberLocaleModifier;
 import com.biit.formrunner.common.Runner;
 import com.biit.formrunner.common.RunnerDateField;
 import com.biit.formrunner.common.RunnerElementWithImage;
@@ -21,6 +22,8 @@ import com.biit.formrunner.common.RunnerImage;
 import com.biit.formrunner.common.RunnerSelection;
 import com.biit.formrunner.common.RunnerStaticField;
 import com.biit.formrunner.common.RunnerTextArea;
+import com.biit.formrunner.common.validators.DoubleValidator;
+import com.biit.formrunner.common.validators.LongValidator;
 import com.biit.webforms.persistence.entity.Answer;
 import com.biit.webforms.persistence.entity.ElementWithImage;
 import com.biit.webforms.persistence.entity.Question;
@@ -38,7 +41,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.TextField;
 
-public class WebformRunnerElement {
+public class WebformsRunnerElement {
 
 	private static final String HORIZONTAL_STYLE = "horizontal";
 

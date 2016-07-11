@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 
 import javax.servlet.annotation.WebServlet;
 
-import com.biit.formrunner.webforms.WebformsRunner;
+import com.biit.formrunner.webforms.IWebformsRunner;
 import com.biit.utils.file.FileReader;
 import com.biit.webforms.persistence.entity.Form;
 import com.vaadin.annotations.Theme;
@@ -37,22 +37,22 @@ public class DemoUI extends UI {
 		final VerticalLayout layout = new VerticalLayout();
 		layout.setStyleName("demoContentLayout");
 		layout.setSizeFull();
-		
+
 		String file;
 		try {
 			file = FileReader.getResource(JSON_PATH + File.separatorChar + FILE_NAME + ".json", StandardCharsets.UTF_8);
-			Form form = Form.fromJson(file); 
-			WebformsRunner runner = new WebformsRunner();
+			Form form = Form.fromJson(file);
+			IWebformsRunner runner = new DemoWebformsRunner();
 			runner.setCaption("Test form runner");
 			runner.setSizeFull();
 			runner.loadForm(form);
-			
+
 			layout.addComponent(runner);
 			layout.setComponentAlignment(runner, Alignment.MIDDLE_CENTER);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		setContent(layout);
 
 	}

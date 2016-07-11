@@ -1,4 +1,4 @@
-package com.biit.formrunner.webforms;
+package com.biit.formrunner.common.validators;
 
 import com.biit.webforms.utils.math.domain.range.RealRangeLong;
 import com.vaadin.data.Validator;

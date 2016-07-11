@@ -50,9 +50,9 @@ public class WebformsRunnerGroup extends RunnerGroup {
 				addElement(new WebformsRunnerGroup((BaseGroup) child, runner));
 			} else {
 				if (runner.isImagesEnabled() && UI.getCurrent().getPage().getBrowserWindowWidth() >= WebformsRunner.IMAGE_MINIMUM_WIDTH) {
-					addElement(WebformRunnerElement.generateElementWithImage(child, runner));
+					addElement(WebformsRunnerElement.generateElementWithImage(child, runner));
 				} else {
-					addElement(WebformRunnerElement.generate(child, runner));
+					addElement(WebformsRunnerElement.generate(child, runner));
 				}
 			}
 		}

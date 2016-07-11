@@ -8,7 +8,6 @@ import java.util.Set;
 
 import com.biit.form.runner.logger.FormRunnerLogger;
 import com.biit.formrunner.common.exceptions.PathDoesNotExist;
-import com.biit.formrunner.webforms.ValueModifier;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.Validator.InvalidValueException;

@@ -49,7 +49,7 @@ import com.biit.webforms.utils.parser.exceptions.NoMoreTokensException;
 import com.biit.webforms.utils.parser.exceptions.ParseException;
 import com.vaadin.ui.UI;
 
-public class WebformsRunner extends Runner {
+public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> extends Runner implements IWebformsRunner {
 	private static final long serialVersionUID = -3424863413256347805L;
 	public static final int IMAGE_MINIMUM_WIDTH = 1200;
 
@@ -64,7 +64,9 @@ public class WebformsRunner extends Runner {
 		this.form = form;
 		this.computedFlowView = form.getComputedFlowsView();
 		for (TreeObject child : form.getChildren()) {
-			WebformsRunnerGroup runnerGroup = new WebformsRunnerGroup((Category) child, this);
+			// IWebformsRunnerGroup runnerGroup = new
+			// WebformsRunnerGroup((Category) child, this);
+			IWebformsRunnerGroup runnerGroup = createWebformsRunnerGroup((Category) child);
 			this.addElement(runnerGroup);
 			runnerGroup.addValueChangedListeners(new FieldValueChanged() {
 
@@ -107,6 +109,8 @@ public class WebformsRunner extends Runner {
 			setImageLayoutUnvisible();
 		}
 	}
+
+	public abstract FormGroup createWebformsRunnerGroup(Category category);
 
 	private void setTabIndex(List<String> path, int tabIndex) throws PathDoesNotExist {
 		IRunnerElement element = getElement(path);
@@ -266,7 +270,12 @@ public class WebformsRunner extends Runner {
 		}
 	}
 
-	public FormResult save() {
+	/**
+	 * Creates a new Form result object from the answers of the form.
+	 * 
+	 * @return
+	 */
+	public FormResult getFormResult() {
 		if (form == null) {
 			return null;
 		}
