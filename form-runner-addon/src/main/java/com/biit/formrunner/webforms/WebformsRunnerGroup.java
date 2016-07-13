@@ -7,6 +7,7 @@ import java.io.InputStream;
 import com.biit.form.entity.BaseGroup;
 import com.biit.form.entity.BaseRepeatableGroup;
 import com.biit.form.entity.TreeObject;
+import com.biit.formrunner.common.IRunnerElement;
 import com.biit.formrunner.common.ImagePreview;
 import com.biit.formrunner.common.Runner;
 import com.biit.formrunner.common.RunnerGroup;
@@ -16,7 +17,7 @@ import com.vaadin.server.StreamResource;
 import com.vaadin.server.StreamResource.StreamSource;
 import com.vaadin.ui.UI;
 
-public class WebformsRunnerGroup extends RunnerGroup {
+public abstract class WebformsRunnerGroup extends RunnerGroup {
 	private static final long serialVersionUID = -1175869744919452626L;
 
 	private final Runner runner;
@@ -47,16 +48,23 @@ public class WebformsRunnerGroup extends RunnerGroup {
 
 		for (TreeObject child : group.getChildren()) {
 			if (child instanceof BaseGroup) {
-				addElement(new WebformsRunnerGroup((BaseGroup) child, runner));
+				//addElement(new WebformsRunnerGroup((BaseGroup) child, runner));
+				addElement(getElement((BaseGroup) child, runner));
 			} else {
 				if (runner.isImagesEnabled() && UI.getCurrent().getPage().getBrowserWindowWidth() >= WebformsRunner.IMAGE_MINIMUM_WIDTH) {
-					addElement(WebformsRunnerElement.generateElementWithImage(child, runner));
+					//addElement(WebformsRunnerElement.generateElementWithImage(child, runner));
+					addElement(getElement(child, runner));
 				} else {
-					addElement(WebformsRunnerElement.generate(child, runner));
+					//addElement(WebformsRunnerElement.generate(child, runner));
+					addElement(getElement(child, runner));
 				}
 			}
 		}
 	}
+
+	public abstract IWebformsRunnerGroup getElement(BaseGroup group, Runner runner);
+
+	public abstract IRunnerElement getElement(TreeObject element, Runner runner);
 
 	protected ImagePreview getImageComponent(TreeObjectImage image) {
 		if (image != null) {

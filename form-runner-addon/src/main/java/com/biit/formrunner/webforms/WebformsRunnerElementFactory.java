@@ -41,7 +41,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.TextField;
 
-public class WebformsRunnerElement {
+public class WebformsRunnerElementFactory {
 
 	private static final String HORIZONTAL_STYLE = "horizontal";
 
@@ -53,7 +53,7 @@ public class WebformsRunnerElement {
 	 * @param runner
 	 * @return
 	 */
-	public static IRunnerElement generateElementWithImage(TreeObject element, Runner runner) {
+	public IRunnerElement generateElementWithImage(TreeObject element, Runner runner) {
 		if (element == null) {
 			return null;
 		}
@@ -68,7 +68,7 @@ public class WebformsRunnerElement {
 		return generate(element, runner);
 	}
 
-	private static IRunnerElement generateImage(TreeObject element, Runner runner) {
+	private IRunnerElement generateImage(TreeObject element, Runner runner) {
 		if (element != null && element instanceof ElementWithImage && ((ElementWithImage) element).getImage() != null) {
 			ImagePreview imagePreview = new ImagePreview();
 			imagePreview.setSizeFull();
@@ -93,8 +93,7 @@ public class WebformsRunnerElement {
 			imagePreview.setWidth(((ElementWithImage) element).getImage().getWidth(), Unit.PIXELS);
 			imagePreview.setHeight(((ElementWithImage) element).getImage().getHeight(), Unit.PIXELS);
 
-			RunnerImage image = new RunnerImage(((ElementWithImage) element).getImage().getFileName(), imagePreview, runner,
-					element.getPath());
+			RunnerImage image = new RunnerImage(((ElementWithImage) element).getImage().getFileName(), imagePreview, runner, element.getPath());
 			image.setWidth(((ElementWithImage) element).getImage().getWidth(), Unit.PIXELS);
 			image.setHeight(((ElementWithImage) element).getImage().getHeight(), Unit.PIXELS);
 
@@ -103,7 +102,7 @@ public class WebformsRunnerElement {
 		return null;
 	}
 
-	public static IRunnerElement generate(TreeObject element, Runner runner) {
+	public IRunnerElement generate(TreeObject element, Runner runner) {
 		if (element instanceof Question) {
 			return generateQuestion((Question) element, runner);
 		}
@@ -114,17 +113,16 @@ public class WebformsRunnerElement {
 			return generateSystemField((SystemField) element, runner);
 		}
 
-		throw new UnsupportedOperationException("TreeObject '" + element.getName() + "' is of an unsupported type '"
-				+ element.getClass().getName() + "'");
+		throw new UnsupportedOperationException("TreeObject '" + element.getName() + "' is of an unsupported type '" + element.getClass().getName() + "'");
 	}
 
-	private static IRunnerElement generateQuestion(Question element, Runner runner) {
+	private IRunnerElement generateQuestion(Question element, Runner runner) {
 		switch (element.getAnswerType()) {
 		case INPUT:
 			return generateInputField(element, runner);
 		case TEXT_AREA:
-			return new RunnerTextArea(element.getName(), element.getLabel(), element.getDescription(), runner.getRequiredCaption(),
-					element.isMandatory(), element.getDefaultValue(), runner, element.getPath());
+			return new RunnerTextArea(element.getName(), element.getLabel(), element.getDescription(), runner.getRequiredCaption(), element.isMandatory(),
+					element.getDefaultValue(), runner, element.getPath());
 		case SINGLE_SELECTION_LIST:
 			return generateComboboxList(element, runner);
 		case SINGLE_SELECTION_RADIO:
@@ -132,11 +130,10 @@ public class WebformsRunnerElement {
 		case MULTIPLE_SELECTION:
 			return generateSelectionList(element, true, runner);
 		}
-		throw new UnsupportedOperationException("Question '" + element.getName() + "' has an unsupported answer type '"
-				+ element.getAnswerType() + "'");
+		throw new UnsupportedOperationException("Question '" + element.getName() + "' has an unsupported answer type '" + element.getAnswerType() + "'");
 	}
 
-	private static void addAnswersToSelection(Question element, AbstractSelect selectionList) {
+	private void addAnswersToSelection(Question element, AbstractSelect selectionList) {
 		for (TreeObject child : element.getChildren()) {
 			if (!(child instanceof Answer)) {
 				continue;
@@ -146,15 +143,10 @@ public class WebformsRunnerElement {
 			// Embed images as base64.
 			if (child instanceof ElementWithImage && ((ElementWithImage) child).getImage() != null) {
 				selectionList.setItemCaption(answer.getName(),
-						(answer.getLabel().length() > 0 ? "<div><span style=\"vertical-align: top\">" + answer.getLabel() + "</span></div>"
-								: "")
-								+ "<img style=\"vertical-align:middle;display:inline;\" height=\""
-								+ ((ElementWithImage) child).getImage().getHeight()
-								+ "\" width=\""
-								+ ((ElementWithImage) child).getImage().getWidth()
-								+ "\" alt=\""
-								+ ((ElementWithImage) child).getImage().getFileName()
-								+ "\" src=\"data:image/png;base64,"
+						(answer.getLabel().length() > 0 ? "<div><span style=\"vertical-align: top\">" + answer.getLabel() + "</span></div>" : "")
+								+ "<img style=\"vertical-align:middle;display:inline;\" height=\"" + ((ElementWithImage) child).getImage().getHeight()
+								+ "\" width=\"" + ((ElementWithImage) child).getImage().getWidth() + "\" alt=\""
+								+ ((ElementWithImage) child).getImage().getFileName() + "\" src=\"data:image/png;base64,"
 								+ ((ElementWithImage) child).getImage().toBase64() + "\" />");
 			} else {
 				selectionList.setItemCaption(answer.getName(), answer.getLabel());
@@ -162,7 +154,7 @@ public class WebformsRunnerElement {
 		}
 	}
 
-	private static IRunnerElement generateSelectionList(Question element, boolean isMultiselect, Runner runner) {
+	private IRunnerElement generateSelectionList(Question element, boolean isMultiselect, Runner runner) {
 		String requiredCaption = runner.getRequiredCaption();
 		OptionGroup option = new OptionGroup(element.getLabel());
 		option.setMultiSelect(isMultiselect);
@@ -185,11 +177,11 @@ public class WebformsRunnerElement {
 				option.setHtmlContentAllowed(true);
 			}
 		}
-		return new RunnerSelection<OptionGroup>(element.getName(), option, element.getDescription(), element.isMandatory(),
-				requiredCaption, runner, element.getPath());
+		return new RunnerSelection<OptionGroup>(element.getName(), option, element.getDescription(), element.isMandatory(), requiredCaption, runner,
+				element.getPath());
 	}
 
-	private static IRunnerElement generateComboboxList(Question element, Runner runner) {
+	private IRunnerElement generateComboboxList(Question element, Runner runner) {
 		String requiredCaption = runner.getRequiredCaption();
 
 		ComboBox combobox = new ComboBox(element.getLabel());
@@ -197,11 +189,11 @@ public class WebformsRunnerElement {
 		if (element.getDefaultValueAnswer() != null) {
 			combobox.setValue(element.getDefaultValueAnswer().getName());
 		}
-		return new RunnerSelection<ComboBox>(element.getName(), combobox, element.getDescription(), element.isMandatory(), requiredCaption,
-				runner, element.getPath());
+		return new RunnerSelection<ComboBox>(element.getName(), combobox, element.getDescription(), element.isMandatory(), requiredCaption, runner,
+				element.getPath());
 	}
 
-	private static IRunnerElement generateInputField(Question element, Runner runner) {
+	private IRunnerElement generateInputField(Question element, Runner runner) {
 		String requiredCaption = runner.getRequiredCaption();
 		switch (element.getAnswerFormat()) {
 		case TEXT:
@@ -219,11 +211,11 @@ public class WebformsRunnerElement {
 				textField.addValidator(new RegexpValidator(runner.getTextRegex(), requiredCaption));
 				break;
 			}
-			return new RunnerField<TextField>(element.getName(), textField, element.getDescription(), element.isMandatory(),
-					requiredCaption, runner, element.getPath());
+			return new RunnerField<TextField>(element.getName(), textField, element.getDescription(), element.isMandatory(), requiredCaption, runner,
+					element.getPath());
 		case DATE:
-			RunnerDateField field = new RunnerDateField(element.getName(), element.getDescription(), element.isMandatory(),
-					requiredCaption, runner, element.getPath());
+			RunnerDateField field = new RunnerDateField(element.getName(), element.getDescription(), element.isMandatory(), requiredCaption, runner,
+					element.getPath());
 			if (element.getDefaultValueTime() != null) {
 				field.getComponent().setValue(element.getDefaultValueTime());
 			}
@@ -238,8 +230,8 @@ public class WebformsRunnerElement {
 			TextField numberField = new TextField(element.getLabel());
 			numberField.setValue(element.getDefaultValue());
 			numberField.setMaxLength(QuestionWithValueResult.MAX_LENGTH);
-			RunnerField<?> runnerNumberField = new RunnerField<TextField>(element.getName(), numberField, element.getDescription(),
-					element.isMandatory(), requiredCaption, runner, element.getPath());
+			RunnerField<?> runnerNumberField = new RunnerField<TextField>(element.getName(), numberField, element.getDescription(), element.isMandatory(),
+					requiredCaption, runner, element.getPath());
 			switch (element.getAnswerSubformat()) {
 			case NUMBER:
 				numberField.addValidator(new LongValidator(runner.getInvalidCaption(), RealRangeLong.fullRange()));
@@ -255,13 +247,11 @@ public class WebformsRunnerElement {
 				runnerNumberField.setValueModifier(new NumberLocaleModifier(runner.getLocale(), Locale.ENGLISH));
 				break;
 			case POSITIVE_FLOAT:
-				numberField.addValidator(new DoubleValidator(runner.getLocale(), runner.getInvalidCaption(), RealRangeDouble
-						.positiveRange()));
+				numberField.addValidator(new DoubleValidator(runner.getLocale(), runner.getInvalidCaption(), RealRangeDouble.positiveRange()));
 				runnerNumberField.setValueModifier(new NumberLocaleModifier(runner.getLocale(), Locale.ENGLISH));
 				break;
 			case NEGATIVE_FLOAT:
-				numberField.addValidator(new DoubleValidator(runner.getLocale(), runner.getInvalidCaption(), RealRangeDouble
-						.negativeRange()));
+				numberField.addValidator(new DoubleValidator(runner.getLocale(), runner.getInvalidCaption(), RealRangeDouble.negativeRange()));
 				runnerNumberField.setValueModifier(new NumberLocaleModifier(runner.getLocale(), Locale.ENGLISH));
 				break;
 			default:
@@ -273,11 +263,10 @@ public class WebformsRunnerElement {
 			postalCodeField.setValue(element.getDefaultValue());
 			postalCodeField.setMaxLength(QuestionWithValueResult.MAX_LENGTH);
 			postalCodeField.addValidator(new RegexpValidator(runner.getPostalCodeRegex(), runner.getInvalidCaption()));
-			return new RunnerField<TextField>(element.getName(), postalCodeField, element.getDescription(), element.isMandatory(),
-					requiredCaption, runner, element.getPath());
+			return new RunnerField<TextField>(element.getName(), postalCodeField, element.getDescription(), element.isMandatory(), requiredCaption, runner,
+					element.getPath());
 		}
-		throw new UnsupportedOperationException("Question '" + element.getName() + "' has an unsupported answer format '"
-				+ element.getAnswerFormat() + "'");
+		throw new UnsupportedOperationException("Question '" + element.getName() + "' has an unsupported answer format '" + element.getAnswerFormat() + "'");
 	}
 
 	private static IRunnerElement generateSystemField(SystemField element, Runner runner) {
