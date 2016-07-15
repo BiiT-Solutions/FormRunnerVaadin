@@ -53,7 +53,7 @@ public class WebformsRunnerElementFactory {
 	 * @param runner
 	 * @return
 	 */
-	public IRunnerElement generateElementWithImage(TreeObject element, Runner runner) {
+	public static IRunnerElement generateElementWithImage(TreeObject element, Runner runner) {
 		if (element == null) {
 			return null;
 		}
@@ -68,7 +68,7 @@ public class WebformsRunnerElementFactory {
 		return generate(element, runner);
 	}
 
-	private IRunnerElement generateImage(TreeObject element, Runner runner) {
+	private static IRunnerElement generateImage(TreeObject element, Runner runner) {
 		if (element != null && element instanceof ElementWithImage && ((ElementWithImage) element).getImage() != null) {
 			ImagePreview imagePreview = new ImagePreview();
 			imagePreview.setSizeFull();
@@ -102,7 +102,7 @@ public class WebformsRunnerElementFactory {
 		return null;
 	}
 
-	public IRunnerElement generate(TreeObject element, Runner runner) {
+	public static IRunnerElement generate(TreeObject element, Runner runner) {
 		if (element instanceof Question) {
 			return generateQuestion((Question) element, runner);
 		}
@@ -116,7 +116,7 @@ public class WebformsRunnerElementFactory {
 		throw new UnsupportedOperationException("TreeObject '" + element.getName() + "' is of an unsupported type '" + element.getClass().getName() + "'");
 	}
 
-	private IRunnerElement generateQuestion(Question element, Runner runner) {
+	private static IRunnerElement generateQuestion(Question element, Runner runner) {
 		switch (element.getAnswerType()) {
 		case INPUT:
 			return generateInputField(element, runner);
@@ -133,7 +133,7 @@ public class WebformsRunnerElementFactory {
 		throw new UnsupportedOperationException("Question '" + element.getName() + "' has an unsupported answer type '" + element.getAnswerType() + "'");
 	}
 
-	private void addAnswersToSelection(Question element, AbstractSelect selectionList) {
+	private static void addAnswersToSelection(Question element, AbstractSelect selectionList) {
 		for (TreeObject child : element.getChildren()) {
 			if (!(child instanceof Answer)) {
 				continue;
@@ -154,7 +154,7 @@ public class WebformsRunnerElementFactory {
 		}
 	}
 
-	private IRunnerElement generateSelectionList(Question element, boolean isMultiselect, Runner runner) {
+	private static IRunnerElement generateSelectionList(Question element, boolean isMultiselect, Runner runner) {
 		String requiredCaption = runner.getRequiredCaption();
 		OptionGroup option = new OptionGroup(element.getLabel());
 		option.setMultiSelect(isMultiselect);
@@ -181,7 +181,7 @@ public class WebformsRunnerElementFactory {
 				element.getPath());
 	}
 
-	private IRunnerElement generateComboboxList(Question element, Runner runner) {
+	private static IRunnerElement generateComboboxList(Question element, Runner runner) {
 		String requiredCaption = runner.getRequiredCaption();
 
 		ComboBox combobox = new ComboBox(element.getLabel());
@@ -193,7 +193,7 @@ public class WebformsRunnerElementFactory {
 				element.getPath());
 	}
 
-	private IRunnerElement generateInputField(Question element, Runner runner) {
+	private static IRunnerElement generateInputField(Question element, Runner runner) {
 		String requiredCaption = runner.getRequiredCaption();
 		switch (element.getAnswerFormat()) {
 		case TEXT:

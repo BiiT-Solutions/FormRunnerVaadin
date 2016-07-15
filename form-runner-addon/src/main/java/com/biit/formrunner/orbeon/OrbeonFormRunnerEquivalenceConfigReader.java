@@ -37,12 +37,14 @@ public class OrbeonFormRunnerEquivalenceConfigReader {
 		Set<OrbeonFormRunnerEquivalence> configuration = new HashSet<>();
 
 		try {
-			String xmlText;
+			String xmlText = null;
 			try {
 				SystemVariableTextSourceFile xmlFileReader = new SystemVariableTextSourceFile(SYSTEM_VARIABLE_CONFIG, ORBEON_FILE);
 				xmlText = xmlFileReader.loadFile();
 			} catch (FileNotFoundException fnf) {
 				FormRunnerLogger.warning(OrbeonFormRunnerEquivalenceConfigReader.class.getName(), "Orbeon equivalence system variable not found!");
+			}
+			if (xmlText == null) {
 				xmlText = FileReader.getResource(ORBEON_FILE, StandardCharsets.UTF_8);
 			}
 			SAXReader xmlReader = new SAXReader();
