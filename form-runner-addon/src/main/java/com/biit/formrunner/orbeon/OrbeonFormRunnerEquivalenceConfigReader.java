@@ -3,6 +3,7 @@ package com.biit.formrunner.orbeon;
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -16,6 +17,7 @@ import org.dom4j.io.SAXReader;
 
 import com.biit.form.runner.logger.FormRunnerLogger;
 import com.biit.utils.configuration.SystemVariableTextSourceFile;
+import com.biit.utils.file.FileReader;
 
 public class OrbeonFormRunnerEquivalenceConfigReader {
 	private final static String ORBEON_FILE = "orbeon.xml";
@@ -35,10 +37,14 @@ public class OrbeonFormRunnerEquivalenceConfigReader {
 		Set<OrbeonFormRunnerEquivalence> configuration = new HashSet<>();
 
 		try {
-			// String xmlText = FileReader.getResource(ORBEON_FILE,
-			// StandardCharsets.UTF_8);
-			SystemVariableTextSourceFile xmlFileReader = new SystemVariableTextSourceFile(SYSTEM_VARIABLE_CONFIG, ORBEON_FILE);
-			String xmlText = xmlFileReader.loadFile();
+			String xmlText;
+			try {
+				SystemVariableTextSourceFile xmlFileReader = new SystemVariableTextSourceFile(SYSTEM_VARIABLE_CONFIG, ORBEON_FILE);
+				xmlText = xmlFileReader.loadFile();
+			} catch (FileNotFoundException fnf) {
+				FormRunnerLogger.warning(OrbeonFormRunnerEquivalenceConfigReader.class.getName(), "Orbeon equivalence system variable not found!");
+				xmlText = FileReader.getResource(ORBEON_FILE, StandardCharsets.UTF_8);
+			}
 			SAXReader xmlReader = new SAXReader();
 			final Document document = xmlReader.read(new ByteArrayInputStream(xmlText.getBytes("UTF-8")));
 			final Element formElement = document.getRootElement();
