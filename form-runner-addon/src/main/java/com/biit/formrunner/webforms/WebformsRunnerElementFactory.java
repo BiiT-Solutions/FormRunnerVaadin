@@ -107,6 +107,9 @@ public class WebformsRunnerElementFactory {
 			return generateQuestion((Question) element, runner);
 		}
 		if (element instanceof Text) {
+			if (runner.isSystemFieldsIgnored()) {
+				return null;
+			}
 			return generateText((Text) element, runner);
 		}
 		if (element instanceof SystemField) {
@@ -270,8 +273,7 @@ public class WebformsRunnerElementFactory {
 	}
 
 	private static IRunnerElement generateSystemField(SystemField element, Runner runner) {
-		// TODO this is not correct. I don't know what to do with system fields.
-		Label label = new Label(element.getLabel());
+		Label label = new Label(element.getName());
 		return new RunnerStaticField(element.getName(), label, runner, element.getPath());
 	}
 

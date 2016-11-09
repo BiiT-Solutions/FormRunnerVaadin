@@ -13,6 +13,7 @@ import com.biit.form.entity.TreeObject;
 import com.biit.form.exceptions.CharacterNotAllowedException;
 import com.biit.form.exceptions.ElementIsReadOnly;
 import com.biit.form.exceptions.NotValidChildException;
+import com.biit.form.result.CategoryResult;
 import com.biit.form.result.FormResult;
 import com.biit.form.result.QuestionWithValueResult;
 import com.biit.form.result.RepeatableGroupResult;
@@ -305,7 +306,7 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 
 	private void addGroupInformation(BaseForm result, ResultGroup element) throws FieldTooLongException, CharacterNotAllowedException, NotValidChildException,
 			ElementIsReadOnly {
-		com.biit.form.result.CategoryResult category = new com.biit.form.result.CategoryResult();
+		CategoryResult category = new CategoryResult();
 		category.setName(element.getPath());
 		for (Result answerElement : element.getAnswerElements()) {
 			addGroupInformation(category, answerElement);
@@ -344,4 +345,5 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 	public void setTabIndexDelta(int tabIndexDelta) {
 		this.tabIndexDelta = tabIndexDelta;
 	}
+
 }

@@ -38,6 +38,8 @@ public class Runner extends CustomComponent {
 	private String invalidCaption;
 	private String requiredCaption;
 
+	private boolean systemFieldsIgnored = true;
+
 	public Runner() {
 		super();
 		setLocale(Locale.getDefault());
@@ -257,7 +259,7 @@ public class Runner extends CustomComponent {
 	public String getRequiredCaption() {
 		return requiredCaption;
 	}
-	
+
 	public void setImagesEnabled(boolean imagesEnabled) {
 		this.imagesEnabled = imagesEnabled;
 	}
@@ -284,5 +286,13 @@ public class Runner extends CustomComponent {
 
 	public void setRequiredCaption(String requiredCaption) {
 		this.requiredCaption = requiredCaption;
+	}
+
+	public boolean isSystemFieldsIgnored() {
+		return systemFieldsIgnored;
+	}
+
+	public void setSystemFieldsIgnored(boolean systemFieldsIgnored) {
+		this.systemFieldsIgnored = systemFieldsIgnored;
 	}
 }
