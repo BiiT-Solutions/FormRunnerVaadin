@@ -39,6 +39,8 @@ public interface IWebformsRunner extends Component {
 	void setAnswers(List<String> path, List<String> answers) throws PathDoesNotExist;
 
 	boolean isValid();
+	
+	boolean isSystemFieldsIgnored();
 
 	FormResult getFormResult();
 

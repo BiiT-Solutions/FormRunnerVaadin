@@ -219,6 +219,7 @@ public class WebformsRunnerElementFactory {
 		case DATE:
 			RunnerDateField field = new RunnerDateField(element.getName(), element.getDescription(), element.isMandatory(), requiredCaption, runner,
 					element.getPath());
+			field.setCaption(element.getLabel());
 			if (element.getDefaultValueTime() != null) {
 				field.getComponent().setValue(element.getDefaultValueTime());
 			}
