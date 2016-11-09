@@ -167,8 +167,8 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 			WebformsExpression expression = (WebformsExpression) (new WebformsParser(condition.iterator())).parseCompleteExpression();
 			Boolean value = expression.evaluate();
 			return value != null && value;
-		} catch (ParseException | ExpectedTokenNotFound | NoMoreTokensException | IncompleteBinaryOperatorException
-				| MissingParenthesisException | ExpressionNotWellFormedException | EmptyParenthesisException e) {
+		} catch (ParseException | ExpectedTokenNotFound | NoMoreTokensException | IncompleteBinaryOperatorException | MissingParenthesisException
+				| ExpressionNotWellFormedException | EmptyParenthesisException e) {
 			// If the form is valid this should never happen.
 			FormRunnerLogger.errorMessage(this.getClass().getName(), e);
 			return false;
@@ -237,9 +237,9 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 				List<String> formRunnerElementPath = equivalence.getPathAsList();
 				if (formRunnerElementPath != null && !formRunnerElementPath.isEmpty()) {
 					// Translate Orbeon answer to Form Runner value.
-					FormRunnerLogger.debug(this.getClass().getName(), "Question '" + equivalence.getFormRunnerPath()
-							+ "' default value obtained from Orbeon question '" + equivalence.getOrbeonPath() + "'. Value is "
-							+ equivalence.getFormRunnerAnswers());
+					FormRunnerLogger.debug(this.getClass().getName(),
+							"Question '" + equivalence.getFormRunnerPath() + "' default value obtained from Orbeon question '" + equivalence.getOrbeonPath()
+									+ "'. Value is " + equivalence.getFormRunnerAnswers());
 					setAnswers(formRunnerElementPath, new ArrayList<>(equivalence.getFormRunnerAnswers()));
 				} else {
 					FormRunnerLogger.debug(this.getClass().getName(), "Orbeon value not applied in examination: '" + equivalence + "'");
@@ -250,25 +250,27 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 
 	@Override
 	public void loadFormResult(FormResult formResult) {
-		List<TreeObject> questions = formResult.getAll(BaseQuestionWithValue.class);
+		if (formResult != null) {
+			List<TreeObject> questions = formResult.getAll(BaseQuestionWithValue.class);
 
-		for (TreeObject element : questions) {
-			BaseQuestionWithValue question = (BaseQuestionWithValue) element;
-			try {
-				setAnswers(question.getPath(), question.getQuestionValues());
-			} catch (PathDoesNotExist e) {
-				// Element does not exists is due to form restructuration.
-				FormRunnerLogger.warning(this.getClass().getName(), e.getMessage());
+			for (TreeObject element : questions) {
+				BaseQuestionWithValue question = (BaseQuestionWithValue) element;
+				try {
+					setAnswers(question.getPath(), question.getQuestionValues());
+				} catch (PathDoesNotExist e) {
+					// Element does not exists is due to form restructuration.
+					FormRunnerLogger.warning(this.getClass().getName(), e.getMessage());
+				}
 			}
-		}
 
-		// Evaluate again from the first element.
-		try {
-			evaluate(computedFlowView.getFirstElement().getPath());
-		} catch (PathDoesNotExist e) {
-			// Not possible.
-			FormRunnerLogger.severe(this.getClass().getName(), "Error in form '" + form + "'.");
-			FormRunnerLogger.errorMessage(this.getClass().getName(), e);
+			// Evaluate again from the first element.
+			try {
+				evaluate(computedFlowView.getFirstElement().getPath());
+			} catch (PathDoesNotExist e) {
+				// Not possible.
+				FormRunnerLogger.severe(this.getClass().getName(), "Error in form '" + form + "'.");
+				FormRunnerLogger.errorMessage(this.getClass().getName(), e);
+			}
 		}
 	}
 
@@ -301,8 +303,8 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 		}
 	}
 
-	private void addGroupInformation(BaseForm result, ResultGroup element) throws FieldTooLongException, CharacterNotAllowedException,
-			NotValidChildException, ElementIsReadOnly {
+	private void addGroupInformation(BaseForm result, ResultGroup element) throws FieldTooLongException, CharacterNotAllowedException, NotValidChildException,
+			ElementIsReadOnly {
 		com.biit.form.result.CategoryResult category = new com.biit.form.result.CategoryResult();
 		category.setName(element.getPath());
 		for (Result answerElement : element.getAnswerElements()) {
@@ -311,8 +313,8 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 		result.addChild(category);
 	}
 
-	private void addGroupInformation(BaseGroup parentResultGroup, Result answerElement) throws FieldTooLongException,
-			CharacterNotAllowedException, NotValidChildException, ElementIsReadOnly {
+	private void addGroupInformation(BaseGroup parentResultGroup, Result answerElement) throws FieldTooLongException, CharacterNotAllowedException,
+			NotValidChildException, ElementIsReadOnly {
 		if (answerElement instanceof ResultQuestion) {
 			QuestionWithValueResult resultQuestion = new QuestionWithValueResult();
 			resultQuestion.setName(answerElement.getPath());
