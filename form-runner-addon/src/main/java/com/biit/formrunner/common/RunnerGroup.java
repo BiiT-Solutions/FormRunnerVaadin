@@ -91,8 +91,10 @@ public class RunnerGroup extends CustomComponent implements IRunnerElement {
 
 	@Override
 	public void addElement(IRunnerElement element) {
-		children.add(element);
-		groupElementsLayout.addComponent(element);
+		if (element != null) {
+			children.add(element);
+			groupElementsLayout.addComponent(element);
+		}
 	}
 
 	private void configureCloneButton() {
