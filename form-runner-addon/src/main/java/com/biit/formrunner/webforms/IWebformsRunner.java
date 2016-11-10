@@ -41,7 +41,9 @@ public interface IWebformsRunner extends Component {
 	boolean isValid();
 	
 	boolean isSystemFieldsIgnored();
-
+	
+	void setSystemFieldsIgnored(boolean ignored);
+	
 	FormResult getFormResult();
 
 }
