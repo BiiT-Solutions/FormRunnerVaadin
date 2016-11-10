@@ -105,14 +105,12 @@ public class WebformsRunnerElementFactory {
 	public static IRunnerElement generate(TreeObject element, Runner runner) {
 		if (element instanceof Question) {
 			return generateQuestion((Question) element, runner);
-		}
-		if (element instanceof Text) {
+		} else if (element instanceof Text) {
+			return generateText((Text) element, runner);
+		} else if (element instanceof SystemField) {
 			if (runner.isSystemFieldsIgnored()) {
 				return null;
 			}
-			return generateText((Text) element, runner);
-		}
-		if (element instanceof SystemField) {
 			return generateSystemField((SystemField) element, runner);
 		}
 
