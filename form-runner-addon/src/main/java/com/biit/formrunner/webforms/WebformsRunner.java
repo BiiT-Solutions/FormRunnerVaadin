@@ -69,7 +69,7 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 			// IWebformsRunnerGroup runnerGroup = new
 			// WebformsRunnerGroup((Category) child, this);
 			IWebformsRunnerGroup runnerGroup = createWebformsRunnerGroup((Category) child);
-			this.addElement(runnerGroup);
+			addElement(runnerGroup);
 			runnerGroup.addValueChangedListeners(new FieldValueChanged() {
 
 				@Override
@@ -84,6 +84,7 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 		int tabIndex = tabIndexDelta;
 		for (TreeObject element : elements) {
 			try {
+				// Hide element.
 				setRelevance(element.getPath(), false);
 				setTabIndex(element.getPath(), tabIndex);
 				tabIndex++;
@@ -100,7 +101,7 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 			evaluate(computedFlowView.getFirstElement().getPath());
 		} catch (PathDoesNotExist e) {
 			// Not possible.
-			e.printStackTrace();
+			FormRunnerLogger.errorMessage(WebformsRunner.class.getName(), e);
 		}
 
 		// Show image if exists and there is room enough

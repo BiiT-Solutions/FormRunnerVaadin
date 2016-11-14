@@ -108,9 +108,6 @@ public class WebformsRunnerElementFactory {
 		} else if (element instanceof Text) {
 			return generateText((Text) element, runner);
 		} else if (element instanceof SystemField) {
-			if (runner.isSystemFieldsIgnored()) {
-				return null;
-			}
 			return generateSystemField((SystemField) element, runner);
 		}
 

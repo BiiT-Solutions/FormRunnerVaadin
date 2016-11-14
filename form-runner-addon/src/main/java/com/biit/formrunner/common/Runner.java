@@ -175,9 +175,7 @@ public class Runner extends CustomComponent {
 	public void setRelevance(List<String> path, boolean value) throws PathDoesNotExist {
 		IRunnerElement element = getElement(path);
 		element.setRelevance(value);
-
 		((RunnerGroup) getElement(path.subList(0, path.size() - 1))).checkRelevance();
-
 	}
 
 	public boolean getRelevance(List<String> path) throws PathDoesNotExist {

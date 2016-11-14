@@ -15,6 +15,7 @@ public abstract class RunnerElement<T extends Component> extends CustomComponent
 	private final Runner runner;
 	private final String name;
 	private final List<String> path;
+	protected boolean relevance;
 
 	public RunnerElement(String name, Component component, Runner runner, List<String> path) {
 		super();
@@ -28,6 +29,7 @@ public abstract class RunnerElement<T extends Component> extends CustomComponent
 		setCompositionRoot(rootLayout);
 		Responsive.makeResponsive(rootLayout);
 		this.component = component;
+		relevance = false;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -46,6 +48,7 @@ public abstract class RunnerElement<T extends Component> extends CustomComponent
 
 	@Override
 	public void setRelevance(boolean value) {
+		relevance = value;
 		setVisible(value);
 	}
 
@@ -66,6 +69,6 @@ public abstract class RunnerElement<T extends Component> extends CustomComponent
 
 	@Override
 	public boolean getRelevance() {
-		return isVisible();
+		return relevance;
 	}
 }

@@ -42,7 +42,12 @@ public class RunnerStaticField extends RunnerElement<Component> {
 
 	@Override
 	public void setRelevance(boolean value) {
-		setVisible(value);
+		relevance = value;
+		if (getRunner().isSystemFieldsIgnored()) {
+			setVisible(false);
+		} else {
+			setVisible(value);
+		}
 	}
 
 	@Override
