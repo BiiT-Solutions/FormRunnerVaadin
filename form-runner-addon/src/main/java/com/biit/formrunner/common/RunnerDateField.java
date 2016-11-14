@@ -14,8 +14,8 @@ import com.vaadin.ui.DateField;
 public class RunnerDateField extends RunnerField<DateField> {
 	private static final long serialVersionUID = -1618500349071664793L;
 
-	public RunnerDateField(String name, String description, boolean isMandatory, String requiredCaption, Runner runner, List<String> path) {
-		super(name, new DateField(), description, isMandatory, requiredCaption, runner, path);
+	public RunnerDateField(String name, String caption, String description, boolean isMandatory, String requiredCaption, Runner runner, List<String> path) {
+		super(name, new DateField(caption), description, isMandatory, requiredCaption, runner, path);
 	}
 
 	@Override

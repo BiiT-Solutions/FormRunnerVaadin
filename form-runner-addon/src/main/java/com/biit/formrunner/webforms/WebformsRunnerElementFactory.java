@@ -212,9 +212,9 @@ public class WebformsRunnerElementFactory {
 			return new RunnerField<TextField>(element.getName(), textField, element.getDescription(), element.isMandatory(), requiredCaption, runner,
 					element.getPath());
 		case DATE:
-			RunnerDateField field = new RunnerDateField(element.getName(), element.getDescription(), element.isMandatory(), requiredCaption, runner,
+			RunnerDateField field = new RunnerDateField(element.getName(), element.getLabel(), element.getDescription(), element.isMandatory(), requiredCaption, runner,
 					element.getPath());
-			field.setCaption(element.getLabel());
+			//field.setCaption(element.getLabel());
 			if (element.getDefaultValueTime() != null) {
 				field.getComponent().setValue(element.getDefaultValueTime());
 			}
