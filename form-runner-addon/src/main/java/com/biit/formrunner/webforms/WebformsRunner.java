@@ -279,7 +279,7 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 	/**
 	 * Creates a new Form result object from the answers of the form.
 	 * 
-	 * @return
+	 * @return Form Result
 	 */
 	public FormResult getFormResult() {
 		if (form == null) {

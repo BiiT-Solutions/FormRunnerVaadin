@@ -21,6 +21,7 @@ import com.biit.formrunner.common.RunnerField;
 import com.biit.formrunner.common.RunnerImage;
 import com.biit.formrunner.common.RunnerSelection;
 import com.biit.formrunner.common.RunnerStaticField;
+import com.biit.formrunner.common.RunnerSystemField;
 import com.biit.formrunner.common.RunnerTextArea;
 import com.biit.formrunner.common.validators.DoubleValidator;
 import com.biit.formrunner.common.validators.LongValidator;
@@ -50,8 +51,10 @@ public class WebformsRunnerElementFactory {
 	 * the image. If not, call generate(element, runner);
 	 * 
 	 * @param element
+	 *            element from webforms.
 	 * @param runner
-	 * @return
+	 *            the runner to execute.
+	 * @return runner element.
 	 */
 	public static IRunnerElement generateElementWithImage(TreeObject element, Runner runner) {
 		if (element == null) {
@@ -212,9 +215,9 @@ public class WebformsRunnerElementFactory {
 			return new RunnerField<TextField>(element.getName(), textField, element.getDescription(), element.isMandatory(), requiredCaption, runner,
 					element.getPath());
 		case DATE:
-			RunnerDateField field = new RunnerDateField(element.getName(), element.getLabel(), element.getDescription(), element.isMandatory(), requiredCaption, runner,
-					element.getPath());
-			//field.setCaption(element.getLabel());
+			RunnerDateField field = new RunnerDateField(element.getName(), element.getLabel(), element.getDescription(), element.isMandatory(),
+					requiredCaption, runner, element.getPath());
+			// field.setCaption(element.getLabel());
 			if (element.getDefaultValueTime() != null) {
 				field.getComponent().setValue(element.getDefaultValueTime());
 			}
@@ -270,7 +273,7 @@ public class WebformsRunnerElementFactory {
 
 	private static IRunnerElement generateSystemField(SystemField element, Runner runner) {
 		Label label = new Label(element.getName());
-		return new RunnerStaticField(element.getName(), label, runner, element.getPath());
+		return new RunnerSystemField(element.getName(), label, runner, element.getPath());
 	}
 
 	private static IRunnerElement generateText(Text element, Runner runner) {

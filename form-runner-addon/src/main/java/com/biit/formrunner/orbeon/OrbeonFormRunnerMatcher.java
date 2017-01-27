@@ -18,8 +18,8 @@ public class OrbeonFormRunnerMatcher {
 	 * Returns the Orbeon equivalence with answer and highest priority. Also
 	 * updates the Orbeon values in the equivalences.
 	 * 
-	 * @param orbeonQuestion
-	 * @return
+	 * @param orbeonQuestion the webform question.
+	 * @return the orbeon element.
 	 */
 	public OrbeonFormRunnerEquivalence getFormRunnerEquivalence(ISubmittedQuestion orbeonQuestion) {
 		for (OrbeonFormRunnerEquivalence equivalence : equivalences) {
@@ -46,7 +46,7 @@ public class OrbeonFormRunnerMatcher {
 	/**
 	 * Set the Orbeon answer to the equivalence.
 	 * 
-	 * @param orbeonForm
+	 * @param orbeonForm the answer
 	 */
 	public void updateOrbeonAnswers(ISubmittedForm orbeonForm) {
 		if (isEnabled() && orbeonForm != null) {

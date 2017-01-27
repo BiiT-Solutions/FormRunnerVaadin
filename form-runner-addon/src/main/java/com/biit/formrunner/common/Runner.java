@@ -212,7 +212,7 @@ public class Runner extends CustomComponent {
 	/**
 	 * Set loading to true to avoid value change evaluations.
 	 * 
-	 * @param loading
+	 * @param loading the value.
 	 */
 	public void setLoading(boolean loading) {
 		this.loading = loading;

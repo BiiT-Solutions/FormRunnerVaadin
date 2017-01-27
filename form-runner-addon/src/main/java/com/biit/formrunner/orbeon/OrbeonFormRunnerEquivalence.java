@@ -48,8 +48,7 @@ public class OrbeonFormRunnerEquivalence {
 	/**
 	 * Return path as a list.
 	 * 
-	 * @param path
-	 * @return
+	 * @return a list of folders.
 	 */
 	public List<String> getPathAsList() {
 		if (formRunnerPath == null) {
@@ -117,8 +116,7 @@ public class OrbeonFormRunnerEquivalence {
 		Calendar a = getCalendar(first);
 		Calendar b = getCalendar(last);
 		int diff = b.get(Calendar.YEAR) - a.get(Calendar.YEAR);
-		if (a.get(Calendar.MONTH) > b.get(Calendar.MONTH)
-				|| (a.get(Calendar.MONTH) == b.get(Calendar.MONTH) && a.get(Calendar.DATE) > b.get(Calendar.DATE))) {
+		if (a.get(Calendar.MONTH) > b.get(Calendar.MONTH) || (a.get(Calendar.MONTH) == b.get(Calendar.MONTH) && a.get(Calendar.DATE) > b.get(Calendar.DATE))) {
 			diff--;
 		}
 		return diff;
@@ -140,8 +138,8 @@ public class OrbeonFormRunnerEquivalence {
 
 	@Override
 	public String toString() {
-		return "Orbeon path: " + getOrbeonPath() + " <-> Form Runner path:" + getFormRunnerPath() + " (Action: " + getOperator() + ")"
-				+ " [Priority: " + getPriority() + "]: " + getFormRunnerAnswers();
+		return "Orbeon path: " + getOrbeonPath() + " <-> Form Runner path:" + getFormRunnerPath() + " (Action: " + getOperator() + ")" + " [Priority: "
+				+ getPriority() + "]: " + getFormRunnerAnswers();
 	}
 
 	public Map<String, String> getTranslations() {
