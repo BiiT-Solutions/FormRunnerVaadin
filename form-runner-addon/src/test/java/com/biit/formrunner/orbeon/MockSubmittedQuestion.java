@@ -113,4 +113,9 @@ public class MockSubmittedQuestion implements ISubmittedQuestion {
 		this.pathName = pathName;
 	}
 
+	@Override
+	public String getXPath() {
+		return null;
+	}
+
 }

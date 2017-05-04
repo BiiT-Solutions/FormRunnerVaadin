@@ -277,7 +277,7 @@ public class WebformsRunnerElementFactory {
 	}
 
 	private static IRunnerElement generateText(Text element, Runner runner) {
-		Label label = new Label(element.getLabel());
+		Label label = new Label(element.getDescription());
 		return new RunnerStaticField(element.getName(), label, runner, element.getPath());
 	}
 
