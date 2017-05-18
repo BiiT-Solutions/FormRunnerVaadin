@@ -138,6 +138,9 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 				}
 			}
 
+			// Hidden elements must not been visible.
+			relevance = relevance && !children.get(i).isHiddenElement();
+
 			// Set relevance
 			setRelevance(children.get(i).getPath(), relevance);
 		}
