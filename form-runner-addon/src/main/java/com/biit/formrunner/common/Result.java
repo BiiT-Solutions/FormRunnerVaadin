@@ -11,4 +11,9 @@ public abstract class Result {
 	public String getPath() {
 		return new String(path);
 	}
+
+	@Override
+	public String toString() {
+		return getPath();
+	}
 }

@@ -25,4 +25,9 @@ public class ResultQuestion extends Result {
 	public void addAnswer(String answer) {
 		answers.add(answer);
 	}
+
+	@Override
+	public String toString() {
+		return "{" + getPath() + " " + answers + "}";
+	}
 }
