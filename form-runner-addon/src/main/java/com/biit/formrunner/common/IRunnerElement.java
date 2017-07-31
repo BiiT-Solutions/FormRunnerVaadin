@@ -40,4 +40,6 @@ public interface IRunnerElement extends Component {
 
 	public void setLocale(Locale locale);
 
+	public void setDescription(String string);
+
 }

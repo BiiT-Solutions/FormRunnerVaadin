@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import com.biit.form.result.FormResult;
 import com.biit.formrunner.common.FieldValueChanged;
+import com.biit.formrunner.common.IRunnerElement;
 import com.biit.formrunner.common.exceptions.PathDoesNotExist;
 import com.biit.webforms.persistence.entity.Form;
 import com.vaadin.ui.Component;
@@ -40,13 +41,15 @@ public interface IWebformsRunner extends Component {
 	void setAnswers(List<String> path, List<String> answers) throws PathDoesNotExist;
 
 	boolean isValid();
-	
+
 	boolean isSystemFieldsIgnored();
-	
+
 	void setSystemFieldsIgnored(boolean ignored);
-	
+
 	FormResult getFormResult();
 
 	void addValueChangedListeners(FieldValueChanged valueChanged);
+
+	public IRunnerElement getElement(List<String> path) throws PathDoesNotExist;
 
 }
