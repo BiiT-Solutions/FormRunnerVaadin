@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.biit.form.result.FormResult;
+import com.biit.formrunner.common.FieldValueChanged;
 import com.biit.formrunner.common.exceptions.PathDoesNotExist;
 import com.biit.webforms.persistence.entity.Form;
 import com.vaadin.ui.Component;
@@ -45,5 +46,7 @@ public interface IWebformsRunner extends Component {
 	void setSystemFieldsIgnored(boolean ignored);
 	
 	FormResult getFormResult();
+
+	void addValueChangedListeners(FieldValueChanged valueChanged);
 
 }

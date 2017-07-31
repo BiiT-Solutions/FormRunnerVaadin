@@ -2,8 +2,10 @@ package com.biit.formrunner.webforms;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.biit.form.entity.BaseForm;
 import com.biit.form.entity.BaseGroup;
@@ -58,6 +60,9 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 	private ComputedFlowView computedFlowView;
 	private boolean valueNotSaved = false;
 
+	// Suscribed to get with element has changed.
+	private Set<FieldValueChanged> valueChangedListeners = new HashSet<>();
+
 	private int tabIndexDelta;
 
 	@Override
@@ -75,6 +80,10 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 				@Override
 				public void valueChanged(IRunnerElement runnerElement) {
 					valueNotSaved = true;
+					// Send changes to any subscribed calls.
+					for (FieldValueChanged valueChangedListener : valueChangedListeners) {
+						valueChangedListener.valueChanged(runnerElement);
+					}
 				}
 			});
 		}
@@ -348,6 +357,11 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 	@Override
 	public void setTabIndexDelta(int tabIndexDelta) {
 		this.tabIndexDelta = tabIndexDelta;
+	}
+
+	@Override
+	public void addValueChangedListeners(FieldValueChanged valueChanged) {
+		valueChangedListeners.add(valueChanged);
 	}
 
 }
