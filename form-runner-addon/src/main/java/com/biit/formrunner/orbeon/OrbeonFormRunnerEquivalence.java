@@ -138,7 +138,7 @@ public class OrbeonFormRunnerEquivalence {
 
 	@Override
 	public String toString() {
-		return "Orbeon path: " + getOrbeonPath() + " <-> Form Runner path:" + getFormRunnerPath() + " (Action: " + getOperator() + ")" + " [Priority: "
+		return "Orbeon path '" + getOrbeonPath() + "',  Form Runner path '" + getFormRunnerPath() + "' (Action: " + getOperator() + ")" + " [Priority: "
 				+ getPriority() + "]: " + getFormRunnerAnswers();
 	}
 
