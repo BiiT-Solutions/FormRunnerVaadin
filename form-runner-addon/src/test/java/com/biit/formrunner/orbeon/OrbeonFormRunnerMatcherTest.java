@@ -3,9 +3,9 @@ package com.biit.formrunner.orbeon;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.biit.formrunner.orbeon.OrbeonFormRunnerEquivalence;
-import com.biit.formrunner.orbeon.OrbeonFormRunnerEquivalenceConfigReader;
-import com.biit.formrunner.orbeon.OrbeonFormRunnerMatcher;
+import com.biit.formrunner.copy.OrbeonFormRunnerEquivalence;
+import com.biit.formrunner.copy.OrbeonFormRunnerEquivalenceConfigReader;
+import com.biit.formrunner.copy.OrbeonFormRunnerMatcher;
 
 @Test(groups = "orbeonFormRunnerMatcher")
 public class OrbeonFormRunnerMatcherTest {
