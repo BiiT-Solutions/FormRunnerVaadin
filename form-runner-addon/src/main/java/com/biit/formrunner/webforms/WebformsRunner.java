@@ -30,8 +30,8 @@ import com.biit.formrunner.common.ResultGroup;
 import com.biit.formrunner.common.ResultQuestion;
 import com.biit.formrunner.common.Runner;
 import com.biit.formrunner.common.exceptions.PathDoesNotExist;
-import com.biit.formrunner.copy.OrbeonFormRunnerEquivalence;
-import com.biit.formrunner.copy.OrbeonFormRunnerMatcher;
+import com.biit.formrunner.copy.FormRunnerEquivalence;
+import com.biit.formrunner.copy.FormRunnerMatcher;
 import com.biit.persistence.entity.exceptions.FieldTooLongException;
 import com.biit.webforms.computed.ComputedFlowView;
 import com.biit.webforms.condition.parser.WebformsParser;
@@ -224,39 +224,39 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 		}
 	}
 
-	public void getOrbeonValues(ISubmittedForm orbeonForm, OrbeonFormRunnerMatcher orbeonFormRunnerMatcher) throws PathDoesNotExist {
-		if (orbeonForm != null) {
-			orbeonFormRunnerMatcher.updateOrbeonAnswers(orbeonForm);
+	public void copyValues(ISubmittedForm submittedForm, FormRunnerMatcher formRunnerMatcher) throws PathDoesNotExist {
+		if (submittedForm != null) {
+			formRunnerMatcher.updateFormAnswers(submittedForm);
 			// Stores equivalences according to the answer of the USMO Form
 			// Runner
-			Map<String, OrbeonFormRunnerEquivalence> equivalences = new HashMap<>();
-			List<ISubmittedObject> questions = orbeonForm.getChildren(ISubmittedQuestion.class);
+			Map<String, FormRunnerEquivalence> equivalences = new HashMap<>();
+			List<ISubmittedObject> questions = submittedForm.getChildren(ISubmittedQuestion.class);
 			for (ISubmittedObject element : questions) {
-				ISubmittedQuestion orbeonQuestion = (ISubmittedQuestion) element;
+				ISubmittedQuestion submittedQuestion = (ISubmittedQuestion) element;
 				// Translate Orbeon path to form runner path.
-				OrbeonFormRunnerEquivalence equivalence = orbeonFormRunnerMatcher.getFormRunnerEquivalence(orbeonQuestion);
+				FormRunnerEquivalence equivalence = formRunnerMatcher.getFormRunnerEquivalence(submittedQuestion);
 				if (equivalence != null) {
 					// Select the correct equivalence filtered by priority. High
 					// priority must be preferred.
-					if (equivalences.get(equivalence.getFormRunnerPath()) == null) {
-						equivalences.put(equivalence.getFormRunnerPath(), equivalence);
-					} else if (equivalences.get(equivalence.getFormRunnerPath()).getPriority() < equivalence.getPriority()) {
-						equivalences.put(equivalence.getFormRunnerPath(), equivalence);
+					if (equivalences.get(equivalence.getDestinationPath()) == null) {
+						equivalences.put(equivalence.getDestinationPath(), equivalence);
+					} else if (equivalences.get(equivalence.getDestinationPath()).getPriority() < equivalence.getPriority()) {
+						equivalences.put(equivalence.getDestinationPath(), equivalence);
 					}
 				}
 			}
 
 			FormRunnerLogger.debug(this.getClass().getName(), "Stored Equivalences: " + equivalences + "");
-			for (OrbeonFormRunnerEquivalence equivalence : equivalences.values()) {
-				List<String> formRunnerElementPath = equivalence.getPathAsList();
+			for (FormRunnerEquivalence equivalence : equivalences.values()) {
+				List<String> formRunnerElementPath = equivalence.getDestinationPathAsList();
 				if (formRunnerElementPath != null && !formRunnerElementPath.isEmpty()) {
 					// Translate Orbeon answer to Form Runner value.
 					FormRunnerLogger.debug(this.getClass().getName(),
-							"Question '" + equivalence.getFormRunnerPath() + "' default value obtained from Orbeon question '" + equivalence.getOrbeonPath()
+							"Question '" + equivalence.getDestinationPath() + "' default value obtained from submitted question '" + equivalence.getSourcePath()
 									+ "'. Value is " + equivalence.getFormRunnerAnswers());
 					setAnswers(formRunnerElementPath, new ArrayList<>(equivalence.getFormRunnerAnswers()));
 				} else {
-					FormRunnerLogger.debug(this.getClass().getName(), "Orbeon value not applied in examination: '" + equivalence + "'");
+					FormRunnerLogger.debug(this.getClass().getName(), "Submitted value not applied in examination: '" + equivalence + "'");
 				}
 			}
 		}

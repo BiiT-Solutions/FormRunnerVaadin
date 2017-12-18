@@ -19,8 +19,7 @@ import com.biit.form.runner.logger.FormRunnerLogger;
 import com.biit.utils.configuration.SystemVariableTextSourceFile;
 import com.biit.utils.file.FileReader;
 
-public class OrbeonFormRunnerEquivalenceConfigReader {
-	private final static String ORBEON_FILE = "orbeon.xml";
+public class FormRunnerEquivalenceConfigReader {
 	private static final String SYSTEM_VARIABLE_CONFIG = "ORBEON_MATCHER_CONFIG";
 
 	private final static String XML_QUESTION_NODE = "question";
@@ -33,19 +32,19 @@ public class OrbeonFormRunnerEquivalenceConfigReader {
 	private final static String TECHNICAL_NAME_NODE = "techincalName";
 	private final static String TECHNICAL_NAME_TEXT = "text";
 
-	public static OrbeonFormRunnerMatcher readConfig() {
-		Set<OrbeonFormRunnerEquivalence> configuration = new HashSet<>();
+	public static FormRunnerMatcher readConfig(String fileName) {
+		Set<FormRunnerEquivalence> configuration = new HashSet<>();
 
 		try {
 			String xmlText = null;
 			try {
-				SystemVariableTextSourceFile xmlFileReader = new SystemVariableTextSourceFile(SYSTEM_VARIABLE_CONFIG, ORBEON_FILE);
+				SystemVariableTextSourceFile xmlFileReader = new SystemVariableTextSourceFile(SYSTEM_VARIABLE_CONFIG, fileName);
 				xmlText = xmlFileReader.loadFile();
 			} catch (FileNotFoundException fnf) {
-				FormRunnerLogger.warning(OrbeonFormRunnerEquivalenceConfigReader.class.getName(), "Orbeon equivalence system variable not found!");
+				FormRunnerLogger.warning(FormRunnerEquivalenceConfigReader.class.getName(), "Orbeon equivalence system variable not found!");
 			}
 			if (xmlText == null) {
-				xmlText = FileReader.getResource(ORBEON_FILE, StandardCharsets.UTF_8);
+				xmlText = FileReader.getResource(fileName, StandardCharsets.UTF_8);
 			}
 			SAXReader xmlReader = new SAXReader();
 			final Document document = xmlReader.read(new ByteArrayInputStream(xmlText.getBytes("UTF-8")));
@@ -62,7 +61,7 @@ public class OrbeonFormRunnerEquivalenceConfigReader {
 					Integer priority = Integer.parseInt(questionElement.attributeValue(PRIORITY_NODE));
 					orbeonFormRunnerEquivalence.setPriority(priority);
 				} catch (Exception e) {
-
+					// Do nothing.
 				}
 
 				// Add all translations maps.
@@ -79,11 +78,11 @@ public class OrbeonFormRunnerEquivalenceConfigReader {
 			}
 
 		} catch (FileNotFoundException fnf) {
-			FormRunnerLogger.warning(OrbeonFormRunnerEquivalenceConfigReader.class.getName(), "Orbeon equivalence with Form Runner file not found!");
+			FormRunnerLogger.warning(FormRunnerEquivalenceConfigReader.class.getName(), "Orbeon equivalence with Form Runner file not found!");
 		} catch (UnsupportedEncodingException | DocumentException e) {
-			FormRunnerLogger.errorMessage(OrbeonFormRunnerEquivalenceConfigReader.class.getName(), e);
+			FormRunnerLogger.errorMessage(FormRunnerEquivalenceConfigReader.class.getName(), e);
 		}
-		OrbeonFormRunnerMatcher orbeonFormRunnerMatcher = new OrbeonFormRunnerMatcher();
+		FormRunnerMatcher orbeonFormRunnerMatcher = new FormRunnerMatcher();
 		orbeonFormRunnerMatcher.setEquivalences(configuration);
 		return orbeonFormRunnerMatcher;
 	}
