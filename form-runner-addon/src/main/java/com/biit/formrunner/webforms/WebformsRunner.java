@@ -11,6 +11,7 @@ import com.biit.form.entity.BaseForm;
 import com.biit.form.entity.BaseGroup;
 import com.biit.form.entity.BaseQuestion;
 import com.biit.form.entity.BaseQuestionWithValue;
+import com.biit.form.entity.IQuestionWithAnswers;
 import com.biit.form.entity.TreeObject;
 import com.biit.form.exceptions.CharacterNotAllowedException;
 import com.biit.form.exceptions.ElementIsReadOnly;
@@ -21,7 +22,6 @@ import com.biit.form.result.QuestionWithValueResult;
 import com.biit.form.result.RepeatableGroupResult;
 import com.biit.form.runner.logger.FormRunnerLogger;
 import com.biit.form.submitted.ISubmittedForm;
-import com.biit.form.submitted.ISubmittedObject;
 import com.biit.form.submitted.ISubmittedQuestion;
 import com.biit.formrunner.common.FieldValueChanged;
 import com.biit.formrunner.common.IRunnerElement;
@@ -230,9 +230,9 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 			// Stores equivalences according to the answer of the USMO Form
 			// Runner
 			Map<String, FormRunnerEquivalence> equivalences = new HashMap<>();
-			List<ISubmittedObject> questions = submittedForm.getChildren(ISubmittedQuestion.class);
-			for (ISubmittedObject element : questions) {
-				ISubmittedQuestion submittedQuestion = (ISubmittedQuestion) element;
+			List<ISubmittedQuestion> questions = submittedForm.getChildren(ISubmittedQuestion.class);
+			for (IQuestionWithAnswers element : questions) {
+				IQuestionWithAnswers submittedQuestion = (IQuestionWithAnswers) element;
 				// Translate Orbeon path to form runner path.
 				FormRunnerEquivalence equivalence = formRunnerMatcher.getFormRunnerEquivalence(submittedQuestion);
 				if (equivalence != null) {
@@ -251,9 +251,10 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 				List<String> formRunnerElementPath = equivalence.getDestinationPathAsList();
 				if (formRunnerElementPath != null && !formRunnerElementPath.isEmpty()) {
 					// Translate Orbeon answer to Form Runner value.
-					FormRunnerLogger.debug(this.getClass().getName(),
-							"Question '" + equivalence.getDestinationPath() + "' default value obtained from submitted question '" + equivalence.getSourcePath()
-									+ "'. Value is " + equivalence.getFormRunnerAnswers());
+					FormRunnerLogger.debug(
+							this.getClass().getName(),
+							"Question '" + equivalence.getDestinationPath() + "' default value obtained from submitted question '"
+									+ equivalence.getSourcePath() + "'. Value is " + equivalence.getFormRunnerAnswers());
 					setAnswers(formRunnerElementPath, new ArrayList<>(equivalence.getFormRunnerAnswers()));
 				} else {
 					FormRunnerLogger.debug(this.getClass().getName(), "Submitted value not applied in examination: '" + equivalence + "'");

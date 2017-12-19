@@ -26,7 +26,7 @@ public interface IRunnerElement extends Component {
 
 	public List<Result> getAnswers();
 
-	public void setAnswers(List<String> list) throws UnsupportedOperationException;
+	public void setAnswers(List<String> answers) throws UnsupportedOperationException;
 
 	public void addElement(IRunnerElement element);
 

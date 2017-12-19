@@ -3,10 +3,11 @@ package com.biit.formrunner.orbeon;
 import java.util.List;
 import java.util.Set;
 
+import com.biit.form.entity.IQuestionWithAnswers;
 import com.biit.form.submitted.ISubmittedObject;
 import com.biit.form.submitted.ISubmittedQuestion;
 
-public class MockSubmittedQuestion implements ISubmittedQuestion {
+public class MockSubmittedQuestion implements ISubmittedQuestion, IQuestionWithAnswers {
 
 	private String pathName;
 
@@ -56,8 +57,7 @@ public class MockSubmittedQuestion implements ISubmittedQuestion {
 	}
 
 	@Override
-	public List<ISubmittedObject> getChildren(Class<?> type) {
-
+	public <T extends ISubmittedObject> List<T> getChildren(Class<T> type) {
 		return null;
 	}
 

@@ -194,11 +194,11 @@ public class Runner extends CustomComponent {
 		return answers;
 	}
 
-	public void setAnswers(List<String> path, List<String> list) throws PathDoesNotExist {
+	public void setAnswers(List<String> path, List<String> answers) throws PathDoesNotExist {
 		if (path.isEmpty()) {
 			throw new PathDoesNotExist(path);
 		}
-		getElement(path).setAnswers(list);
+		getElement(path).setAnswers(answers);
 	}
 
 	public void evaluate(List<String> path) throws PathDoesNotExist {
@@ -212,7 +212,8 @@ public class Runner extends CustomComponent {
 	/**
 	 * Set loading to true to avoid value change evaluations.
 	 * 
-	 * @param loading the value.
+	 * @param loading
+	 *            the value.
 	 */
 	public void setLoading(boolean loading) {
 		this.loading = loading;

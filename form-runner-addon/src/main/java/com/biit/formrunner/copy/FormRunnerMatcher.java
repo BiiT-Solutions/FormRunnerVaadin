@@ -3,8 +3,8 @@ package com.biit.formrunner.copy;
 import java.util.List;
 import java.util.Set;
 
+import com.biit.form.entity.IQuestionWithAnswers;
 import com.biit.form.submitted.ISubmittedForm;
-import com.biit.form.submitted.ISubmittedObject;
 import com.biit.form.submitted.ISubmittedQuestion;
 
 /**
@@ -21,7 +21,7 @@ public class FormRunnerMatcher {
 	 *            the webform question.
 	 * @return the form element.
 	 */
-	public FormRunnerEquivalence getFormRunnerEquivalence(ISubmittedQuestion question) {
+	public FormRunnerEquivalence getFormRunnerEquivalence(IQuestionWithAnswers question) {
 		if (equivalences != null) {
 			for (FormRunnerEquivalence equivalence : equivalences) {
 				if (equivalence.getSourcePath().equals(question.getPathName())) {
@@ -53,9 +53,9 @@ public class FormRunnerMatcher {
 	 */
 	public void updateFormAnswers(ISubmittedForm form) {
 		if (isEnabled() && form != null) {
-			List<ISubmittedObject> questions = form.getChildren(ISubmittedQuestion.class);
-			for (ISubmittedObject element : questions) {
-				ISubmittedQuestion question = (ISubmittedQuestion) element;
+			List<ISubmittedQuestion> questions = form.getChildren(ISubmittedQuestion.class);
+			for (ISubmittedQuestion element : questions) {
+				IQuestionWithAnswers question = (IQuestionWithAnswers) element;
 				for (FormRunnerEquivalence equivalence : equivalences) {
 					if (equivalence.getSourcePath().equals(question.getPathName())) {
 						equivalence.setSourceQuestion(question);

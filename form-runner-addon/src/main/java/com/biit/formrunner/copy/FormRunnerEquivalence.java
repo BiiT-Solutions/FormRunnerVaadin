@@ -12,8 +12,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import com.biit.form.entity.IQuestionWithAnswers;
 import com.biit.form.runner.logger.FormRunnerLogger;
-import com.biit.form.submitted.ISubmittedQuestion;
 
 /**
  * Defines an equivalence between two questions of two different forms. Also
@@ -27,7 +27,7 @@ public class FormRunnerEquivalence {
 	private Operator operator;
 	private int priority = 0;
 	private Map<String, String> translations = new HashMap<>();
-	private ISubmittedQuestion sourceQuestion;
+	private IQuestionWithAnswers sourceQuestion;
 
 	public String getSourcePath() {
 		return sourcePath;
@@ -140,11 +140,11 @@ public class FormRunnerEquivalence {
 				+ getPriority() + "]: ";
 	}
 
-	public ISubmittedQuestion getSourceQuestion() {
+	public IQuestionWithAnswers getSourceQuestion() {
 		return sourceQuestion;
 	}
 
-	public void setSourceQuestion(ISubmittedQuestion orbeonQuestion) {
+	public void setSourceQuestion(IQuestionWithAnswers orbeonQuestion) {
 		this.sourceQuestion = orbeonQuestion;
 	}
 
