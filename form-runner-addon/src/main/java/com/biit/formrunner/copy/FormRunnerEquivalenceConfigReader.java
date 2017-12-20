@@ -23,13 +23,13 @@ public class FormRunnerEquivalenceConfigReader {
 	private static final String SYSTEM_VARIABLE_CONFIG = "ORBEON_MATCHER_CONFIG";
 
 	private final static String XML_QUESTION_NODE = "question";
-	private final static String ORBEON_PATH_NODE = "orbeon";
+	private final static String SOURCE_PATH_NODE = "source";
 	private final static String FORM_RUNNER_PATH_NODE = "formRunner";
 	private final static String OPERATOR_NODE = "operator";
 	private final static String PRIORITY_NODE = "priority";
 
 	private final static String XML_TRANSLATIONS_NODE = "translation";
-	private final static String TECHNICAL_NAME_NODE = "techincalName";
+	private final static String TECHNICAL_NAME_NODE = "technicalName";
 	private final static String TECHNICAL_NAME_TEXT = "text";
 
 	public static FormRunnerMatcher readConfig(String fileName) {
@@ -53,7 +53,7 @@ public class FormRunnerEquivalenceConfigReader {
 			// Add all question maps.
 			for (Iterator<?> formChildren = formElement.elementIterator(XML_QUESTION_NODE); formChildren.hasNext();) {
 				final Element questionElement = (Element) formChildren.next();
-				String orbenPath = questionElement.attributeValue(ORBEON_PATH_NODE);
+				String orbenPath = questionElement.attributeValue(SOURCE_PATH_NODE);
 				String formRunnerPath = questionElement.attributeValue(FORM_RUNNER_PATH_NODE);
 				String operator = questionElement.attributeValue(OPERATOR_NODE);
 				OrbeonFormRunnerEquivalence orbeonFormRunnerEquivalence = new OrbeonFormRunnerEquivalence(orbenPath, formRunnerPath, operator);
