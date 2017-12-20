@@ -3,9 +3,8 @@ package com.biit.formrunner.copy;
 import java.util.List;
 import java.util.Set;
 
+import com.biit.form.entity.IFormWithAnswers;
 import com.biit.form.entity.IQuestionWithAnswers;
-import com.biit.form.submitted.ISubmittedForm;
-import com.biit.form.submitted.ISubmittedQuestion;
 
 /**
  * Defines a relationship between a submitted form and a form runner structure.
@@ -51,11 +50,10 @@ public class FormRunnerMatcher {
 	 * @param form
 	 *            the answer
 	 */
-	public void updateFormAnswers(ISubmittedForm form) {
+	public void updateFormAnswers(IFormWithAnswers form) {
 		if (isEnabled() && form != null) {
-			List<ISubmittedQuestion> questions = form.getChildren(ISubmittedQuestion.class);
-			for (ISubmittedQuestion element : questions) {
-				IQuestionWithAnswers question = (IQuestionWithAnswers) element;
+			List<IQuestionWithAnswers> questions = form.getQuestionsWithAnswers();
+			for (IQuestionWithAnswers question : questions) {
 				for (FormRunnerEquivalence equivalence : equivalences) {
 					if (equivalence.getSourcePath().equals(question.getPathName())) {
 						equivalence.setSourceQuestion(question);
