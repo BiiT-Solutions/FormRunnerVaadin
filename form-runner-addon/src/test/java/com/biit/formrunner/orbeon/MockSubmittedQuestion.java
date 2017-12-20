@@ -57,7 +57,7 @@ public class MockSubmittedQuestion implements ISubmittedQuestion, IQuestionWithA
 	}
 
 	@Override
-	public <T extends ISubmittedObject> List<T> getChildren(Class<T> type) {
+	public <T> List<T> getChildren(Class<T> type) {
 		return null;
 	}
 

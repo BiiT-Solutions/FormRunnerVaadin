@@ -230,7 +230,7 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 			// Stores equivalences according to the answer of the USMO Form
 			// Runner
 			Map<String, FormRunnerEquivalence> equivalences = new HashMap<>();
-			List<ISubmittedQuestion> questions = submittedForm.getChildren(ISubmittedQuestion.class);
+			List<IQuestionWithAnswers> questions = submittedForm.getChildren(IQuestionWithAnswers.class);
 			for (IQuestionWithAnswers element : questions) {
 				IQuestionWithAnswers submittedQuestion = (IQuestionWithAnswers) element;
 				// Translate Orbeon path to form runner path.
