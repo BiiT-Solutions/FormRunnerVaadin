@@ -22,7 +22,6 @@ import com.biit.form.result.QuestionWithValueResult;
 import com.biit.form.result.RepeatableGroupResult;
 import com.biit.form.runner.logger.FormRunnerLogger;
 import com.biit.form.submitted.ISubmittedForm;
-import com.biit.form.submitted.ISubmittedQuestion;
 import com.biit.formrunner.common.FieldValueChanged;
 import com.biit.formrunner.common.IRunnerElement;
 import com.biit.formrunner.common.Result;
