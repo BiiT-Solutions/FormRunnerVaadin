@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.biit</groupId>
 	<artifactId>form-runner-addon</artifactId>
 	<packaging>jar</packaging>
 	<name>Form Runner Add-on</name>
@@ -88,14 +87,17 @@
 					<groupId>org.hibernate</groupId>
 					<artifactId>hibernate-ehcache</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>com.biit.liferay</groupId>
+					<artifactId>liferay-service-common</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.biit</groupId>
 			<artifactId>vaadin-common-widgetset</artifactId>
 			<version>${biit-vaadin-common.version}</version>
-		</dependency>
-		
+		</dependency>		
 		<dependency>
 			<groupId>com.biit</groupId>
 			<artifactId>form-runner-logger</artifactId>
