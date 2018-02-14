@@ -219,7 +219,6 @@ public class RunnerGroup extends CustomComponent implements IRunnerElement {
 			try {
 				return element.getElement(path.subList(1, path.size()));
 			} catch (PathDoesNotExist e) {
-				e.printStackTrace();
 				throw new PathDoesNotExist(path);
 			}
 		}

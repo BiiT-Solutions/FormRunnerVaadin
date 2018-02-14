@@ -273,7 +273,7 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 					setAnswers(question.getPath(), question.getQuestionValues());
 				} catch (PathDoesNotExist e) {
 					// Element does not exists is due to form restructuration.
-					FormRunnerLogger.warning(this.getClass().getName(), e.getMessage());
+					FormRunnerLogger.debug(this.getClass().getName(), e.getMessage());
 				}
 			}
 
