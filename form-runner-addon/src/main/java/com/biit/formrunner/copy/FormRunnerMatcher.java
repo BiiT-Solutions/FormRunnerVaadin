@@ -35,7 +35,8 @@ public class FormRunnerMatcher {
 				if (equivalence.getSourcePath().equals(formSourcePath)) {
 					// Has value, use it. If not, skip to a second equivalence
 					// definition.
-					if (equivalence.getSourceQuestion().getAnswers() != null && !equivalence.getSourceQuestion().getAnswers().iterator().next().isEmpty()) {
+					if (equivalence.getSourceQuestion() != null && equivalence.getSourceQuestion().getAnswers() != null
+							&& !equivalence.getSourceQuestion().getAnswers().iterator().next().isEmpty()) {
 						equivalencesFound.add(equivalence);
 					}
 				}
