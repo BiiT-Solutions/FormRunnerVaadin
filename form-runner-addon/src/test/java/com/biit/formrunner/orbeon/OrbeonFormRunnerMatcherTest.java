@@ -1,5 +1,7 @@
 package com.biit.formrunner.orbeon;
 
+import java.util.Set;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -20,8 +22,8 @@ public class OrbeonFormRunnerMatcherTest {
 		MockSubmittedQuestion orbeonQuestion = new MockSubmittedQuestion();
 		orbeonQuestion.setPathName("PersonalDetails/profile_gender");
 
-		FormRunnerEquivalence equivalence = orbeonFormRunnerMatcher.getFormRunnerEquivalence(orbeonQuestion);
-		// No Orbeon form. Must be null due to no values detected.
-		Assert.assertNull(equivalence);
+		Set<FormRunnerEquivalence> equivalences = orbeonFormRunnerMatcher.getFormRunnerEquivalences(orbeonQuestion);
+		// No Orbeon form. Must be empty due to no values detected.
+		Assert.assertTrue(equivalences.isEmpty());
 	}
 }

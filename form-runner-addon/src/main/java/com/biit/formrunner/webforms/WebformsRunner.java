@@ -233,14 +233,17 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 			for (IQuestionWithAnswers element : questions) {
 				IQuestionWithAnswers submittedQuestion = (IQuestionWithAnswers) element;
 				// Translate Orbeon path to form runner path.
-				FormRunnerEquivalence equivalence = formRunnerMatcher.getFormRunnerEquivalence(submittedQuestion);
-				if (equivalence != null) {
-					// Select the correct equivalence filtered by priority. High
-					// priority must be preferred.
-					if (equivalences.get(equivalence.getDestinationPath()) == null) {
-						equivalences.put(equivalence.getDestinationPath(), equivalence);
-					} else if (equivalences.get(equivalence.getDestinationPath()).getPriority() < equivalence.getPriority()) {
-						equivalences.put(equivalence.getDestinationPath(), equivalence);
+				Set<FormRunnerEquivalence> equivalencesObtained = formRunnerMatcher.getFormRunnerEquivalences(submittedQuestion);
+				for (FormRunnerEquivalence equivalence : equivalencesObtained) {
+					if (equivalence != null) {
+						// Select the correct equivalence filtered by priority.
+						// High
+						// priority must be preferred.
+						if (equivalences.get(equivalence.getDestinationPath()) == null) {
+							equivalences.put(equivalence.getDestinationPath(), equivalence);
+						} else if (equivalences.get(equivalence.getDestinationPath()).getPriority() < equivalence.getPriority()) {
+							equivalences.put(equivalence.getDestinationPath(), equivalence);
+						}
 					}
 				}
 			}

@@ -1,5 +1,6 @@
 package com.biit.formrunner.copy;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,28 +21,27 @@ public class FormRunnerMatcher {
 	 *            the webform question.
 	 * @return the form element.
 	 */
-	public FormRunnerEquivalence getFormRunnerEquivalence(IQuestionWithAnswers question) {
+	public Set<FormRunnerEquivalence> getFormRunnerEquivalences(IQuestionWithAnswers question) {
+		if (question == null) {
+			return new HashSet<FormRunnerEquivalence>();
+		}
+		return getFormRunnerEquivalences(question.getPathName());
+	}
+
+	public Set<FormRunnerEquivalence> getFormRunnerEquivalences(String formSourcePath) {
+		Set<FormRunnerEquivalence> equivalencesFound = new HashSet<>();
 		if (equivalences != null) {
 			for (FormRunnerEquivalence equivalence : equivalences) {
-				if (equivalence.getSourcePath().equals(question.getPathName())) {
+				if (equivalence.getSourcePath().equals(formSourcePath)) {
 					// Has value, use it. If not, skip to a second equivalence
 					// definition.
 					if (equivalence.getSourceQuestion().getAnswers() != null && !equivalence.getSourceQuestion().getAnswers().iterator().next().isEmpty()) {
-						return equivalence;
+						equivalencesFound.add(equivalence);
 					}
 				}
 			}
 		}
-		return null;
-	}
-
-	public FormRunnerEquivalence getFormRunnerEquivalence(String formSourcePath) {
-		for (FormRunnerEquivalence equivalence : equivalences) {
-			if (equivalence.getSourcePath().equals(formSourcePath)) {
-				return equivalence;
-			}
-		}
-		return null;
+		return equivalencesFound;
 	}
 
 	/**
