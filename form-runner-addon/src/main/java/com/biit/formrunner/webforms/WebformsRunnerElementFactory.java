@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -23,6 +24,7 @@ import com.biit.formrunner.common.RunnerSelection;
 import com.biit.formrunner.common.RunnerStaticField;
 import com.biit.formrunner.common.RunnerSystemField;
 import com.biit.formrunner.common.RunnerTextArea;
+import com.biit.formrunner.common.RunnerSlider;
 import com.biit.formrunner.common.validators.DoubleValidator;
 import com.biit.formrunner.common.validators.LongValidator;
 import com.biit.webforms.persistence.entity.Answer;
@@ -129,8 +131,10 @@ public class WebformsRunnerElementFactory {
 		case SINGLE_SELECTION_RADIO:
 			return generateSelectionList(element, false, runner);
 		case MULTIPLE_SELECTION:
-			return generateSelectionList(element, true, runner);
-		}
+			return generateSelectionList(element, true, runner);		
+		case SINGLE_SELECTION_SLIDER:
+			return generateSlider(element, runner);
+		}	
 		throw new UnsupportedOperationException("Question '" + element.getName() + "' has an unsupported answer type '" + element.getAnswerType() + "'");
 	}
 
@@ -279,6 +283,17 @@ public class WebformsRunnerElementFactory {
 	private static IRunnerElement generateText(Text element, Runner runner) {
 		Label label = new Label(element.getDescription());
 		return new RunnerStaticField(element.getName(), label, runner, element.getPath());
+	}
+	
+	private static IRunnerElement generateSlider(Question element, Runner runner) {	
+		List<TreeObject> answers = element.getChildren();
+		String minValueLabel = answers.get(0).getLabel();
+		double minValue = Double.parseDouble(minValueLabel);
+		String maxValueLabel = answers.get(answers.size()-1).getLabel();
+		double maxValue = Double.parseDouble(maxValueLabel);
+		double defaultValue = minValue;
+		return new RunnerSlider(element.getName(), element.getLabel(), minValue, maxValue, element.getDescription(), null, 
+				element.isMandatory(), defaultValue, runner, element.getPath());
 	}
 
 }
