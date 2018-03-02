@@ -52,7 +52,10 @@ public abstract class WebformsRunnerTable extends RunnerTable {
 			if (child instanceof BaseGroup) {
 				int column = 1;
 				for (TreeObject question : child.getChildren()) {
-					addElementToTable(getElement((TreeObject) question, runner), column, row);
+					IRunnerElement questionToShow = getElement((TreeObject) question, runner);
+					questionToShow.setCaption("");
+					//questionToShow.setRequiredIndicatorVisible(false);
+					addElementToTable(questionToShow, column, row);
 					column++;
 				}
 				row++;

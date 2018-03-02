@@ -99,7 +99,6 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 	@Override
 	public void addElement(IRunnerElement element) {
 		if (element != null) {
-			// element.setCaption("");
 			children.add(element);
 			groupElementsLayout.addComponent(element);
 		}
@@ -107,7 +106,7 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 
 	public void addElementToTable(IRunnerElement element, int column, int row) {
 		if (element != null) {
-			// element.setCaption("");
+			element.setWidth("150px");
 			children.add(element);
 			tableElementsLayout.addComponent(element, column, row);
 		}
@@ -153,10 +152,10 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 	private void configureTableLabels(BaseGroup group) {
 		// Label tableName = new Label(group.getLabel());
 		// addLabelToTable(tableName, 0, 0);
-
 		int row = 1;
 		for (TreeObject child : group.getChildren()) {
 			Label groupName = new Label(child.getLabel());
+			groupName.setWidth("90px");
 			addLabelToTable(groupName, 0, row);
 			row++;
 		}
@@ -176,10 +175,10 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		rootLayout.setMargin(true);
 		rootLayout.setSpacing(true);
 
-		/*
-		 * groupElementsLayout.setWidth(FULL); groupElementsLayout.setHeightUndefined();
-		 * groupElementsLayout.setMargin(false); groupElementsLayout.setSpacing(true);
-		 */
+		tableElementsLayout.setWidth(FULL);
+		tableElementsLayout.setHeightUndefined();
+		tableElementsLayout.setMargin(false);
+		tableElementsLayout.setSpacing(true);
 
 		cloneLayout.setWidth(FULL);
 		cloneLayout.setHeightUndefined();
@@ -205,8 +204,9 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		ResultGroup groupAnswer = new ResultGroup(getName());
 		Iterator<Component> itr = tableElementsLayout.iterator();
 		while (itr.hasNext()) {
-			if (itr.next() instanceof IRunnerElement) {
-				IRunnerElement component = (IRunnerElement) itr.next();
+			Component element = itr.next();
+			if (element instanceof IRunnerElement) {
+				IRunnerElement component = (IRunnerElement) element;
 				groupAnswer.addAnswers(component.getAnswers());
 			}
 		}
@@ -297,8 +297,9 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		Iterator<Component> itr = tableElementsLayout.iterator();
 
 		while (itr.hasNext()) {
-			if (itr.next() instanceof IRunnerElement) {
-				IRunnerElement next = (IRunnerElement) itr.next();
+			Component element = itr.next();
+			if (element instanceof IRunnerElement) {
+				IRunnerElement next = (IRunnerElement) element;
 				if (next.getName().equals(name)) {
 					return next;
 				}
@@ -339,9 +340,10 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 	public void checkRelevance() {
 		Iterator<Component> itr = tableElementsLayout.iterator();
 		while (itr.hasNext()) {
-			if (itr.next() instanceof IRunnerElement) {
-				IRunnerElement element = (IRunnerElement) itr.next();
-				if (element.getRelevance()) {
+			Component element = itr.next();
+			if (element instanceof IRunnerElement) {
+				IRunnerElement next = (IRunnerElement) element;
+				if (next.getRelevance()) {
 					setRelevance(true);
 					return;
 				}
@@ -367,8 +369,9 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		super.setLocale(locale);
 		Iterator<Component> itr = tableElementsLayout.iterator();
 		while (itr.hasNext()) {
-			if (itr.next() instanceof IRunnerElement) {
-				IRunnerElement component = (IRunnerElement) itr.next();
+			Component element = itr.next();
+			if (element instanceof IRunnerElement) {
+				IRunnerElement component = (IRunnerElement) element;
 				component.setLocale(locale);
 			}
 		}

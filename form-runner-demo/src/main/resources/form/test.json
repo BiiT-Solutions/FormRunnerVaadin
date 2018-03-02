@@ -26,7 +26,7 @@
           "createdBy": 22707,
           "updatedBy": 24903,
           "name": "tableName",
-          "label": "table name",
+          "label": "Test Name",
           "hidden": false,
           "isTable": true,
           "children": [
@@ -91,24 +91,6 @@
                   "answerType": "INPUT",
                   "answerFormat": "NUMBER",
                   "answerSubformat": "POSITIVE_NUMBER",
-                  "mandatory": true,
-                  "horizontal": false,
-                  "description": ""
-                },
-                {
-                  "class": "com.biit.webforms.persistence.entity.Question",
-                  "comparationId": "345cb586-9baf-495c-b800-15cde82a6d1d",
-                  "creationTime": "Oct 30, 2017 1:45:20 PM",
-                  "updateTime": "Oct 30, 2017 1:46:03 PM",
-                  "createdBy": 22707,
-                  "updatedBy": 22707,
-                  "name": "NegativeNumber",
-                  "label": "I.F.R",
-                  "hidden": false,
-                  "children": [],
-                  "answerType": "INPUT",
-                  "answerFormat": "NUMBER",
-                  "answerSubformat": "NEGATIVE_NUMBER",
                   "mandatory": true,
                   "horizontal": false,
                   "description": ""
@@ -180,24 +162,6 @@
                   "mandatory": true,
                   "horizontal": false,
                   "description": ""
-                },
-                {
-                  "class": "com.biit.webforms.persistence.entity.Question",
-                  "comparationId": "345cb586-9baf-495c-b800-15cde82a6d1d",
-                  "creationTime": "Oct 30, 2017 1:45:20 PM",
-                  "updateTime": "Oct 30, 2017 1:46:03 PM",
-                  "createdBy": 22707,
-                  "updatedBy": 22707,
-                  "name": "NegativeNumber",
-                  "label": "I.F.R",
-                  "hidden": false,
-                  "children": [],
-                  "answerType": "INPUT",
-                  "answerFormat": "NUMBER",
-                  "answerSubformat": "NEGATIVE_NUMBER",
-                  "mandatory": true,
-                  "horizontal": false,
-                  "description": ""
                 }
               ],
               "repeatable": false
@@ -263,24 +227,6 @@
                   "answerType": "INPUT",
                   "answerFormat": "NUMBER",
                   "answerSubformat": "POSITIVE_NUMBER",
-                  "mandatory": true,
-                  "horizontal": false,
-                  "description": ""
-                },
-                {
-                  "class": "com.biit.webforms.persistence.entity.Question",
-                  "comparationId": "345cb586-9baf-495c-b800-15cde82a6d1d",
-                  "creationTime": "Oct 30, 2017 1:45:20 PM",
-                  "updateTime": "Oct 30, 2017 1:46:03 PM",
-                  "createdBy": 22707,
-                  "updatedBy": 22707,
-                  "name": "NegativeNumber",
-                  "label": "Negative Number",
-                  "hidden": false,
-                  "children": [],
-                  "answerType": "INPUT",
-                  "answerFormat": "NUMBER",
-                  "answerSubformat": "NEGATIVE_NUMBER",
                   "mandatory": true,
                   "horizontal": false,
                   "description": ""

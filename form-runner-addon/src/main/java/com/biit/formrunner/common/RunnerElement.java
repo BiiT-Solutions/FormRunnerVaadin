@@ -37,6 +37,20 @@ public abstract class RunnerElement<T extends Component> extends CustomComponent
 		return (T) component;
 	}
 
+	@Override
+	public void setCaption(String caption) {
+		if (getComponent() != null) {
+			getComponent().setCaption(caption);
+		}
+	}
+	
+	@Override
+	public void setWidth(String width) {
+		if (getComponent() != null) {
+			getComponent().setWidth(width);
+		}
+	}
+
 	public Runner getRunner() {
 		return runner;
 	}
