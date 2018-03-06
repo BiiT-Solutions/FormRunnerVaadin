@@ -74,7 +74,10 @@ public class RunnerField<T extends AbstractField<?>> extends RunnerElement<T> {
 		// java.lang.IllegalStateException: A connector should not be marked as
 		// dirty while a response is being written.
 		// As described at https://vaadin.com/forum#!/thread/1820683
-		getComponent().getUI().getSession().getLockInstance().lock();
+		if (getComponent() != null && getComponent().getUI() != null && getComponent().getUI().getSession() != null
+				&& getComponent().getUI().getSession().getLockInstance() != null) {
+			getComponent().getUI().getSession().getLockInstance().lock();
+		}
 		try {
 			if (valueModifier != null) {
 				getComponent().setConvertedValue(valueModifier.modifyToLoad(answers.get(0)));
@@ -82,7 +85,10 @@ public class RunnerField<T extends AbstractField<?>> extends RunnerElement<T> {
 				getComponent().setConvertedValue(answers.get(0));
 			}
 		} finally {
-			getComponent().getUI().getSession().getLockInstance().unlock();
+			if (getComponent() != null && getComponent().getUI() != null && getComponent().getUI().getSession() != null
+					&& getComponent().getUI().getSession().getLockInstance() != null) {
+				getComponent().getUI().getSession().getLockInstance().unlock();
+			}
 		}
 	}
 
