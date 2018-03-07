@@ -19,8 +19,8 @@ public class RunnerField<T extends AbstractField<?>> extends RunnerElement<T> {
 	private final Set<FieldValueChanged> valueChangedListeners;
 	private ValueModifier valueModifier;
 
-	public RunnerField(String name, AbstractField<?> component, String description, boolean isMandatory, String requiredCaption,
-			Runner runner, List<String> path) {
+	public RunnerField(String name, AbstractField<?> component, String description, boolean isMandatory, String requiredCaption, Runner runner,
+			List<String> path) {
 		super(name, component, runner, path);
 		valueChangedListeners = new HashSet<>();
 		component.addValueChangeListener(new ValueChangeListener() {
@@ -70,10 +70,25 @@ public class RunnerField<T extends AbstractField<?>> extends RunnerElement<T> {
 
 	@Override
 	public void setAnswers(List<String> answers) throws UnsupportedOperationException {
-		if (valueModifier != null) {
-			getComponent().setConvertedValue(valueModifier.modifyToLoad(answers.get(0)));
-		} else {
-			getComponent().setConvertedValue(answers.get(0));
+		// We need to lock the component to avoid
+		// java.lang.IllegalStateException: A connector should not be marked as
+		// dirty while a response is being written.
+		// As described at https://vaadin.com/forum#!/thread/1820683
+		if (getComponent() != null && getComponent().getUI() != null && getComponent().getUI().getSession() != null
+				&& getComponent().getUI().getSession().getLockInstance() != null) {
+			getComponent().getUI().getSession().getLockInstance().lock();
+		}
+		try {
+			if (valueModifier != null) {
+				getComponent().setConvertedValue(valueModifier.modifyToLoad(answers.get(0)));
+			} else {
+				getComponent().setConvertedValue(answers.get(0));
+			}
+		} finally {
+			if (getComponent() != null && getComponent().getUI() != null && getComponent().getUI().getSession() != null
+					&& getComponent().getUI().getSession().getLockInstance() != null) {
+				getComponent().getUI().getSession().getLockInstance().unlock();
+			}
 		}
 	}
 
