@@ -312,31 +312,35 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 	}
 
 	private IRunnerElement getElement(String name) throws PathDoesNotExist {
+		/*
+		 * Iterator<Component> itr = tableElementsLayout.iterator();
+		 * 
+		 * while (itr.hasNext()) { Component component = (IRunnerElement) itr.next(); if
+		 * (component instanceof IRunnerElement) { IRunnerElement next =
+		 * (IRunnerElement) component; if (next.getName().equals(name)) { return next; }
+		 * } } throw new PathDoesNotExist(name);
+		 */
+
 		Iterator<Component> itr = tableElementsLayout.iterator();
 
 		while (itr.hasNext()) {
-			IRunnerElement component = (IRunnerElement) itr.next();
-			if (component instanceof IRunnerElement) {
-				IRunnerElement next = (IRunnerElement) itr.next();
+			Component element = itr.next();
+			if (element instanceof IRunnerElement) {
+				IRunnerElement next = (IRunnerElement) element;
 				if (next.getName().equals(name)) {
 					return next;
 				}
 			}
 		}
-		throw new PathDoesNotExist(name);
-		/*
-		 * Iterator<Component> itr = tableElementsLayout.iterator();
-		 * 
-		 * while (itr.hasNext()) { Component element = itr.next(); if (element
-		 * instanceof IRunnerElement) { IRunnerElement next = (IRunnerElement) element;
-		 * if (next.getName().equals(name)) { return next; } } }
-		 */
+
 		/*
 		 * int row = 1; for (TreeObject child : this.group.getChildren()) { if
 		 * (child.getName().equals(name)) { return row; } row++;
 		 * 
-		 * } throw new PathDoesNotExist(name);
+		 * }
 		 */
+		throw new PathDoesNotExist(name);
+
 	}
 
 	@Override
