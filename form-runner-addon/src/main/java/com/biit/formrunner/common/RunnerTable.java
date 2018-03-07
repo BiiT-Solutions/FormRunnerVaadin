@@ -25,20 +25,22 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
 public class RunnerTable extends CustomComponent implements IRunnerElement {
-	private static final long serialVersionUID = -660939531249503240L;
-	private static final String CLASSNAME = "v-form-runner-group";
+
+	private static final long serialVersionUID = -2484037913536806393L;
+
+	private static final String CLASSNAME = "v-form-runner-table";
 	private static final String FULL = "100%";
 
 	private final String name;
 
 	private final VerticalLayout rootLayout;
 	private final VerticalLayout cloneLayout;
-	private final VerticalLayout groupElementsLayout;
 	private final GridLayout tableElementsLayout;
 
 	private final Button cloneButton;
 	private final List<String> path;
 	private final List<IRunnerElement> children;
+	private final BaseGroup group;
 
 	private ImagePreview imagePreview;
 
@@ -51,10 +53,11 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		this.name = name;
 		this.path = path;
 		this.children = new ArrayList<>();
+		this.group = group;
 
 		rootLayout = new VerticalLayout();
 		cloneLayout = new VerticalLayout();
-		groupElementsLayout = new VerticalLayout();
+
 		tableElementsLayout = new GridLayout(getColumns(group), getRows(group));
 		configureTableLabels(group);
 		cloneButton = new Button();
@@ -100,7 +103,7 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 	public void addElement(IRunnerElement element) {
 		if (element != null) {
 			children.add(element);
-			groupElementsLayout.addComponent(element);
+			// groupElementsLayout.addComponent(element);
 		}
 	}
 
@@ -150,12 +153,10 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 	}
 
 	private void configureTableLabels(BaseGroup group) {
-		// Label tableName = new Label(group.getLabel());
-		// addLabelToTable(tableName, 0, 0);
 		int row = 1;
 		for (TreeObject child : group.getChildren()) {
 			Label groupName = new Label(child.getLabel());
-			groupName.setWidth("90px");
+			groupName.setWidth("80px");
 			addLabelToTable(groupName, 0, row);
 			row++;
 		}
@@ -189,7 +190,6 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		imagePreview.setClickEnabled(false);
 		rootLayout.addComponent(imagePreview);
 
-		// rootLayout.addComponent(groupElementsLayout);
 		rootLayout.addComponent(tableElementsLayout);
 		rootLayout.addComponent(cloneLayout);
 
@@ -200,23 +200,27 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 	@Override
 	public List<Result> getAnswers() {
 		List<Result> answers = new ArrayList<Result>();
-
-		ResultGroup groupAnswer = new ResultGroup(getName());
-		Iterator<Component> itr = tableElementsLayout.iterator();
-		while (itr.hasNext()) {
-			Component element = itr.next();
-			if (element instanceof IRunnerElement) {
-				IRunnerElement component = (IRunnerElement) element;
-				groupAnswer.addAnswers(component.getAnswers());
+		List<Result> rowGroupAnswers = new ArrayList<Result>();
+		ResultGroup tableAnswers = new ResultGroup(this.group.getName());
+		int row = 1;
+		for (TreeObject child : this.group.getChildren()) {
+			if (child instanceof BaseGroup) {
+				int column = 1;
+				ResultGroup rowAnswers = new ResultGroup(this.group.getChildren().get(row - 1).getName());
+				for (int currentColumn = 0; currentColumn <= child.getChildren().size(); currentColumn++) {
+					Component tableComponent = tableElementsLayout.getComponent(column, row);
+					if (tableComponent instanceof IRunnerElement) {
+						IRunnerElement component = (IRunnerElement) tableComponent;
+						rowAnswers.addAnswers(component.getAnswers());
+					}
+					column++;
+				}
+				rowGroupAnswers.add(rowAnswers);
+				row++;
 			}
 		}
-		answers.add(groupAnswer);
-
-		itr = cloneLayout.iterator();
-		while (itr.hasNext()) {
-			IRunnerElement component = (IRunnerElement) itr.next();
-			answers.addAll(component.getAnswers());
-		}
+		tableAnswers.addAnswers(rowGroupAnswers);
+		answers.add(tableAnswers);
 
 		return answers;
 	}
@@ -291,21 +295,48 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 				throw new PathDoesNotExist(path);
 			}
 		}
+		/*
+		 * IRunnerElement element = getElement(path.get(0)); if (path.size() == 1) {
+		 * return element; } else { try { return element.getElement(path.subList(1,
+		 * path.size())); } catch (PathDoesNotExist e) { throw new
+		 * PathDoesNotExist(path); } }
+		 */
+		/*
+		 * try { int row = getElement(path.get(0)); return (RunnerGroup)
+		 * tableElementsLayout.getComponent(1, row);
+		 * 
+		 * } catch (PathDoesNotExist e) { throw new PathDoesNotExist(path); }
+		 */
+
+		// throw new PathDoesNotExist(path);
 	}
 
 	private IRunnerElement getElement(String name) throws PathDoesNotExist {
 		Iterator<Component> itr = tableElementsLayout.iterator();
 
 		while (itr.hasNext()) {
-			Component element = itr.next();
-			if (element instanceof IRunnerElement) {
-				IRunnerElement next = (IRunnerElement) element;
+			IRunnerElement component = (IRunnerElement) itr.next();
+			if (component instanceof IRunnerElement) {
+				IRunnerElement next = (IRunnerElement) itr.next();
 				if (next.getName().equals(name)) {
 					return next;
 				}
 			}
 		}
 		throw new PathDoesNotExist(name);
+		/*
+		 * Iterator<Component> itr = tableElementsLayout.iterator();
+		 * 
+		 * while (itr.hasNext()) { Component element = itr.next(); if (element
+		 * instanceof IRunnerElement) { IRunnerElement next = (IRunnerElement) element;
+		 * if (next.getName().equals(name)) { return next; } } }
+		 */
+		/*
+		 * int row = 1; for (TreeObject child : this.group.getChildren()) { if
+		 * (child.getName().equals(name)) { return row; } row++;
+		 * 
+		 * } throw new PathDoesNotExist(name);
+		 */
 	}
 
 	@Override
@@ -335,7 +366,7 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 
 	/**
 	 * Checks if at least one child element is relevant. If not makes this group
-	 * unrelevant.
+	 * irrelevant.
 	 */
 	public void checkRelevance() {
 		Iterator<Component> itr = tableElementsLayout.iterator();

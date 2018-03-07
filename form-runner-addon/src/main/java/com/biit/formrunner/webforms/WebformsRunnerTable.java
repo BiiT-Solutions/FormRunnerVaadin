@@ -21,6 +21,7 @@ public abstract class WebformsRunnerTable extends RunnerTable {
 	private static final long serialVersionUID = -1175869744919452626L;
 
 	private final Runner runner;
+	// private static final String CLASSNAME = "vFormRunnerElementTable";
 
 	public WebformsRunnerTable(BaseGroup group, Runner runner) {
 		super(group.getName(), group.getPath(), group);
@@ -54,7 +55,8 @@ public abstract class WebformsRunnerTable extends RunnerTable {
 				for (TreeObject question : child.getChildren()) {
 					IRunnerElement questionToShow = getElement((TreeObject) question, runner);
 					questionToShow.setCaption("");
-					//questionToShow.setRequiredIndicatorVisible(false);
+					// questionToShow.setWidth("150px");
+					// questionToShow.setRequiredIndicatorVisible(false);
 					addElementToTable(questionToShow, column, row);
 					column++;
 				}
