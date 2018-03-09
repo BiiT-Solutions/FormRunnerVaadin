@@ -8,8 +8,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.log4j.Logger;
+
 import com.biit.form.entity.BaseGroup;
 import com.biit.form.entity.TreeObject;
+import com.biit.form.runner.logger.FormRunnerLogger;
 import com.biit.formrunner.common.exceptions.PathDoesNotExist;
 import com.biit.webforms.persistence.entity.TreeObjectImage;
 import com.vaadin.server.StreamResource;
@@ -27,6 +30,8 @@ import com.vaadin.ui.VerticalLayout;
 public class RunnerTable extends CustomComponent implements IRunnerElement {
 
 	private static final long serialVersionUID = -2484037913536806393L;
+
+	private Logger logger = Logger.getLogger(FormRunnerLogger.class);
 
 	private static final String CLASSNAME = "v-form-runner-table";
 	private static final String FULL = "100%";
@@ -285,30 +290,40 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 
 	@Override
 	public IRunnerElement getElement(List<String> path) throws PathDoesNotExist {
-		IRunnerElement element = getElement(path.get(0));
-		if (path.size() == 1) {
-			return element;
-		} else {
-			try {
-				return element.getElement(path.subList(1, path.size()));
-			} catch (PathDoesNotExist e) {
-				throw new PathDoesNotExist(path);
-			}
-		}
+		logger.warn("call: " + path);
+		/*
+		 * if (path.size() > 1) { return (IRunnerElement)
+		 * tableElementsLayout.getComponent(getColumn(path.get(1)),
+		 * getRow(path.get(0))); }
+		 */
+		// return getRowElement(path);
 		/*
 		 * IRunnerElement element = getElement(path.get(0)); if (path.size() == 1) {
 		 * return element; } else { try { return element.getElement(path.subList(1,
 		 * path.size())); } catch (PathDoesNotExist e) { throw new
 		 * PathDoesNotExist(path); } }
 		 */
-		/*
-		 * try { int row = getElement(path.get(0)); return (RunnerGroup)
-		 * tableElementsLayout.getComponent(1, row);
-		 * 
-		 * } catch (PathDoesNotExist e) { throw new PathDoesNotExist(path); }
-		 */
 
-		// throw new PathDoesNotExist(path);
+		if (path.size() == 2) {
+			return (IRunnerElement) tableElementsLayout.getComponent(getColumn(path.get(1)), getRow(path.get(0)));
+		}
+
+		IRunnerElement element = getElement(path.get(0));
+		List<String> newPath = path.subList(1, path.size());
+		if (newPath.size() == 1) {
+			logger.warn("encontrado" + element.getName());
+			return element;
+		} else {
+			//return new RunnerGroup("test", newPath);
+			try {
+				logger.warn("getElement list:" + path.subList(1, path.size()));
+				return element.getElement(path.subList(1, path.size()));
+			} catch (PathDoesNotExist e) {
+				logger.warn("test table");
+				throw new PathDoesNotExist(path);
+			}
+		}
+
 	}
 
 	private IRunnerElement getElement(String name) throws PathDoesNotExist {
@@ -320,6 +335,10 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		 * (IRunnerElement) component; if (next.getName().equals(name)) { return next; }
 		 * } } throw new PathDoesNotExist(name);
 		 */
+
+		if (true) {
+			return (IRunnerElement) tableElementsLayout.getComponent(1, 1);
+		}
 
 		Iterator<Component> itr = tableElementsLayout.iterator();
 
@@ -333,12 +352,7 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 			}
 		}
 
-		/*
-		 * int row = 1; for (TreeObject child : this.group.getChildren()) { if
-		 * (child.getName().equals(name)) { return row; } row++;
-		 * 
-		 * }
-		 */
+		logger.warn("table getElement Name:" + name);
 		throw new PathDoesNotExist(name);
 
 	}
@@ -416,5 +430,51 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 			IRunnerElement component = (IRunnerElement) itr.next();
 			component.setLocale(locale);
 		}
+	}
+
+	private int getRow(String groupName) throws PathDoesNotExist {
+		int row = 1;
+		for (TreeObject child : this.group.getChildren()) {
+			if (child.getName().equals(groupName)) {
+				return row;
+			}
+			row++;
+		}
+		throw new PathDoesNotExist(path);
+	}
+
+	@SuppressWarnings("unused")
+	private int getColumn(String questionName) throws PathDoesNotExist {
+		for (TreeObject child : group.getChildren()) {
+			if (child instanceof BaseGroup) {
+				int column = 1;
+				for (TreeObject question : child.getChildren()) {
+					if (question.getName().equals(questionName)) {
+						return column;
+					}
+					column++;
+				}
+			}
+		}
+		throw new PathDoesNotExist(path);
+	}
+
+	@SuppressWarnings("unused")
+	private IRunnerElement getRowElement(List<String> path) throws PathDoesNotExist {
+		int row = getRow(path.get(0));
+		int column = 1;
+		for (int currentColumn = 0; currentColumn < this.group.getChildren().get(0).getChildren()
+				.size(); currentColumn++) {
+			IRunnerElement tableComponent = (IRunnerElement) tableElementsLayout.getComponent(column, row);
+			if (tableComponent.getName().equals(path.get(0))) {
+				logger.warn(path);
+				logger.info(tableComponent.getName());
+				logger.info(path.get(1));
+				IRunnerElement component = (IRunnerElement) tableComponent;
+				return component;
+			}
+			column++;
+		}
+		throw new PathDoesNotExist(path);
 	}
 }
