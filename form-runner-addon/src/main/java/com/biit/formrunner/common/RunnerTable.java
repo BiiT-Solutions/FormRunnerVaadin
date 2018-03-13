@@ -8,11 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.log4j.Logger;
-
 import com.biit.form.entity.BaseGroup;
 import com.biit.form.entity.TreeObject;
-import com.biit.form.runner.logger.FormRunnerLogger;
 import com.biit.formrunner.common.exceptions.PathDoesNotExist;
 import com.biit.webforms.persistence.entity.TreeObjectImage;
 import com.vaadin.server.StreamResource;
@@ -31,9 +28,11 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 
 	private static final long serialVersionUID = -2484037913536806393L;
 
-	private Logger logger = Logger.getLogger(FormRunnerLogger.class);
+	//private Logger logger = Logger.getLogger(FormRunnerLogger.class);
 
 	private static final String CLASSNAME = "v-form-runner-table";
+	private static final String TABLESTYLENAME = "vFormRunnerElementTable";
+	
 	private static final String FULL = "100%";
 
 	private final String name;
@@ -64,6 +63,7 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		cloneLayout = new VerticalLayout();
 
 		tableElementsLayout = new GridLayout(getColumns(group), getRows(group));
+		tableElementsLayout.addStyleName(TABLESTYLENAME);
 		configureTableLabels(group);
 		cloneButton = new Button();
 
@@ -290,42 +290,15 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 
 	@Override
 	public IRunnerElement getElement(List<String> path) throws PathDoesNotExist {
-		logger.warn("call: " + path);
-		/*
-		 * if (path.size() > 1) { return (IRunnerElement)
-		 * tableElementsLayout.getComponent(getColumn(path.get(1)),
-		 * getRow(path.get(0))); }
-		 */
-		// return getRowElement(path);
-		/*
-		 * IRunnerElement element = getElement(path.get(0)); if (path.size() == 1) {
-		 * return element; } else { try { return element.getElement(path.subList(1,
-		 * path.size())); } catch (PathDoesNotExist e) { throw new
-		 * PathDoesNotExist(path); } }
-		 */
-
 		if (path.size() == 2) {
 			return (IRunnerElement) tableElementsLayout.getComponent(getColumn(path.get(1)), getRow(path.get(0)));
+		} else if (path.size() == 1) {
+			return (RunnerTable) this;
 		}
-
-		IRunnerElement element = getElement(path.get(0));
-		List<String> newPath = path.subList(1, path.size());
-		if (newPath.size() == 1) {
-			logger.warn("encontrado" + element.getName());
-			return element;
-		} else {
-			//return new RunnerGroup("test", newPath);
-			try {
-				logger.warn("getElement list:" + path.subList(1, path.size()));
-				return element.getElement(path.subList(1, path.size()));
-			} catch (PathDoesNotExist e) {
-				logger.warn("test table");
-				throw new PathDoesNotExist(path);
-			}
-		}
-
+		throw new PathDoesNotExist(path);
 	}
 
+	@SuppressWarnings("unused")
 	private IRunnerElement getElement(String name) throws PathDoesNotExist {
 		/*
 		 * Iterator<Component> itr = tableElementsLayout.iterator();
@@ -336,7 +309,7 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		 * } } throw new PathDoesNotExist(name);
 		 */
 
-		if (true) {
+		/*if (true) {
 			return (IRunnerElement) tableElementsLayout.getComponent(1, 1);
 		}
 
@@ -352,7 +325,7 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 			}
 		}
 
-		logger.warn("table getElement Name:" + name);
+		logger.warn("table getElement Name:" + name);*/
 		throw new PathDoesNotExist(name);
 
 	}
@@ -391,14 +364,15 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		while (itr.hasNext()) {
 			Component element = itr.next();
 			if (element instanceof IRunnerElement) {
-				IRunnerElement next = (IRunnerElement) element;
-				if (next.getRelevance()) {
-					setRelevance(true);
-					return;
-				}
+				// IRunnerElement next = (IRunnerElement) element;
+				// if (next.getRelevance()) {
+				((IRunnerElement) element).setRelevance(true);
+				setRelevance(true);
+				// return;
+				// }
 			}
 		}
-		setRelevance(false);
+		// setRelevance(false);
 	}
 
 	@Override
@@ -443,7 +417,6 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		throw new PathDoesNotExist(path);
 	}
 
-	@SuppressWarnings("unused")
 	private int getColumn(String questionName) throws PathDoesNotExist {
 		for (TreeObject child : group.getChildren()) {
 			if (child instanceof BaseGroup) {
@@ -459,22 +432,4 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		throw new PathDoesNotExist(path);
 	}
 
-	@SuppressWarnings("unused")
-	private IRunnerElement getRowElement(List<String> path) throws PathDoesNotExist {
-		int row = getRow(path.get(0));
-		int column = 1;
-		for (int currentColumn = 0; currentColumn < this.group.getChildren().get(0).getChildren()
-				.size(); currentColumn++) {
-			IRunnerElement tableComponent = (IRunnerElement) tableElementsLayout.getComponent(column, row);
-			if (tableComponent.getName().equals(path.get(0))) {
-				logger.warn(path);
-				logger.info(tableComponent.getName());
-				logger.info(path.get(1));
-				IRunnerElement component = (IRunnerElement) tableComponent;
-				return component;
-			}
-			column++;
-		}
-		throw new PathDoesNotExist(path);
-	}
 }

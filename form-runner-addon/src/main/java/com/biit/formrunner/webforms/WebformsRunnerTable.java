@@ -55,7 +55,6 @@ public abstract class WebformsRunnerTable extends RunnerTable {
 				for (TreeObject question : child.getChildren()) {
 					IRunnerElement questionToShow = getElement((TreeObject) question, runner);
 					questionToShow.setCaption("");
-					// questionToShow.setWidth("150px");
 					// questionToShow.setRequiredIndicatorVisible(false);
 					addElementToTable(questionToShow, column, row);
 					column++;
