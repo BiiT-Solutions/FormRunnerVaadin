@@ -12,7 +12,7 @@
 	
 	/* Radio buttons in form runner appeared with the full screen size */
 	.vFormRunnerElement span.v-radiobutton.v-select-option {
-	    display: inline-block;
+	    display: inline-block !important;
 	    width: 400px;
 	    word-wrap: break-word;
 	    white-space: initial;
@@ -20,6 +20,6 @@
 	
 	.vFormRunnerElement .v-select-optiongroup-horizontal span.v-radiobutton.v-select-option {
 	    width: inherit;
-	   	white-space: nowrap;
+	    white-space: nowrap;
 	}
 }
