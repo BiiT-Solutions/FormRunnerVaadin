@@ -4,7 +4,7 @@
 	<groupId>com.biit</groupId>
 	<artifactId>form-runner</artifactId>
 	<packaging>pom</packaging>
-	<version>1.2.14-SNAPSHOT</version>
+	<version>1.2.15-SNAPSHOT</version>
 	<name>Form Runner Project</name> 
 	
 	<properties>
