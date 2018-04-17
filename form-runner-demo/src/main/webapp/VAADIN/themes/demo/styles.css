@@ -1567,7 +1567,6 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .demo .vFormRunnerElement span.v-radiobutton.v-select-option {
-	display: inline-block;
 	width: 400px;
 	word-wrap: break-word;
 	white-space: initial;
@@ -1576,6 +1575,7 @@ div.v-layout.v-horizontal.v-widget {
 .demo .vFormRunnerElement .v-select-optiongroup-horizontal span.v-radiobutton.v-select-option {
 	width: inherit;
 	white-space: nowrap;
+	display: inline-block !important;
 }
 
 .demo.v-app, .demo.v-app-loading {

@@ -36,26 +36,34 @@ public abstract class WebformsRunnerGroup extends RunnerGroup {
 
 		// Add image if needed.
 		setImageLayoutUnvisible();
-		if (runner.isImagesEnabled() && UI.getCurrent().getPage().getBrowserWindowWidth() >= WebformsRunner.IMAGE_MINIMUM_WIDTH) {
-			if (group instanceof ElementWithImage) {
-				// Exists image and room enough to represent it.
-				if (((ElementWithImage) group).getImage() != null) {
-					setImage(((ElementWithImage) group).getImage());
-					setImageLayoutVisible();
+		try {
+			if (runner.isImagesEnabled() && UI.getCurrent() != null && UI.getCurrent().getPage().getBrowserWindowWidth() >= WebformsRunner.IMAGE_MINIMUM_WIDTH) {
+				if (group instanceof ElementWithImage) {
+					// Exists image and room enough to represent it.
+					if (((ElementWithImage) group).getImage() != null) {
+						setImage(((ElementWithImage) group).getImage());
+						setImageLayoutVisible();
+					}
 				}
 			}
+		} catch (NullPointerException npe) {
+			// Ignore images.
 		}
 
 		for (TreeObject child : group.getChildren()) {
 			if (child instanceof BaseGroup) {
-				//addElement(new WebformsRunnerGroup((BaseGroup) child, runner));
+				// addElement(new WebformsRunnerGroup((BaseGroup) child,
+				// runner));
 				addElement(getElement((BaseGroup) child, runner));
 			} else {
-				if (runner.isImagesEnabled() && UI.getCurrent().getPage().getBrowserWindowWidth() >= WebformsRunner.IMAGE_MINIMUM_WIDTH) {
-					//addElement(WebformsRunnerElement.generateElementWithImage(child, runner));
+				if (UI.getCurrent() != null && runner.isImagesEnabled()
+						&& UI.getCurrent().getPage().getBrowserWindowWidth() >= WebformsRunner.IMAGE_MINIMUM_WIDTH) {
+					// addElement(WebformsRunnerElement.generateElementWithImage(child,
+					// runner));
 					addElement(getElement(child, runner));
 				} else {
-					//addElement(WebformsRunnerElement.generate(child, runner));
+					// addElement(WebformsRunnerElement.generate(child,
+					// runner));
 					addElement(getElement(child, runner));
 				}
 			}

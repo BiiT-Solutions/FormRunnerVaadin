@@ -113,7 +113,7 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 		}
 
 		// Show image if exists and there is room enough
-		if (isImagesEnabled() && UI.getCurrent().getPage().getBrowserWindowWidth() >= IMAGE_MINIMUM_WIDTH && form.getImage() != null) {
+		if (isImagesEnabled() && UI.getCurrent() != null && UI.getCurrent().getPage().getBrowserWindowWidth() >= IMAGE_MINIMUM_WIDTH && form.getImage() != null) {
 			setImageLayoutVisible();
 			setImage(form.getImage());
 		} else {

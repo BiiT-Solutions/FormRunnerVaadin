@@ -1,0 +1,1483 @@
+{
+  "class": "com.biit.webforms.persistence.entity.CompleteFormView",
+  "comparationId": "227e1c25-d4f4-4d0c-884b-c06eb56504bf",
+  "creationTime": "Apr 17, 2018 11:23:44 AM",
+  "updateTime": "Apr 17, 2018 11:23:44 AM",
+  "name": "form",
+  "label": "EnergyBalance",
+  "hidden": false,
+  "children": [
+    {
+      "class": "com.biit.webforms.persistence.entity.Category",
+      "comparationId": "e84003e9-d0e4-401c-9d2a-606010276d3b",
+      "creationTime": "Mar 23, 2018 11:02:14 AM",
+      "updateTime": "Mar 26, 2018 9:43:52 AM",
+      "createdBy": 24903,
+      "updatedBy": 24903,
+      "name": "PersonalDetails",
+      "label": "Persoonlijke gegevens",
+      "hidden": false,
+      "children": [
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "156bbcaf-2720-4cba-a633-d3b31147ae8c",
+          "creationTime": "Mar 23, 2018 11:09:04 AM",
+          "updateTime": "Mar 26, 2018 9:43:52 AM",
+          "createdBy": 24903,
+          "updatedBy": 24903,
+          "name": "user_guard",
+          "label": "If you are a returning customer fill with a number from the app.",
+          "hidden": false,
+          "children": [],
+          "answerType": "INPUT",
+          "answerFormat": "TEXT",
+          "answerSubformat": "TEXT",
+          "mandatory": false,
+          "horizontal": false,
+          "description": "Fill with the number shown in the app.(6 digits)"
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "ad1a67ed-66a2-4af0-95c1-6c3cc5e56de3",
+          "creationTime": "Mar 23, 2018 11:02:25 AM",
+          "updateTime": "Mar 23, 2018 11:09:08 AM",
+          "createdBy": 24903,
+          "updatedBy": 24903,
+          "name": "profile_first_name",
+          "label": "Voornaam",
+          "hidden": false,
+          "children": [],
+          "answerType": "INPUT",
+          "answerFormat": "TEXT",
+          "answerSubformat": "TEXT",
+          "mandatory": true,
+          "horizontal": false,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "1909ac30-7624-4bf0-9124-26b5c88da370",
+          "creationTime": "Mar 23, 2018 11:03:28 AM",
+          "updateTime": "Mar 23, 2018 11:09:08 AM",
+          "createdBy": 24903,
+          "updatedBy": 24903,
+          "name": "profile_initials",
+          "label": "Initialen",
+          "hidden": false,
+          "children": [],
+          "answerType": "INPUT",
+          "answerFormat": "TEXT",
+          "answerSubformat": "TEXT",
+          "mandatory": true,
+          "horizontal": false,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "9a197674-3a62-4338-9b62-428961cf9cc9",
+          "creationTime": "Mar 23, 2018 11:03:44 AM",
+          "updateTime": "Mar 23, 2018 11:09:08 AM",
+          "createdBy": 24903,
+          "updatedBy": 24903,
+          "name": "profile_last_name",
+          "label": "Achternaam",
+          "hidden": false,
+          "children": [],
+          "answerType": "INPUT",
+          "answerFormat": "TEXT",
+          "answerSubformat": "TEXT",
+          "mandatory": true,
+          "horizontal": false,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "0f1057ca-b100-4399-a583-f2ff6a7f58c0",
+          "creationTime": "Mar 23, 2018 11:03:59 AM",
+          "updateTime": "Mar 23, 2018 11:09:08 AM",
+          "createdBy": 24903,
+          "updatedBy": 24903,
+          "name": "profile_gender",
+          "label": "Geslacht",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "476f0167-63eb-4d74-ae68-77c47fd7b1fd",
+              "creationTime": "Mar 23, 2018 11:04:23 AM",
+              "updateTime": "Mar 23, 2018 11:04:37 AM",
+              "createdBy": 24903,
+              "updatedBy": 24903,
+              "name": "male",
+              "label": "Man",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "edf115d3-16ea-4b7c-8ba9-da0e108d7ea7",
+              "creationTime": "Mar 23, 2018 11:04:37 AM",
+              "updateTime": "Mar 23, 2018 11:04:59 AM",
+              "createdBy": 24903,
+              "updatedBy": 24903,
+              "name": "female",
+              "label": "Vrouw",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": false,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "68968053-8182-48f4-b170-ef93566454ed",
+          "creationTime": "Mar 23, 2018 11:04:59 AM",
+          "updateTime": "Mar 23, 2018 11:09:08 AM",
+          "createdBy": 24903,
+          "updatedBy": 24903,
+          "name": "profile_birthday",
+          "label": "Geboortedatum",
+          "hidden": false,
+          "children": [],
+          "answerType": "INPUT",
+          "answerFormat": "DATE",
+          "answerSubformat": "DATE_PAST",
+          "mandatory": true,
+          "horizontal": false,
+          "description": "Formaat dd-mm-jjjj (bv. 18-04-1980)"
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "c371a73a-96f9-49f4-930f-298c8b4576bd",
+          "creationTime": "Mar 23, 2018 11:05:38 AM",
+          "updateTime": "Mar 23, 2018 11:09:08 AM",
+          "createdBy": 24903,
+          "updatedBy": 24903,
+          "name": "person_address_street",
+          "label": "Adres",
+          "hidden": false,
+          "children": [],
+          "answerType": "INPUT",
+          "answerFormat": "TEXT",
+          "answerSubformat": "TEXT",
+          "mandatory": true,
+          "horizontal": false,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "b940926d-699d-4b30-8c92-1d274a52cc5f",
+          "creationTime": "Mar 23, 2018 11:05:53 AM",
+          "updateTime": "Mar 23, 2018 11:09:08 AM",
+          "createdBy": 24903,
+          "updatedBy": 24903,
+          "name": "person_address_postal",
+          "label": "Postcode",
+          "hidden": false,
+          "children": [],
+          "answerType": "INPUT",
+          "answerFormat": "POSTAL_CODE",
+          "answerSubformat": "POSTAL_CODE",
+          "mandatory": true,
+          "horizontal": false,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "541ee539-954c-44f4-8b28-d6aef5cfc32b",
+          "creationTime": "Mar 23, 2018 11:06:33 AM",
+          "updateTime": "Mar 23, 2018 11:09:08 AM",
+          "createdBy": 24903,
+          "updatedBy": 24903,
+          "name": "person_address_city",
+          "label": "Woonplaats",
+          "hidden": false,
+          "children": [],
+          "answerType": "INPUT",
+          "answerFormat": "TEXT",
+          "answerSubformat": "TEXT",
+          "mandatory": true,
+          "horizontal": false,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "fe02e982-32d7-42b6-b0fb-2729a673dfbe",
+          "creationTime": "Mar 23, 2018 11:06:49 AM",
+          "updateTime": "Mar 23, 2018 11:09:08 AM",
+          "createdBy": 24903,
+          "updatedBy": 24903,
+          "name": "profile_phone",
+          "label": "telefoonnummer",
+          "hidden": false,
+          "children": [],
+          "answerType": "INPUT",
+          "answerFormat": "TEXT",
+          "answerSubformat": "PHONE",
+          "mandatory": true,
+          "horizontal": false,
+          "description": "Om u op een beveiligde manier uw rapport na afloop te kunnen sturen hebben wij uw mobiele nummer nodig\\nFormaat \\u0027alleen cijfers\\u0027 (bv. 0612345678)"
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "c410b002-f34d-4ad7-b95f-6ac718afa007",
+          "creationTime": "Mar 23, 2018 11:07:14 AM",
+          "updateTime": "Mar 23, 2018 11:09:08 AM",
+          "createdBy": 24903,
+          "updatedBy": 24903,
+          "name": "profile_email_address",
+          "label": "eMail",
+          "hidden": false,
+          "children": [],
+          "answerType": "INPUT",
+          "answerFormat": "TEXT",
+          "answerSubformat": "EMAIL",
+          "mandatory": true,
+          "horizontal": false,
+          "description": "Om eventuele aanvullende gegevens te kunnen verzenden, verzoeken we je een email-adres in te vullen"
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.SystemField",
+          "comparationId": "2b65427e-fe31-4e7d-9165-34330b0a252b",
+          "creationTime": "Mar 23, 2018 11:10:59 AM",
+          "updateTime": "Mar 23, 2018 11:11:17 AM",
+          "createdBy": 24903,
+          "updatedBy": 24903,
+          "name": "user_comparation_id",
+          "label": "\u003cuserId\u003e",
+          "hidden": false,
+          "children": [],
+          "fieldName": "userId"
+        }
+      ]
+    },
+    {
+      "class": "com.biit.webforms.persistence.entity.Category",
+      "comparationId": "b799d40e-ce87-4a5c-b961-f7ec30bd0055",
+      "creationTime": "Mar 5, 2018 2:05:48 PM",
+      "updateTime": "Apr 14, 2018 1:23:13 PM",
+      "createdBy": 22707,
+      "updatedBy": 10436,
+      "name": "Body",
+      "label": "Fysiek",
+      "hidden": false,
+      "children": [
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "bfb2ed24-8607-43b3-9777-6604462bcf65",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:12 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "SleepTime",
+          "label": "Ik kan de dagelijkse dingen goed uitvoeren met mijn huidige slaapritme/slaappatroon",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "86726f8a-7abd-40c5-906f-c541e62ac1d4",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:20:33 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "1",
+              "label": "ja",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "06fc2565-309a-4f14-9f19-a79cc9709515",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:20:38 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "0",
+              "label": "nee",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "9d5a10ad-7cb2-495d-a225-58a883cc6a8d",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:12 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "Food",
+          "label": "Ik ben altijd bewust van wat ik eet en hoe ik me daarna voel.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "6b6daed6-69b4-44bb-b325-feb76a74fd21",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:20:47 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "1",
+              "label": "ja",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "ff30623a-c0d7-46cf-a8e5-c075929b0cc7",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:20:54 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "0",
+              "label": "nee",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "2230b6d4-5bd3-4c16-b761-07db3ba65706",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:13 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "WorkOut",
+          "label": "Ik doe minstens drie cardio en twee krachttrainingen per week.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "7bf63431-8a46-4026-90e5-9005f4f009ff",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:21:03 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "1",
+              "label": "ja",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "2d8414fe-24b1-4b98-9447-bacf3c52be46",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:21:10 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "0",
+              "label": "nee",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "c8ef9416-ca04-438e-bf2d-0cb25247b348",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:13 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "Recharge",
+          "label": "Ik neem regelmatig pauzes tijdens mijn werkdag.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "8275d9e9-9d24-4951-b0ac-9c5c26e3f7f1",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:21:18 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "1",
+              "label": "ja",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "f14904dd-8e7c-4189-b5d3-20c300d32b07",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:21:30 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "0",
+              "label": "nee",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "62a2ef1e-97c4-4c02-a1e7-534c34fd3ebb",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:13 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "WorkTime",
+          "label": "Ik spendeer genoeg tijd helemaal losstaand van mijn werk.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "afe3cdcb-eb38-4ed5-9632-68f9f8805e9c",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:21:37 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "1",
+              "label": "ja",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "55a46da1-774c-4d9b-8315-9fcce34ccc6c",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:21:47 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "0",
+              "label": "nee",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "class": "com.biit.webforms.persistence.entity.Category",
+      "comparationId": "9a659b1b-e9c7-44cc-9b65-5af08f8f43ca",
+      "creationTime": "Mar 5, 2018 2:05:48 PM",
+      "updateTime": "Apr 14, 2018 1:23:43 PM",
+      "createdBy": 22707,
+      "updatedBy": 10436,
+      "name": "Emotions",
+      "label": "Emotioneel",
+      "hidden": false,
+      "children": [
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "5fe4b0e6-5e14-4909-9bac-16713ea89ea3",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:20 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "EnthusiasticWork",
+          "label": "Ik voel mij enthousiast om naar mijn werk te gaan.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "e3a58e5e-3932-4b3d-8cd2-2b968b0324fa",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:22:13 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "1",
+              "label": "ja",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "fefea811-e729-4600-abb9-063e7be1f4e1",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:22:22 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "0",
+              "label": "nee",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "92873aaa-743c-4fe3-a2bc-04491b8bf978",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:21 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "FamilyTime",
+          "label": "Wanneer ik met mijn geliefden ben, ben ik ook echt betrokken bij hen en niet bezig met randzaken.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "d7426db9-ec49-4709-9ba3-f1eff440a5a9",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:22:31 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "1",
+              "label": "ja",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "76d1b0f3-b44b-4c8b-a671-ddfd48e588d5",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:22:38 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "0",
+              "label": "nee",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "bfb0e3d7-5883-4137-abeb-985f33e6cc97",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:22 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "EnjoyTime",
+          "label": "Ik neem naast mijn werk genoeg tijd voor activiteiten die mij het meest plezieren.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "1ffd792b-4a30-4ab6-8d63-26c024a29a8c",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:22:46 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "1",
+              "label": "ja",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "4a195dd9-2653-4778-a3f6-c7de029905c2",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:22:56 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "0",
+              "label": "nee",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "85cb43f4-84cd-4c6b-ab0d-3dfdf241f96e",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:34 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "Appreciation",
+          "label": "Ik laat regelmatig mijn waardering naar anderen toe blijken.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "6fc0a738-7927-4766-99f8-0a1a4a3e6af0",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:23:05 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "1",
+              "label": "ja",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "4f289644-3a3e-4373-ba03-2939c6d762fa",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:23:18 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "0",
+              "label": "nee",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "7eff8a4f-8229-4976-a0de-499d87876379",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:43 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "CalmAndPositive",
+          "label": "Ik blijf rustig en positief wanneer de druk op werk hoog is.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "75a1a6ce-9032-4429-a769-fb2770175140",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:23:41 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "1",
+              "label": "ja",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "b17f8421-4480-415d-bfd7-9c1cd2e463bd",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Apr 14, 2018 1:23:43 PM",
+              "createdBy": 22707,
+              "updatedBy": 10436,
+              "name": "0",
+              "label": "nee",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "class": "com.biit.webforms.persistence.entity.Category",
+      "comparationId": "578da108-7aef-460b-8989-cf75926d58b2",
+      "creationTime": "Mar 5, 2018 2:05:48 PM",
+      "updateTime": "Apr 14, 2018 1:23:13 PM",
+      "createdBy": 22707,
+      "updatedBy": 10436,
+      "name": "Mind",
+      "label": "Mentaal",
+      "hidden": false,
+      "children": [
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "591d3815-69c9-4399-884e-74c3dbc70964",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:13 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "Focus",
+          "label": "Ik focus mij regelmatig op één ding tegelijk zonder afgeleid te raken.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "5de696d7-bdb4-4c46-8916-b932cf197137",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "1",
+              "label": "yes",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "98216d55-88bf-41f4-9d08-6330feef9958",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "0",
+              "label": "no",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "222f6ab3-4d81-4b1b-89ef-170b419002fa",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:13 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "FollowProgram",
+          "label": "Ik blijf bij de belangrijkste prioriteiten die ik stel.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "603e8b0e-aee6-4bc7-8c3f-fa3121b0f1b0",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "1",
+              "label": "yes",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "53a4a04d-915f-4adc-96e7-8be7c8258fc4",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "0",
+              "label": "no",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "e869f3a3-38e2-48aa-96a9-ff660996b0fe",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:13 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "Prioritize",
+          "label": "Ik doe mijn belangrijkste taak als mijn eerste prioriteit op de dag.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "e7b0343b-6bb6-449f-84c5-9235e5849543",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "1",
+              "label": "yes",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "b89d8021-82e6-4c25-897f-e8b24f59aa65",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "0",
+              "label": "no",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "c621844c-ca2f-4313-89a8-cc3b964ef1b1",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:13 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "QuietMind",
+          "label": "Ik neem tijd op de dag om bewust mijn hoofd leeg te maken.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "705cbff5-f99f-43ac-a0ea-441b42df919e",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "1",
+              "label": "yes",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "b4008df3-d38a-4946-8b89-d4b9af628d06",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "0",
+              "label": "no",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "ca0bea9d-8679-458e-b5ae-30f5112a6123",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:13 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "Reflection",
+          "label": "Ik maak elke dag tijd vrij om te reflecteren op mijzelf.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "e82b58a6-dfc4-492d-a1ba-9ec5557c0ec2",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "1",
+              "label": "yes",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "5eb6b2fa-1f00-45d8-ad05-ff54614f5d75",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "0",
+              "label": "no",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "class": "com.biit.webforms.persistence.entity.Category",
+      "comparationId": "795ba8ea-86f6-43a7-baff-7ead84f62f4b",
+      "creationTime": "Mar 5, 2018 2:05:48 PM",
+      "updateTime": "Apr 14, 2018 1:23:13 PM",
+      "createdBy": 22707,
+      "updatedBy": 10436,
+      "name": "Spirit",
+      "label": "Spiritueel",
+      "hidden": false,
+      "children": [
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "a87b3103-482e-47fa-8a4b-add00c8874e4",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:13 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "Commitment",
+          "label": "Ik ben erg betrokken bij wat ik doe.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "ac03ae27-ccbd-4da7-9278-c9f37d4c827d",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "1",
+              "label": "yes",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "57a25ed6-6f64-470f-bebd-1b00011baaec",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "0",
+              "label": "no",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "6b09f763-61c4-472a-8aec-dcdc715601d2",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:13 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "SenseOfPurpose",
+          "label": "Mijn beslissingen op werk zijn vaker gebaseerd op mijn doelgerichtheid dan op externe factoren.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "77ecf60b-00a1-45e1-bfb4-c2d5e5abccdf",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "1",
+              "label": "yes",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "86b69334-c5bf-47a3-b550-fbd234ec1939",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "0",
+              "label": "no",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "0a7df0b2-342e-4f6d-a672-e0f0e7e14fd8",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:13 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "Care",
+          "label": "Ik heb een goede balans in het rekening houden met mijzelf en het rekening houden met anderen.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "8181e63d-adbb-4bf7-ae62-ed11ac806df7",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "1",
+              "label": "yes",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "cb9bdbc4-dca1-45b8-8eaa-f02d100eaaa4",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "0",
+              "label": "no",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "3914f995-4f26-4bcb-9b19-40f3c0610e2e",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:13 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "ImportanceAttribution",
+          "label": "Als ik zeg dat iets belangrijk is in mijn leven gedraag ik mij hier ook naar.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "e5e12bfc-1b8d-4923-b800-a90c0cef11c4",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "1",
+              "label": "yes",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "ad5f48f5-23d5-46c5-bc27-e681cb3518c2",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "0",
+              "label": "no",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "6aaabad6-63fe-46b3-97e7-5c4276a75e95",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Apr 14, 2018 1:23:13 PM",
+          "createdBy": 22707,
+          "updatedBy": 10436,
+          "name": "PositiveDifference",
+          "label": "Ik investeer voor mezelf genoeg tijd en energie in het bijdragen aan een positieve verandering in de wereld.",
+          "hidden": false,
+          "children": [
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "7b1277e2-1b15-4b75-80fc-b8f9e4121a19",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "1",
+              "label": "yes",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            },
+            {
+              "class": "com.biit.webforms.persistence.entity.Answer",
+              "comparationId": "364abec8-a431-4c74-b6b6-31e0a21162b4",
+              "creationTime": "Mar 5, 2018 2:05:48 PM",
+              "updateTime": "Mar 5, 2018 2:05:48 PM",
+              "createdBy": 22707,
+              "updatedBy": 22707,
+              "name": "0",
+              "label": "no",
+              "hidden": false,
+              "children": [],
+              "description": ""
+            }
+          ],
+          "answerType": "SINGLE_SELECTION_RADIO",
+          "mandatory": true,
+          "horizontal": true,
+          "description": ""
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.SystemField",
+          "comparationId": "0046ad98-21c5-4c17-9fc7-f44cd2e42973",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Mar 5, 2018 2:05:48 PM",
+          "createdBy": 22707,
+          "updatedBy": 22707,
+          "name": "organization",
+          "label": "\u003c\u003cnull\u003e\u003e",
+          "hidden": false,
+          "children": [],
+          "fieldName": "\u003cnull\u003e"
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.SystemField",
+          "comparationId": "6c242944-2357-4bc3-860d-99c16322a9ce",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Mar 5, 2018 2:05:48 PM",
+          "createdBy": 22707,
+          "updatedBy": 22707,
+          "name": "appointment",
+          "label": "\u003c\u003cnull\u003e\u003e",
+          "hidden": false,
+          "children": [],
+          "fieldName": "\u003cnull\u003e"
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.SystemField",
+          "comparationId": "174658c7-a8d1-4e96-bc87-a364a7c28ae0",
+          "creationTime": "Mar 5, 2018 2:05:48 PM",
+          "updateTime": "Mar 5, 2018 2:05:48 PM",
+          "createdBy": 22707,
+          "updatedBy": 22707,
+          "name": "appointment_type",
+          "label": "\u003c\u003cEnergy\u003e\u003e",
+          "hidden": false,
+          "children": [],
+          "fieldName": "\u003cEnergy\u003e"
+        }
+      ]
+    },
+    {
+      "class": "com.biit.webforms.persistence.entity.Category",
+      "comparationId": "3ef95172-47e8-4167-b48d-e92e3a9ecad7",
+      "creationTime": "Mar 6, 2018 11:16:27 AM",
+      "updateTime": "Apr 14, 2018 1:23:13 PM",
+      "createdBy": 22707,
+      "updatedBy": 10436,
+      "name": "Formulas",
+      "label": "Formulas",
+      "hidden": false,
+      "children": [
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "b4237f60-3134-497f-b44d-61d3e37a0e83",
+          "creationTime": "Mar 6, 2018 11:16:38 AM",
+          "updateTime": "Mar 6, 2018 2:07:38 PM",
+          "createdBy": 22707,
+          "updatedBy": 22707,
+          "name": "Body",
+          "label": "Body",
+          "hidden": false,
+          "children": [],
+          "answerType": "INPUT",
+          "answerFormat": "NUMBER",
+          "answerSubformat": "NUMBER",
+          "mandatory": true,
+          "horizontal": false,
+          "description": "",
+          "defaultValueString": "0"
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "e1814175-fd63-48e4-97c6-b0fa84af56f3",
+          "creationTime": "Mar 6, 2018 11:16:39 AM",
+          "updateTime": "Mar 6, 2018 2:07:40 PM",
+          "createdBy": 22707,
+          "updatedBy": 22707,
+          "name": "Emotions",
+          "label": "Emotions",
+          "hidden": false,
+          "children": [],
+          "answerType": "INPUT",
+          "answerFormat": "NUMBER",
+          "answerSubformat": "NUMBER",
+          "mandatory": true,
+          "horizontal": false,
+          "description": "",
+          "defaultValueString": "0"
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "9a248da2-a4ce-4add-8658-b173e4188e0c",
+          "creationTime": "Mar 6, 2018 11:16:39 AM",
+          "updateTime": "Mar 6, 2018 2:07:42 PM",
+          "createdBy": 22707,
+          "updatedBy": 22707,
+          "name": "Mind",
+          "label": "Mind",
+          "hidden": false,
+          "children": [],
+          "answerType": "INPUT",
+          "answerFormat": "NUMBER",
+          "answerSubformat": "NUMBER",
+          "mandatory": true,
+          "horizontal": false,
+          "description": "",
+          "defaultValueString": "0"
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "12305ec4-40df-4ac0-a5ff-895e3fb4958f",
+          "creationTime": "Mar 6, 2018 11:16:40 AM",
+          "updateTime": "Mar 6, 2018 2:07:44 PM",
+          "createdBy": 22707,
+          "updatedBy": 22707,
+          "name": "Spirit",
+          "label": "Spirit",
+          "hidden": false,
+          "children": [],
+          "answerType": "INPUT",
+          "answerFormat": "NUMBER",
+          "answerSubformat": "NUMBER",
+          "mandatory": true,
+          "horizontal": false,
+          "description": "",
+          "defaultValueString": "0"
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.Question",
+          "comparationId": "b26dd1c2-bb84-49e0-98a5-999f2c479638",
+          "creationTime": "Mar 6, 2018 11:17:53 AM",
+          "updateTime": "Mar 6, 2018 2:07:47 PM",
+          "createdBy": 22707,
+          "updatedBy": 22707,
+          "name": "EnergyBalance",
+          "label": "EnergyBalance",
+          "hidden": false,
+          "children": [],
+          "answerType": "INPUT",
+          "answerFormat": "NUMBER",
+          "answerSubformat": "NUMBER",
+          "mandatory": true,
+          "horizontal": false,
+          "description": "",
+          "defaultValueString": "0"
+        }
+      ]
+    }
+  ],
+  "version": 3,
+  "organizationId": 18903,
+  "description": "",
+  "flows": [],
+  "webserviceCalls": [
+    {
+      "class": "com.biit.webforms.persistence.entity.webservices.WebserviceCall",
+      "comparationId": "08c5937b-5695-43fa-9145-5729325be62a",
+      "creationTime": "Apr 5, 2018 10:12:57 AM",
+      "updateTime": "Apr 17, 2018 11:23:44 AM",
+      "name": "getPatientByCode",
+      "webserviceName": "getPatientByGuardCode",
+      "formElementTrigger_id": [
+        "PersonalDetails",
+        "user_guard"
+      ],
+      "inputLinks": [
+        {
+          "class": "com.biit.webforms.persistence.entity.webservices.WebserviceCallInputLink",
+          "comparationId": "1a6b7b3f-d2c7-4a5b-8225-f309d541ec8f",
+          "creationTime": "Apr 5, 2018 10:12:57 AM",
+          "updateTime": "Apr 17, 2018 11:23:44 AM",
+          "webservicePort": "user_guard",
+          "formElement_id": [
+            "PersonalDetails",
+            "user_guard"
+          ],
+          "errors": [
+            {
+              "errorCode": "not valid",
+              "errorMessage": ""
+            },
+            {
+              "errorCode": "not exist",
+              "errorMessage": ""
+            }
+          ],
+          "validationXpath": "/valid"
+        }
+      ],
+      "outputLinks": [
+        {
+          "class": "com.biit.webforms.persistence.entity.webservices.WebserviceCallOutputLink",
+          "comparationId": "ff6d71b1-ec13-4891-84df-f7652ebc6d29",
+          "creationTime": "Apr 5, 2018 10:12:57 AM",
+          "updateTime": "Apr 17, 2018 11:23:44 AM",
+          "webservicePort": "initials",
+          "formElement_id": [
+            "PersonalDetails",
+            "profile_initials"
+          ],
+          "isEditable": true
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.webservices.WebserviceCallOutputLink",
+          "comparationId": "562450c3-39c9-4f04-a41b-148678861bf2",
+          "creationTime": "Apr 5, 2018 10:12:57 AM",
+          "updateTime": "Apr 17, 2018 11:23:44 AM",
+          "webservicePort": "city",
+          "formElement_id": [
+            "PersonalDetails",
+            "person_address_city"
+          ],
+          "isEditable": true
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.webservices.WebserviceCallOutputLink",
+          "comparationId": "74a14e34-c0aa-46e1-bf35-bb4daaf74550",
+          "creationTime": "Apr 5, 2018 10:12:57 AM",
+          "updateTime": "Apr 17, 2018 11:23:44 AM",
+          "webservicePort": "comparationId",
+          "formElement_id": [
+            "PersonalDetails",
+            "user_comparation_id"
+          ],
+          "isEditable": true
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.webservices.WebserviceCallOutputLink",
+          "comparationId": "3e515014-ff40-40c7-a265-c8f278e680a2",
+          "creationTime": "Apr 5, 2018 10:12:57 AM",
+          "updateTime": "Apr 17, 2018 11:23:44 AM",
+          "webservicePort": "email",
+          "formElement_id": [
+            "PersonalDetails",
+            "profile_email_address"
+          ],
+          "isEditable": true
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.webservices.WebserviceCallOutputLink",
+          "comparationId": "fbc56f42-8c16-4956-abd7-dc1abafdfd1f",
+          "creationTime": "Apr 5, 2018 10:12:57 AM",
+          "updateTime": "Apr 17, 2018 11:23:44 AM",
+          "webservicePort": "postalcode",
+          "formElement_id": [
+            "PersonalDetails",
+            "person_address_postal"
+          ],
+          "isEditable": true
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.webservices.WebserviceCallOutputLink",
+          "comparationId": "ea9acc84-18b9-41fe-b0bb-276d16e6cfc8",
+          "creationTime": "Apr 5, 2018 10:12:57 AM",
+          "updateTime": "Apr 17, 2018 11:23:44 AM",
+          "webservicePort": "address",
+          "formElement_id": [
+            "PersonalDetails",
+            "person_address_street"
+          ],
+          "isEditable": true
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.webservices.WebserviceCallOutputLink",
+          "comparationId": "77376d1b-752b-4a28-b3d0-6559c639c96c",
+          "creationTime": "Apr 5, 2018 10:12:57 AM",
+          "updateTime": "Apr 17, 2018 11:23:44 AM",
+          "webservicePort": "birthdate",
+          "formElement_id": [
+            "PersonalDetails",
+            "profile_birthday"
+          ],
+          "isEditable": true
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.webservices.WebserviceCallOutputLink",
+          "comparationId": "8691af8d-1f49-46e2-9036-562c665d3a27",
+          "creationTime": "Apr 5, 2018 10:12:57 AM",
+          "updateTime": "Apr 17, 2018 11:23:44 AM",
+          "webservicePort": "firstname",
+          "formElement_id": [
+            "PersonalDetails",
+            "profile_first_name"
+          ],
+          "isEditable": true
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.webservices.WebserviceCallOutputLink",
+          "comparationId": "0ffd5d5f-4e9c-478e-b886-3d4f893b1de4",
+          "creationTime": "Apr 5, 2018 10:12:57 AM",
+          "updateTime": "Apr 17, 2018 11:23:44 AM",
+          "webservicePort": "lastname",
+          "formElement_id": [
+            "PersonalDetails",
+            "profile_last_name"
+          ],
+          "isEditable": true
+        },
+        {
+          "class": "com.biit.webforms.persistence.entity.webservices.WebserviceCallOutputLink",
+          "comparationId": "da5fe580-45fb-4f5e-879d-001ea782efe1",
+          "creationTime": "Apr 5, 2018 10:12:57 AM",
+          "updateTime": "Apr 17, 2018 11:23:44 AM",
+          "webservicePort": "mobilePhone",
+          "formElement_id": [
+            "PersonalDetails",
+            "profile_phone"
+          ],
+          "isEditable": true
+        }
+      ]
+    }
+  ]
+}

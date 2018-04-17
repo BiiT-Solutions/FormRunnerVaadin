@@ -1,4 +1,4 @@
-package com.biit.formrunner.orbeon;
+package com.biit.formrunner.tests;
 
 import java.util.Set;
 
@@ -8,9 +8,10 @@ import org.testng.annotations.Test;
 import com.biit.formrunner.copy.FormRunnerEquivalence;
 import com.biit.formrunner.copy.FormRunnerEquivalenceConfigReader;
 import com.biit.formrunner.copy.FormRunnerMatcher;
+import com.biit.formrunner.mock.orbeon.MockSubmittedQuestion;
 
 @Test(groups = "orbeonFormRunnerMatcher")
-public class OrbeonFormRunnerMatcherTest {
+public class OrbeonFormRunnerMatcherTests {
 	private final static String ANAMNESE_COPY_CONFIGURATION_FILE = "anamneseCopy.xml";
 
 	@Test
