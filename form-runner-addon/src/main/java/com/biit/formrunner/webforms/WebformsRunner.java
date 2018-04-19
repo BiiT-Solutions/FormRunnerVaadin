@@ -139,10 +139,14 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 				relevance = true;
 			} else {
 				// Check parents
-				for (Flow flow : computedFlowView.getFlowsByDestiny(children.get(i))) {
-					// Relevance is true if in previous iteration was true or if
-					// previous element is visible and the flow is valid.
-					relevance = relevance || (getRelevance(flow.getOrigin().getPath()) && checkIsValidFlow(flow));
+				Set<Flow> flowsByDestiny = computedFlowView.getFlowsByDestiny(children.get(i));
+				if (flowsByDestiny != null) {
+					for (Flow flow : flowsByDestiny) {
+						// Relevance is true if in previous iteration was true
+						// or if
+						// previous element is visible and the flow is valid.
+						relevance = relevance || (getRelevance(flow.getOrigin().getPath()) && checkIsValidFlow(flow));
+					}
 				}
 			}
 
@@ -253,10 +257,8 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 				List<String> formRunnerElementPath = equivalence.getDestinationPathAsList();
 				if (formRunnerElementPath != null && !formRunnerElementPath.isEmpty()) {
 					// Translate Orbeon answer to Form Runner value.
-					FormRunnerLogger.debug(
-							this.getClass().getName(),
-							"Question '" + equivalence.getDestinationPath() + "' default value obtained from submitted question '"
-									+ equivalence.getSourcePath() + "'. Value is " + equivalence.getFormRunnerAnswers());
+					FormRunnerLogger.debug(this.getClass().getName(), "Question '" + equivalence.getDestinationPath()
+							+ "' default value obtained from submitted question '" + equivalence.getSourcePath() + "'. Value is " + equivalence.getFormRunnerAnswers());
 					setAnswers(formRunnerElementPath, new ArrayList<>(equivalence.getFormRunnerAnswers()));
 				} else {
 					FormRunnerLogger.debug(this.getClass().getName(), "Submitted value not applied in examination: '" + equivalence + "'");
