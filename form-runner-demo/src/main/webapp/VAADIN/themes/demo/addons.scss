@@ -1,12 +1,7 @@
 /* This file is automatically managed and will be overwritten from time to time. */
 /* Do not manually edit this file. */
 
-/* Provided by form-runner-addon-1.2.18-SNAPSHOT.jar */
-@import "../../../VAADIN/addons/formrunner/formRunner.scss";
-
-
 /* Import and include this mixin into your project theme to include the addon themes */
 @mixin addons {
-	@include formRunner;
 }
 

@@ -88,7 +88,7 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 		}
 
 		// Hide all the elements
-		List<TreeObject> elements = form.getAll(BaseQuestion.class);
+		List<BaseQuestion> elements = form.getAll(BaseQuestion.class);
 		int tabIndex = tabIndexDelta;
 		for (TreeObject element : elements) {
 			try {
@@ -270,7 +270,7 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 	@Override
 	public void loadFormResult(FormResult formResult) {
 		if (formResult != null) {
-			List<TreeObject> questions = formResult.getAll(BaseQuestionWithValue.class);
+			List<BaseQuestionWithValue> questions = formResult.getAll(BaseQuestionWithValue.class);
 
 			for (TreeObject element : questions) {
 				BaseQuestionWithValue question = (BaseQuestionWithValue) element;
