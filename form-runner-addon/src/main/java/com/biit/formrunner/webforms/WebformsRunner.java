@@ -298,6 +298,7 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 	 * 
 	 * @return Form Result
 	 */
+	@Override
 	public FormResult getFormResult() {
 		if (form == null) {
 			return null;
