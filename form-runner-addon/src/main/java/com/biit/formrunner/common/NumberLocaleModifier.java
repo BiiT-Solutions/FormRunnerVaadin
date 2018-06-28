@@ -4,7 +4,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
-import com.biit.form.runner.logger.FormRunnerLogger;
+import com.biit.formrunner.logger.FormRunnerLogger;
 
 public class NumberLocaleModifier implements ValueModifier {
 
@@ -19,8 +19,12 @@ public class NumberLocaleModifier implements ValueModifier {
 	@Override
 	public String modifyToSave(String value) {
 		try {
+			FormRunnerLogger.debug(this.getClass().getName(), "");
 			Number number = NumberFormat.getInstance(programLocale).parse(value);
-			return NumberFormat.getInstance(databaseLocale).format(number);
+			String finalValue = NumberFormat.getInstance(databaseLocale).format(number);
+			FormRunnerLogger.debug(this.getClass().getName(), "Inserting value '" + value + "' with locale '" + programLocale + "' changed to '" + finalValue
+					+ "' with locale '" + databaseLocale + "' into database.");
+			return finalValue;
 		} catch (ParseException e) {
 			FormRunnerLogger.errorMessage(NumberLocaleModifier.class.getName(), e);
 			return value;
@@ -31,7 +35,10 @@ public class NumberLocaleModifier implements ValueModifier {
 	public String modifyToLoad(String value) {
 		try {
 			Number number = NumberFormat.getInstance(databaseLocale).parse(value);
-			return NumberFormat.getInstance(programLocale).format(number);
+			String finalValue =NumberFormat.getInstance(programLocale).format(number);
+			FormRunnerLogger.debug(this.getClass().getName(), "Retrieving '" + value + "' with locale '" + programLocale + "' as '" + finalValue
+					+ "' with locale '" + databaseLocale + "' to the UI.");
+			return finalValue;
 		} catch (ParseException e) {
 			FormRunnerLogger.errorMessage(NumberLocaleModifier.class.getName(), e);
 			return value;
