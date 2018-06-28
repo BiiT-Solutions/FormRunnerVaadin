@@ -21,7 +21,11 @@ public class NumberLocaleModifier implements ValueModifier {
 		try {
 			FormRunnerLogger.debug(this.getClass().getName(), "");
 			Number number = NumberFormat.getInstance(programLocale).parse(value);
-			String finalValue = NumberFormat.getInstance(databaseLocale).format(number);
+			NumberFormat formatter = NumberFormat.getInstance(databaseLocale);
+			// Remove grouping separator for storing.
+			formatter.setGroupingUsed(false);
+			String finalValue = formatter.format(number);
+
 			FormRunnerLogger.debug(this.getClass().getName(), "Inserting value '" + value + "' with locale '" + programLocale + "' changed to '" + finalValue
 					+ "' with locale '" + databaseLocale + "' into database.");
 			return finalValue;
@@ -35,7 +39,7 @@ public class NumberLocaleModifier implements ValueModifier {
 	public String modifyToLoad(String value) {
 		try {
 			Number number = NumberFormat.getInstance(databaseLocale).parse(value);
-			String finalValue =NumberFormat.getInstance(programLocale).format(number);
+			String finalValue = NumberFormat.getInstance(programLocale).format(number);
 			FormRunnerLogger.debug(this.getClass().getName(), "Retrieving '" + value + "' with locale '" + programLocale + "' as '" + finalValue
 					+ "' with locale '" + databaseLocale + "' to the UI.");
 			return finalValue;
