@@ -131,7 +131,7 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 	@Override
 	public void evaluate(List<String> path) throws PathDoesNotExist {
 		TreeObject start = form.getChild(path);
-		ArrayList<TreeObject> children = new ArrayList<>(form.getAllChildrenInHierarchy(BaseQuestion.class));
+		ArrayList<BaseQuestion> children = new ArrayList<>(form.getAllChildrenInHierarchy(BaseQuestion.class));
 		for (int i = children.indexOf(start); i < children.size(); i++) {
 			boolean relevance = false;
 			// If first question of form relevance is true
