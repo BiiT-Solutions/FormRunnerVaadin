@@ -257,8 +257,10 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 				List<String> formRunnerElementPath = equivalence.getDestinationPathAsList();
 				if (formRunnerElementPath != null && !formRunnerElementPath.isEmpty()) {
 					// Translate Orbeon answer to Form Runner value.
-					FormRunnerLogger.debug(this.getClass().getName(), "Question '" + equivalence.getDestinationPath()
-							+ "' default value obtained from submitted question '" + equivalence.getSourcePath() + "'. Value is " + equivalence.getFormRunnerAnswers());
+					FormRunnerLogger.debug(
+							this.getClass().getName(),
+							"Question '" + equivalence.getDestinationPath() + "' default value obtained from submitted question '"
+									+ equivalence.getSourcePath() + "'. Value is " + equivalence.getFormRunnerAnswers());
 					setAnswers(formRunnerElementPath, new ArrayList<>(equivalence.getFormRunnerAnswers()));
 				} else {
 					FormRunnerLogger.debug(this.getClass().getName(), "Submitted value not applied in examination: '" + equivalence + "'");

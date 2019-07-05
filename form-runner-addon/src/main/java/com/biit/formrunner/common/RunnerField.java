@@ -70,6 +70,9 @@ public class RunnerField<T extends AbstractField<?>> extends RunnerElement<T> {
 
 	@Override
 	public void setAnswers(List<String> answers) throws UnsupportedOperationException {
+		if (answers == null || answers.isEmpty()) {
+			return;
+		}
 		// We need to lock the component to avoid
 		// java.lang.IllegalStateException: A connector should not be marked as
 		// dirty while a response is being written.

@@ -212,6 +212,9 @@ public class RunnerGroup extends CustomComponent implements IRunnerElement {
 
 	@Override
 	public IRunnerElement getElement(List<String> path) throws PathDoesNotExist {
+		if (path == null || path.isEmpty()) {
+			throw new PathDoesNotExist(path);
+		}
 		IRunnerElement element = getElement(path.get(0));
 		if (path.size() == 1) {
 			return element;

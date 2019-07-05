@@ -131,10 +131,10 @@ public class WebformsRunnerElementFactory {
 		case SINGLE_SELECTION_RADIO:
 			return generateSelectionList(element, false, runner);
 		case MULTIPLE_SELECTION:
-			return generateSelectionList(element, true, runner);		
+			return generateSelectionList(element, true, runner);
 		case SINGLE_SELECTION_SLIDER:
 			return generateSlider(element, runner);
-		}	
+		}
 		throw new UnsupportedOperationException("Question '" + element.getName() + "' has an unsupported answer type '" + element.getAnswerType() + "'");
 	}
 
@@ -284,16 +284,20 @@ public class WebformsRunnerElementFactory {
 		Label label = new Label(element.getDescription());
 		return new RunnerStaticField(element.getName(), label, runner, element.getPath());
 	}
-	
-	private static IRunnerElement generateSlider(Question element, Runner runner) {	
+
+	private static IRunnerElement generateSlider(Question element, Runner runner) {
 		List<TreeObject> answers = element.getChildren();
+		if (answers.isEmpty()) {
+			return new RunnerSlider(element.getName(), element.getLabel(), 0d, 0d, element.getDescription(), null, element.isMandatory(), 0d, runner,
+					element.getPath());
+		}
 		String minValueLabel = answers.get(0).getLabel();
 		double minValue = Double.parseDouble(minValueLabel);
-		String maxValueLabel = answers.get(answers.size()-1).getLabel();
+		String maxValueLabel = answers.get(answers.size() - 1).getLabel();
 		double maxValue = Double.parseDouble(maxValueLabel);
 		double defaultValue = minValue;
-		return new RunnerSlider(element.getName(), element.getLabel(), minValue, maxValue, element.getDescription(), null, 
-				element.isMandatory(), defaultValue, runner, element.getPath());
+		return new RunnerSlider(element.getName(), element.getLabel(), minValue, maxValue, element.getDescription(), null, element.isMandatory(), defaultValue,
+				runner, element.getPath());
 	}
 
 }

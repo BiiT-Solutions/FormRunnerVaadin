@@ -28,11 +28,11 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 
 	private static final long serialVersionUID = -2484037913536806393L;
 
-	//private Logger logger = Logger.getLogger(FormRunnerLogger.class);
+	// private Logger logger = Logger.getLogger(FormRunnerLogger.class);
 
 	private static final String CLASSNAME = "v-form-runner-table";
 	private static final String TABLESTYLENAME = "vFormRunnerElementTable";
-	
+
 	private static final String FULL = "100%";
 
 	private final String name;
@@ -165,14 +165,15 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 			addLabelToTable(groupName, 0, row);
 			row++;
 		}
-		TreeObject children = group.getChildren().get(0);
-		int column = 1;
-		for (TreeObject question : children.getChildren()) {
-			Label questionLabel = new Label(question.getLabel());
-			addLabelToTable(questionLabel, column, 0);
-			column++;
+		if (!group.getChildren().isEmpty()) {
+			TreeObject children = group.getChildren().get(0);
+			int column = 1;
+			for (TreeObject question : children.getChildren()) {
+				Label questionLabel = new Label(question.getLabel());
+				addLabelToTable(questionLabel, column, 0);
+				column++;
+			}
 		}
-
 	}
 
 	private void configureLayouts() {
@@ -303,29 +304,24 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		/*
 		 * Iterator<Component> itr = tableElementsLayout.iterator();
 		 * 
-		 * while (itr.hasNext()) { Component component = (IRunnerElement) itr.next(); if
-		 * (component instanceof IRunnerElement) { IRunnerElement next =
-		 * (IRunnerElement) component; if (next.getName().equals(name)) { return next; }
-		 * } } throw new PathDoesNotExist(name);
+		 * while (itr.hasNext()) { Component component = (IRunnerElement)
+		 * itr.next(); if (component instanceof IRunnerElement) { IRunnerElement
+		 * next = (IRunnerElement) component; if (next.getName().equals(name)) {
+		 * return next; } } } throw new PathDoesNotExist(name);
 		 */
 
-		/*if (true) {
-			return (IRunnerElement) tableElementsLayout.getComponent(1, 1);
-		}
-
-		Iterator<Component> itr = tableElementsLayout.iterator();
-
-		while (itr.hasNext()) {
-			Component element = itr.next();
-			if (element instanceof IRunnerElement) {
-				IRunnerElement next = (IRunnerElement) element;
-				if (next.getName().equals(name)) {
-					return next;
-				}
-			}
-		}
-
-		logger.warn("table getElement Name:" + name);*/
+		/*
+		 * if (true) { return (IRunnerElement)
+		 * tableElementsLayout.getComponent(1, 1); }
+		 * 
+		 * Iterator<Component> itr = tableElementsLayout.iterator();
+		 * 
+		 * while (itr.hasNext()) { Component element = itr.next(); if (element
+		 * instanceof IRunnerElement) { IRunnerElement next = (IRunnerElement)
+		 * element; if (next.getName().equals(name)) { return next; } } }
+		 * 
+		 * logger.warn("table getElement Name:" + name);
+		 */
 		throw new PathDoesNotExist(name);
 
 	}
