@@ -21,7 +21,7 @@
 		<jetty.plugin.version>9.2.3.v20140905</jetty.plugin.version>
 		<servlet-api.version>2.5</servlet-api.version>
 		<!-- BiiT Custom properties --> 
-		<biit-common-utils.version>[0.4,0.5)</biit-common-utils.version>
+		<biit-common-utils.version>[1.0,1.1)</biit-common-utils.version>
 		<biit-vaadin-common.version>[0.4,0.5)</biit-vaadin-common.version>
 		<webforms-persistence.version>[2.11,2.12)</webforms-persistence.version>
 	</properties>
