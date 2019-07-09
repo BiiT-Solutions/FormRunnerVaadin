@@ -23,7 +23,7 @@
 		<!-- BiiT Custom properties --> 
 		<biit-common-utils.version>[1.0,1.1)</biit-common-utils.version>
 		<biit-vaadin-common.version>[0.4,0.5)</biit-vaadin-common.version>
-		<webforms-persistence.version>[2.11,2.12)</webforms-persistence.version>
+		<webforms-persistence.version>[2.12,2.13)</webforms-persistence.version>
 	</properties>
 
 	<modules>
