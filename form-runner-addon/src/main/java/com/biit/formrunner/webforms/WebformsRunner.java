@@ -105,19 +105,25 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 
 		setLoading(false);
 
+		evaluate();
+
+		// Show image if exists and there is room enough
+		if (isImagesEnabled() && UI.getCurrent() != null
+				&& UI.getCurrent().getPage().getBrowserWindowWidth() >= IMAGE_MINIMUM_WIDTH
+				&& form.getImage() != null) {
+			setImageLayoutVisible();
+			setImage(form.getImage());
+		} else {
+			setImageLayoutUnvisible();
+		}
+	}
+
+	public void evaluate() {
 		try {
 			evaluate(computedFlowView.getFirstElement().getPath());
 		} catch (PathDoesNotExist e) {
 			// Not possible.
 			FormRunnerLogger.errorMessage(WebformsRunner.class.getName(), e);
-		}
-
-		// Show image if exists and there is room enough
-		if (isImagesEnabled() && UI.getCurrent() != null && UI.getCurrent().getPage().getBrowserWindowWidth() >= IMAGE_MINIMUM_WIDTH && form.getImage() != null) {
-			setImageLayoutVisible();
-			setImage(form.getImage());
-		} else {
-			setImageLayoutUnvisible();
 		}
 	}
 
@@ -181,11 +187,12 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 			}
 		}
 		try {
-			WebformsExpression expression = (WebformsExpression) (new WebformsParser(condition.iterator())).parseCompleteExpression();
+			WebformsExpression expression = (WebformsExpression) (new WebformsParser(condition.iterator()))
+					.parseCompleteExpression();
 			Boolean value = expression.evaluate();
 			return value != null && value;
-		} catch (ParseException | ExpectedTokenNotFound | NoMoreTokensException | IncompleteBinaryOperatorException | MissingParenthesisException
-				| ExpressionNotWellFormedException | EmptyParenthesisException e) {
+		} catch (ParseException | ExpectedTokenNotFound | NoMoreTokensException | IncompleteBinaryOperatorException
+				| MissingParenthesisException | ExpressionNotWellFormedException | EmptyParenthesisException e) {
 			// If the form is valid this should never happen.
 			FormRunnerLogger.errorMessage(this.getClass().getName(), e);
 			return false;
@@ -237,7 +244,8 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 			for (IQuestionWithAnswers element : questions) {
 				IQuestionWithAnswers submittedQuestion = (IQuestionWithAnswers) element;
 				// Translate Orbeon path to form runner path.
-				Set<FormRunnerEquivalence> equivalencesObtained = formRunnerMatcher.getFormRunnerEquivalences(submittedQuestion);
+				Set<FormRunnerEquivalence> equivalencesObtained = formRunnerMatcher
+						.getFormRunnerEquivalences(submittedQuestion);
 				for (FormRunnerEquivalence equivalence : equivalencesObtained) {
 					if (equivalence != null) {
 						// Select the correct equivalence filtered by priority.
@@ -245,7 +253,8 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 						// priority must be preferred.
 						if (equivalences.get(equivalence.getDestinationPath()) == null) {
 							equivalences.put(equivalence.getDestinationPath(), equivalence);
-						} else if (equivalences.get(equivalence.getDestinationPath()).getPriority() < equivalence.getPriority()) {
+						} else if (equivalences.get(equivalence.getDestinationPath()).getPriority() < equivalence
+								.getPriority()) {
 							equivalences.put(equivalence.getDestinationPath(), equivalence);
 						}
 					}
@@ -257,13 +266,14 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 				List<String> formRunnerElementPath = equivalence.getDestinationPathAsList();
 				if (formRunnerElementPath != null && !formRunnerElementPath.isEmpty()) {
 					// Translate Orbeon answer to Form Runner value.
-					FormRunnerLogger.debug(
-							this.getClass().getName(),
-							"Question '" + equivalence.getDestinationPath() + "' default value obtained from submitted question '"
-									+ equivalence.getSourcePath() + "'. Value is " + equivalence.getFormRunnerAnswers());
+					FormRunnerLogger.debug(this.getClass().getName(),
+							"Question '" + equivalence.getDestinationPath()
+									+ "' default value obtained from submitted question '" + equivalence.getSourcePath()
+									+ "'. Value is " + equivalence.getFormRunnerAnswers());
 					setAnswers(formRunnerElementPath, new ArrayList<>(equivalence.getFormRunnerAnswers()));
 				} else {
-					FormRunnerLogger.debug(this.getClass().getName(), "Submitted value not applied in examination: '" + equivalence + "'");
+					FormRunnerLogger.debug(this.getClass().getName(),
+							"Submitted value not applied in examination: '" + equivalence + "'");
 				}
 			}
 		}
@@ -325,8 +335,8 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 		}
 	}
 
-	private void addGroupInformation(BaseForm result, ResultGroup element) throws FieldTooLongException, CharacterNotAllowedException, NotValidChildException,
-			ElementIsReadOnly {
+	private void addGroupInformation(BaseForm result, ResultGroup element)
+			throws FieldTooLongException, CharacterNotAllowedException, NotValidChildException, ElementIsReadOnly {
 		CategoryResult category = new CategoryResult();
 		category.setName(element.getPath());
 		for (Result answerElement : element.getAnswerElements()) {
@@ -335,8 +345,8 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 		result.addChild(category);
 	}
 
-	private void addGroupInformation(BaseGroup parentResultGroup, Result answerElement) throws FieldTooLongException, CharacterNotAllowedException,
-			NotValidChildException, ElementIsReadOnly {
+	private void addGroupInformation(BaseGroup parentResultGroup, Result answerElement)
+			throws FieldTooLongException, CharacterNotAllowedException, NotValidChildException, ElementIsReadOnly {
 		if (answerElement instanceof ResultQuestion) {
 			QuestionWithValueResult resultQuestion = new QuestionWithValueResult();
 			resultQuestion.setName(answerElement.getPath());
