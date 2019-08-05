@@ -143,7 +143,9 @@ public class RunnerGroup extends CustomComponent implements IRunnerElement {
 		Iterator<Component> itr = groupElementsLayout.iterator();
 		while (itr.hasNext()) {
 			IRunnerElement component = (IRunnerElement) itr.next();
-			groupAnswer.addAnswers(component.getAnswers());
+			if (component.getRelevance()) {
+				groupAnswer.addAnswers(component.getAnswers());
+			}
 		}
 		answers.add(groupAnswer);
 

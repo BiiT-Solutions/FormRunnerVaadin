@@ -19,8 +19,8 @@ public class RunnerField<T extends AbstractField<?>> extends RunnerElement<T> {
 	private final Set<FieldValueChanged> valueChangedListeners;
 	private ValueModifier valueModifier;
 
-	public RunnerField(String name, AbstractField<?> component, String description, boolean isMandatory, String requiredCaption, Runner runner,
-			List<String> path) {
+	public RunnerField(String name, AbstractField<?> component, String description, boolean isMandatory,
+			String requiredCaption, Runner runner, List<String> path) {
 		super(name, component, runner, path);
 		valueChangedListeners = new HashSet<>();
 		component.addValueChangeListener(new ValueChangeListener() {
@@ -53,9 +53,11 @@ public class RunnerField<T extends AbstractField<?>> extends RunnerElement<T> {
 	@Override
 	public List<Result> getAnswers() throws InvalidValueException {
 		List<Result> answers = new ArrayList<Result>();
-		if (getComponent().getValue() != null && !getComponent().getValue().toString().isEmpty() && getComponent().isValid()) {
+		if (getRelevance() && getComponent().getValue() != null && !getComponent().getValue().toString().isEmpty()
+				&& getComponent().isValid()) {
 			if (valueModifier != null) {
-				answers.add(new ResultQuestion(getName(), valueModifier.modifyToSave(getComponent().getValue().toString())));
+				answers.add(new ResultQuestion(getName(),
+						valueModifier.modifyToSave(getComponent().getValue().toString())));
 			} else {
 				answers.add(new ResultQuestion(getName(), getComponent().getValue().toString()));
 			}

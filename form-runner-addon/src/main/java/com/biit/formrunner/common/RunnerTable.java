@@ -217,7 +217,9 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 					Component tableComponent = tableElementsLayout.getComponent(column, row);
 					if (tableComponent instanceof IRunnerElement) {
 						IRunnerElement component = (IRunnerElement) tableComponent;
-						rowAnswers.addAnswers(component.getAnswers());
+						if (component.getRelevance()) {
+							rowAnswers.addAnswers(component.getAnswers());
+						}
 					}
 					column++;
 				}
@@ -304,21 +306,20 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		/*
 		 * Iterator<Component> itr = tableElementsLayout.iterator();
 		 * 
-		 * while (itr.hasNext()) { Component component = (IRunnerElement)
-		 * itr.next(); if (component instanceof IRunnerElement) { IRunnerElement
-		 * next = (IRunnerElement) component; if (next.getName().equals(name)) {
-		 * return next; } } } throw new PathDoesNotExist(name);
+		 * while (itr.hasNext()) { Component component = (IRunnerElement) itr.next(); if
+		 * (component instanceof IRunnerElement) { IRunnerElement next =
+		 * (IRunnerElement) component; if (next.getName().equals(name)) { return next; }
+		 * } } throw new PathDoesNotExist(name);
 		 */
 
 		/*
-		 * if (true) { return (IRunnerElement)
-		 * tableElementsLayout.getComponent(1, 1); }
+		 * if (true) { return (IRunnerElement) tableElementsLayout.getComponent(1, 1); }
 		 * 
 		 * Iterator<Component> itr = tableElementsLayout.iterator();
 		 * 
 		 * while (itr.hasNext()) { Component element = itr.next(); if (element
-		 * instanceof IRunnerElement) { IRunnerElement next = (IRunnerElement)
-		 * element; if (next.getName().equals(name)) { return next; } } }
+		 * instanceof IRunnerElement) { IRunnerElement next = (IRunnerElement) element;
+		 * if (next.getName().equals(name)) { return next; } } }
 		 * 
 		 * logger.warn("table getElement Name:" + name);
 		 */

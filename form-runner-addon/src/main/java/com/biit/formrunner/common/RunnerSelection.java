@@ -15,8 +15,8 @@ public class RunnerSelection<T extends AbstractSelect> extends RunnerElement<T> 
 	private static final long serialVersionUID = 2621769528581225023L;
 	private final Set<FieldValueChanged> valueChangedListeners;
 
-	public RunnerSelection(String name, T component, String description, boolean isMandatory, String requiredCaption, Runner runner,
-			List<String> path) {
+	public RunnerSelection(String name, T component, String description, boolean isMandatory, String requiredCaption,
+			Runner runner, List<String> path) {
 		super(name, component, runner, path);
 		valueChangedListeners = new HashSet<>();
 		component.setDescription(description);
@@ -45,23 +45,22 @@ public class RunnerSelection<T extends AbstractSelect> extends RunnerElement<T> 
 	@Override
 	public List<Result> getAnswers() {
 		List<Result> answers = new ArrayList<Result>();
-		if (getComponent().getValue() == null) {
-			// Empty answer do no fill
-		} else {
-			if (getComponent().getValue() instanceof Set) {
-				@SuppressWarnings("unchecked")
-				Set<Object> values = ((Set<Object>) getComponent().getValue());
+		if (getComponent().getValue() == null || !getRelevance()) {
+			return answers;
+		}
+		if (getComponent().getValue() instanceof Set) {
+			@SuppressWarnings("unchecked")
+			Set<Object> values = ((Set<Object>) getComponent().getValue());
 
-				// Generate a new question answer with all the answers
-				ResultQuestion questionAnswer = new ResultQuestion(getName());
-				for (Object value : values) {
-					questionAnswer.addAnswer(value.toString());
-				}
-				answers.add(questionAnswer);
-			} else {
-				// Generate a new question answer with the selected answer.
-				answers.add(new ResultQuestion(getName(), getComponent().getValue().toString()));
+			// Generate a new question answer with all the answers
+			ResultQuestion questionAnswer = new ResultQuestion(getName());
+			for (Object value : values) {
+				questionAnswer.addAnswer(value.toString());
 			}
+			answers.add(questionAnswer);
+		} else {
+			// Generate a new question answer with the selected answer.
+			answers.add(new ResultQuestion(getName(), getComponent().getValue().toString()));
 		}
 		return answers;
 	}

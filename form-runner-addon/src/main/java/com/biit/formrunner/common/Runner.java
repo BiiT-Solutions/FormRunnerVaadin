@@ -193,7 +193,9 @@ public class Runner extends CustomComponent {
 		Iterator<Component> itr = formLayout.iterator();
 		while (itr.hasNext()) {
 			IRunnerElement component = (IRunnerElement) itr.next();
-			answers.addAll(component.getAnswers());
+			if (component.getRelevance()) {
+				answers.addAll(component.getAnswers());
+			}
 		}
 
 		return answers;
@@ -217,8 +219,7 @@ public class Runner extends CustomComponent {
 	/**
 	 * Set loading to true to avoid value change evaluations.
 	 * 
-	 * @param loading
-	 *            the value.
+	 * @param loading the value.
 	 */
 	public void setLoading(boolean loading) {
 		this.loading = loading;
