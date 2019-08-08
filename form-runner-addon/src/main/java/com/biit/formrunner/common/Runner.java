@@ -180,7 +180,16 @@ public class Runner extends CustomComponent {
 		} catch (PathDoesNotExist | ClassCastException e) {
 			((RunnerTable) getElement(path.subList(0, path.size() - 2))).checkRelevance();
 		}
+	}
 
+	public void setAsHiddenElement(List<String> path, boolean value) throws PathDoesNotExist {
+		IRunnerElement element = getElement(path);
+		element.setHiddenElement(value);
+		try {
+			((RunnerGroup) getElement(path.subList(0, path.size() - 1))).checkIsHiddenElement();
+		} catch (PathDoesNotExist | ClassCastException e) {
+			((RunnerTable) getElement(path.subList(0, path.size() - 2))).checkIsHiddenElement();
+		}
 	}
 
 	public boolean getRelevance(List<String> path) throws PathDoesNotExist {

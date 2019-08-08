@@ -11,6 +11,8 @@ import com.biit.form.exceptions.CharacterNotAllowedException;
 import com.biit.form.exceptions.ElementIsReadOnly;
 import com.biit.form.exceptions.NotValidChildException;
 import com.biit.form.exceptions.TooManyResultsFoundException;
+import com.biit.form.result.FormResult;
+import com.biit.form.result.QuestionWithValueResult;
 import com.biit.formrunner.common.exceptions.PathDoesNotExist;
 import com.biit.formrunner.mock.TestFormRunner;
 import com.biit.persistence.entity.exceptions.FieldTooLongException;
@@ -61,5 +63,34 @@ public class HiddenElementsTests {
 		Assert.assertFalse(
 				formRunner.getElement(form.getChild(Question.class, "question610").getPath()).getRelevance());
 		Assert.assertTrue(formRunner.getElement(form.getChild(Question.class, "question15").getPath()).getRelevance());
+	}
+
+	@Test
+	public void checkFormulasAreHiddenButRelevant()
+			throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException, NotValidChildException,
+			ElementIsReadOnly, FieldTooLongException, CharacterNotAllowedException {
+		String jsonString = FileReader.getResource("EnergyBalance.json", Charset.defaultCharset());
+		Form form = Form.fromJson(jsonString);
+
+		TestFormRunner formRunner = new TestFormRunner();
+		formRunner.loadForm(form);
+
+		// No flow defined.
+		Question question = form.getChild(Question.class, "EnergyBalance");
+		formRunner.setAnswers(question.getPath(), Arrays.asList(new String[] { "1" }));
+		formRunner.evaluate();
+
+		Assert.assertTrue(
+				formRunner.getElement(form.getChild(Question.class, "EnergyBalance").getPath()).getRelevance());
+		Assert.assertTrue(
+				formRunner.getElement(form.getChild(Question.class, "EnergyBalance").getPath()).isHiddenElement());
+
+		// Check Formulas category has values.
+		FormResult formResult = formRunner.getFormResult();
+		Assert.assertNotNull(formResult);
+		Assert.assertNotNull(((QuestionWithValueResult) formRunner.getFormResult().getChild(question.getPath())));
+		Assert.assertTrue(((QuestionWithValueResult) formRunner.getFormResult().getChild(question.getPath()))
+				.getAnswers().contains("1"));
+
 	}
 }

@@ -28,8 +28,6 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 
 	private static final long serialVersionUID = -2484037913536806393L;
 
-	// private Logger logger = Logger.getLogger(FormRunnerLogger.class);
-
 	private static final String CLASSNAME = "v-form-runner-table";
 	private static final String TABLESTYLENAME = "vFormRunnerElementTable";
 
@@ -47,6 +45,9 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 	private final BaseGroup group;
 
 	private ImagePreview imagePreview;
+
+	private boolean relevance;
+	private boolean hiddenElement = false;
 
 	public RunnerTable(String name, List<String> path, BaseGroup group) {
 		super();
@@ -301,35 +302,10 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		throw new PathDoesNotExist(path);
 	}
 
-	@SuppressWarnings("unused")
-	private IRunnerElement getElement(String name) throws PathDoesNotExist {
-		/*
-		 * Iterator<Component> itr = tableElementsLayout.iterator();
-		 * 
-		 * while (itr.hasNext()) { Component component = (IRunnerElement) itr.next(); if
-		 * (component instanceof IRunnerElement) { IRunnerElement next =
-		 * (IRunnerElement) component; if (next.getName().equals(name)) { return next; }
-		 * } } throw new PathDoesNotExist(name);
-		 */
-
-		/*
-		 * if (true) { return (IRunnerElement) tableElementsLayout.getComponent(1, 1); }
-		 * 
-		 * Iterator<Component> itr = tableElementsLayout.iterator();
-		 * 
-		 * while (itr.hasNext()) { Component element = itr.next(); if (element
-		 * instanceof IRunnerElement) { IRunnerElement next = (IRunnerElement) element;
-		 * if (next.getName().equals(name)) { return next; } } }
-		 * 
-		 * logger.warn("table getElement Name:" + name);
-		 */
-		throw new PathDoesNotExist(name);
-
-	}
-
 	@Override
 	public void setRelevance(boolean value) {
-		setVisible(value);
+		relevance = value;
+		setVisible(value && !hiddenElement);
 	}
 
 	@Override
@@ -339,7 +315,7 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 
 	@Override
 	public boolean getRelevance() {
-		return isVisible();
+		return relevance;
 	}
 
 	@Override
@@ -361,15 +337,15 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		while (itr.hasNext()) {
 			Component element = itr.next();
 			if (element instanceof IRunnerElement) {
-				// IRunnerElement next = (IRunnerElement) element;
-				// if (next.getRelevance()) {
 				((IRunnerElement) element).setRelevance(true);
 				setRelevance(true);
-				// return;
-				// }
 			}
 		}
 		// setRelevance(false);
+	}
+
+	public void checkIsHiddenElement() {
+		// Nothing to do.
 	}
 
 	@Override
@@ -427,6 +403,15 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 			}
 		}
 		throw new PathDoesNotExist(path);
+	}
+
+	public boolean isHiddenElement() {
+		return hiddenElement;
+	}
+
+	public void setHiddenElement(boolean hiddenElement) {
+		this.hiddenElement = hiddenElement;
+		setVisible(!hiddenElement);
 	}
 
 }

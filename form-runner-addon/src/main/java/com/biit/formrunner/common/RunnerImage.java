@@ -16,6 +16,8 @@ public class RunnerImage extends CustomComponent implements IRunnerElement {
 	private final String name;
 	private final List<String> path;
 
+	private boolean hiddenElement = false;
+
 	public RunnerImage(String name, Component component, Runner runner, List<String> path) {
 		super();
 		this.name = name;
@@ -56,7 +58,7 @@ public class RunnerImage extends CustomComponent implements IRunnerElement {
 
 	@Override
 	public void setRelevance(boolean value) {
-		setVisible(value);
+		setVisible(value && !hiddenElement);
 	}
 
 	@Override
@@ -107,6 +109,15 @@ public class RunnerImage extends CustomComponent implements IRunnerElement {
 	@Override
 	public void setTabIndex(int tabIndex) {
 		// Images do not have tab selection
+	}
+
+	public boolean isHiddenElement() {
+		return hiddenElement;
+	}
+
+	public void setHiddenElement(boolean hiddenElement) {
+		this.hiddenElement = hiddenElement;
+		setVisible(!hiddenElement);
 	}
 
 }

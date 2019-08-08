@@ -137,30 +137,35 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 	@Override
 	public void evaluate(List<String> path) throws PathDoesNotExist {
 		TreeObject start = form.getChild(path);
-		ArrayList<BaseQuestion> children = new ArrayList<>(form.getAllChildrenInHierarchy(BaseQuestion.class));
-		for (int i = children.indexOf(start); i < children.size(); i++) {
+		ArrayList<BaseQuestion> questions = new ArrayList<>(form.getAllChildrenInHierarchy(BaseQuestion.class));
+		for (int i = questions.indexOf(start); i < questions.size(); i++) {
 			boolean relevance = false;
 			// If first question of form relevance is true
-			if (computedFlowView.getFirstElement().equals(children.get(i))) {
+			if (computedFlowView.getFirstElement().equals(questions.get(i))) {
 				relevance = true;
 			} else {
 				// Check parents
-				Set<Flow> flowsByDestiny = computedFlowView.getFlowsByDestiny(children.get(i));
+				Set<Flow> flowsByDestiny = computedFlowView.getFlowsByDestiny(questions.get(i));
 				if (flowsByDestiny != null) {
 					for (Flow flow : flowsByDestiny) {
 						// Relevance is true if in previous iteration was true
-						// or if
-						// previous element is visible and the flow is valid.
+						// or if previous element is visible and the flow is valid.
 						relevance = relevance || (getRelevance(flow.getOrigin().getPath()) && checkIsValidFlow(flow));
+					}
+				} else {
+					// Hidden elements has not default flow. But we want that relevance is true and
+					// not visible by property hidden.
+					if (questions.get(i).isHiddenElement()) {
+						relevance = true;
 					}
 				}
 			}
 
-			// Hidden elements must not been visible.
-			relevance = relevance && !children.get(i).isHiddenElement();
-
 			// Set relevance
-			setRelevance(children.get(i).getPath(), relevance);
+			setRelevance(questions.get(i).getPath(), relevance);
+
+			// Hidden elements must not been visible.
+			setAsHiddenElement(questions.get(i).getPath(), questions.get(i).isHiddenElement());
 		}
 	}
 
@@ -339,26 +344,33 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 			throws FieldTooLongException, CharacterNotAllowedException, NotValidChildException, ElementIsReadOnly {
 		CategoryResult category = new CategoryResult();
 		category.setName(element.getPath());
+		category.setHiddenElement(form.getChild(category.getName()).isHiddenElement());
+		result.addChild(category);
 		for (Result answerElement : element.getAnswerElements()) {
 			addGroupInformation(category, answerElement);
 		}
-		result.addChild(category);
 	}
 
 	private void addGroupInformation(BaseGroup parentResultGroup, Result answerElement)
 			throws FieldTooLongException, CharacterNotAllowedException, NotValidChildException, ElementIsReadOnly {
+		// Recalculation the path.
+		List<String> path = new ArrayList<>(parentResultGroup.getPath());
+		path.add(answerElement.getPath());
+
 		if (answerElement instanceof ResultQuestion) {
 			QuestionWithValueResult resultQuestion = new QuestionWithValueResult();
 			resultQuestion.setName(answerElement.getPath());
+			resultQuestion.setHiddenElement(form.getChild(path).isHiddenElement());
 			resultQuestion.addQuestionValues(((ResultQuestion) answerElement).getAnswerArray());
 			parentResultGroup.addChild(resultQuestion);
 		} else {
 			RepeatableGroupResult resultGroup = new RepeatableGroupResult();
 			resultGroup.setName(answerElement.getPath());
+			resultGroup.setHiddenElement(form.getChild(answerElement.getPath()).isHiddenElement());
+			parentResultGroup.addChild(resultGroup);
 			for (Result element : ((ResultGroup) answerElement).getAnswerElements()) {
 				addGroupInformation(resultGroup, element);
 			}
-			parentResultGroup.addChild(resultGroup);
 		}
 	}
 
