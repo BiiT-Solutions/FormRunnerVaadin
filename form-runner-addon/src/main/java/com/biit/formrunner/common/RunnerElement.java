@@ -95,6 +95,8 @@ public abstract class RunnerElement<T extends Component> extends CustomComponent
 	@Override
 	public void setHiddenElement(boolean hiddenElement) {
 		this.hiddenElement = hiddenElement;
-		setVisible(!hiddenElement);
+		if (hiddenElement) {
+			setVisible(false);
+		}
 	}
 }

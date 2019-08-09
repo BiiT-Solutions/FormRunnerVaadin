@@ -334,6 +334,8 @@ public class RunnerGroup extends CustomComponent implements IRunnerElement {
 	@Override
 	public void setHiddenElement(boolean hiddenElement) {
 		this.hiddenElement = hiddenElement;
-		setVisible(!hiddenElement);
+		if (hiddenElement) {
+			setVisible(false);
+		}
 	}
 }

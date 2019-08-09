@@ -52,11 +52,6 @@ public class MockSubmittedQuestion implements ISubmittedQuestion, IQuestionWithA
 	}
 
 	@Override
-	public ISubmittedObject getChild(Class<?> type, String tag) {
-		return null;
-	}
-
-	@Override
 	public <T> List<T> getChildren(Class<T> type) {
 		return null;
 	}
@@ -115,6 +110,11 @@ public class MockSubmittedQuestion implements ISubmittedQuestion, IQuestionWithA
 
 	@Override
 	public String getXPath() {
+		return null;
+	}
+
+	@Override
+	public <T> T getChild(Class<T> type, String tag) {
 		return null;
 	}
 

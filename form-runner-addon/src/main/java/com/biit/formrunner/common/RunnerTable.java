@@ -411,7 +411,9 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 
 	public void setHiddenElement(boolean hiddenElement) {
 		this.hiddenElement = hiddenElement;
-		setVisible(!hiddenElement);
+		if (hiddenElement) {
+			setVisible(false);
+		}
 	}
 
 }

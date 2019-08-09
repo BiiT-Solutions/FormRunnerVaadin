@@ -18,7 +18,9 @@ import com.biit.formrunner.mock.TestFormRunner;
 import com.biit.persistence.entity.exceptions.FieldTooLongException;
 import com.biit.utils.file.FileReader;
 import com.biit.webforms.persistence.entity.Form;
+import com.biit.webforms.persistence.entity.Group;
 import com.biit.webforms.persistence.entity.Question;
+import com.biit.webforms.persistence.entity.SystemField;
 
 @Test(groups = "hiddenElements")
 public class HiddenElementsTests {
@@ -84,6 +86,8 @@ public class HiddenElementsTests {
 				formRunner.getElement(form.getChild(Question.class, "EnergyBalance").getPath()).getRelevance());
 		Assert.assertTrue(
 				formRunner.getElement(form.getChild(Question.class, "EnergyBalance").getPath()).isHiddenElement());
+		Assert.assertFalse(
+				formRunner.getElement(form.getChild(Question.class, "EnergyBalance").getPath()).isVisible());
 
 		// Check Formulas category has values.
 		FormResult formResult = formRunner.getFormResult();
@@ -92,5 +96,27 @@ public class HiddenElementsTests {
 		Assert.assertTrue(((QuestionWithValueResult) formRunner.getFormResult().getChild(question.getPath()))
 				.getAnswers().contains("1"));
 
+	}
+
+	@Test
+	public void checkSystemFieldsAndFlow() throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException,
+			NotValidChildException, ElementIsReadOnly, FieldTooLongException, CharacterNotAllowedException {
+		String jsonString = FileReader.getResource("LEC VO2MAX.json", Charset.defaultCharset());
+		Form form = Form.fromJson(jsonString);
+
+		TestFormRunner formRunner = new TestFormRunner();
+		formRunner.loadForm(form);
+
+		// No flow defined.
+		Question question = form.getChild(Question.class, "Type");
+		formRunner.setAnswers(question.getPath(), Arrays.asList(new String[] { "Treadmill" }));
+		formRunner.evaluate();
+
+		Assert.assertTrue(formRunner.getElement(form.getChild(Group.class, "Treadmill").getPath()).getRelevance());
+		Assert.assertTrue(formRunner.getElement(form.getChild(Group.class, "Treadmill").getPath()).isVisible());
+		Assert.assertFalse(formRunner.getElement(form.getChild(Group.class, "Bike").getPath()).getRelevance());
+		Assert.assertFalse(formRunner.getElement(form.getChild(Group.class, "Bike").getPath()).isVisible());
+		Assert.assertFalse(formRunner.getElement(form.getChild(SystemField.class, "Age").getPath()).isHiddenElement());
+		Assert.assertFalse(formRunner.getElement(form.getChild(SystemField.class, "Age").getPath()).isVisible());
 	}
 }
