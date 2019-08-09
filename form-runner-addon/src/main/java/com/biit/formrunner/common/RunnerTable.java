@@ -345,7 +345,14 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 	}
 
 	public void checkIsHiddenElement() {
-		// Nothing to do.
+		Iterator<Component> itr = tableElementsLayout.iterator();
+		while (itr.hasNext()) {
+			IRunnerElement element = (IRunnerElement) itr.next();
+			if (!element.isHiddenElement()) {
+				setHiddenElement(false);
+				return;
+			}
+		}
 	}
 
 	@Override

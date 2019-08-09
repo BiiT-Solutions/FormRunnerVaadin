@@ -247,7 +247,7 @@ public class RunnerGroup extends CustomComponent implements IRunnerElement {
 	@Override
 	public void setRelevance(boolean value) {
 		relevance = value;
-		setVisible(value && !hiddenElement);
+		setVisible(value && !isHiddenElement());
 	}
 
 	@Override

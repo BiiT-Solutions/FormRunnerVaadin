@@ -176,9 +176,16 @@ public class Runner extends CustomComponent {
 		IRunnerElement element = getElement(path);
 		element.setRelevance(value);
 		try {
-			((RunnerGroup) getElement(path.subList(0, path.size() - 1))).checkRelevance();
+			for (int i = path.size() - 1; i > 0; i--) {
+				if (getElement(path.subList(0, i)) != null && getElement(path.subList(0, i)) instanceof RunnerGroup) {
+					((RunnerGroup) getElement(path.subList(0, i))).checkRelevance();
+				}
+			}
 		} catch (PathDoesNotExist | ClassCastException e) {
-			((RunnerTable) getElement(path.subList(0, path.size() - 2))).checkRelevance();
+			if (getElement(path.subList(0, path.size() - 2)) != null
+					&& getElement(path.subList(0, path.size() - 2)) instanceof RunnerTable) {
+				((RunnerTable) getElement(path.subList(0, path.size() - 2))).checkRelevance();
+			}
 		}
 	}
 
@@ -186,9 +193,16 @@ public class Runner extends CustomComponent {
 		IRunnerElement element = getElement(path);
 		element.setHiddenElement(value);
 		try {
-			((RunnerGroup) getElement(path.subList(0, path.size() - 1))).checkIsHiddenElement();
+			for (int i = path.size() - 1; i > 0; i--) {
+				if (getElement(path.subList(0, i)) != null && getElement(path.subList(0, i)) instanceof RunnerGroup) {
+					((RunnerGroup) getElement(path.subList(0, i))).checkIsHiddenElement();
+				}
+			}
 		} catch (PathDoesNotExist | ClassCastException e) {
-			((RunnerTable) getElement(path.subList(0, path.size() - 2))).checkIsHiddenElement();
+			if (getElement(path.subList(0, path.size() - 2)) != null
+					&& getElement(path.subList(0, path.size() - 2)) instanceof RunnerTable) {
+				((RunnerTable) getElement(path.subList(0, path.size() - 2))).checkIsHiddenElement();
+			}
 		}
 	}
 

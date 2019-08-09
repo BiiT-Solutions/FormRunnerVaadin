@@ -86,8 +86,7 @@ public class HiddenElementsTests {
 				formRunner.getElement(form.getChild(Question.class, "EnergyBalance").getPath()).getRelevance());
 		Assert.assertTrue(
 				formRunner.getElement(form.getChild(Question.class, "EnergyBalance").getPath()).isHiddenElement());
-		Assert.assertFalse(
-				formRunner.getElement(form.getChild(Question.class, "EnergyBalance").getPath()).isVisible());
+		Assert.assertFalse(formRunner.getElement(form.getChild(Question.class, "EnergyBalance").getPath()).isVisible());
 
 		// Check Formulas category has values.
 		FormResult formResult = formRunner.getFormResult();
