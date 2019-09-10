@@ -68,9 +68,8 @@ public class HiddenElementsTests {
 	}
 
 	@Test
-	public void checkFormulasAreHiddenButRelevant()
-			throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException, NotValidChildException,
-			ElementIsReadOnly, FieldTooLongException, CharacterNotAllowedException {
+	public void checkFormulasAreHidden() throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException,
+			NotValidChildException, ElementIsReadOnly, FieldTooLongException, CharacterNotAllowedException {
 		String jsonString = FileReader.getResource("EnergyBalance.json", Charset.defaultCharset());
 		Form form = Form.fromJson(jsonString);
 
@@ -82,19 +81,14 @@ public class HiddenElementsTests {
 		formRunner.setAnswers(question.getPath(), Arrays.asList(new String[] { "1" }));
 		formRunner.evaluate();
 
-		Assert.assertTrue(
+		Assert.assertFalse(
 				formRunner.getElement(form.getChild(Question.class, "EnergyBalance").getPath()).getRelevance());
-		Assert.assertTrue(
-				formRunner.getElement(form.getChild(Question.class, "EnergyBalance").getPath()).isHiddenElement());
 		Assert.assertFalse(formRunner.getElement(form.getChild(Question.class, "EnergyBalance").getPath()).isVisible());
 
 		// Check Formulas category has values.
 		FormResult formResult = formRunner.getFormResult();
 		Assert.assertNotNull(formResult);
-		Assert.assertNotNull(((QuestionWithValueResult) formRunner.getFormResult().getChild(question.getPath())));
-		Assert.assertTrue(((QuestionWithValueResult) formRunner.getFormResult().getChild(question.getPath()))
-				.getAnswers().contains("1"));
-
+		Assert.assertNull(((QuestionWithValueResult) formRunner.getFormResult().getChild(question.getPath())));
 	}
 
 	@Test
@@ -115,7 +109,34 @@ public class HiddenElementsTests {
 		Assert.assertTrue(formRunner.getElement(form.getChild(Group.class, "Treadmill").getPath()).isVisible());
 		Assert.assertFalse(formRunner.getElement(form.getChild(Group.class, "Bike").getPath()).getRelevance());
 		Assert.assertFalse(formRunner.getElement(form.getChild(Group.class, "Bike").getPath()).isVisible());
-		Assert.assertFalse(formRunner.getElement(form.getChild(SystemField.class, "Age").getPath()).isHiddenElement());
 		Assert.assertFalse(formRunner.getElement(form.getChild(SystemField.class, "Age").getPath()).isVisible());
+	}
+
+	@Test
+	public void checkSliderHasNoDefaultValues()
+			throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException, NotValidChildException,
+			ElementIsReadOnly, FieldTooLongException, CharacterNotAllowedException {
+		String jsonString = FileReader.getResource("LEC PSK.json", Charset.defaultCharset());
+		Form form = Form.fromJson(jsonString);
+
+		TestFormRunner formRunner = new TestFormRunner();
+		formRunner.loadForm(form);
+
+		// No flow defined.
+		Question question = form.getChild(Question.class, "walking");
+		Assert.assertNotNull(question);
+		formRunner.setAnswers(question.getPath(), Arrays.asList(new String[] { "climbing-stairs" }));
+		formRunner.evaluate();
+
+		Assert.assertTrue(
+				formRunner.getElement(form.getChild(Question.class, "climbingStairs").getPath()).getRelevance());
+		Assert.assertTrue(formRunner.getElement(form.getChild(Question.class, "climbingStairs").getPath()).isVisible());
+
+		Assert.assertFalse(
+				formRunner.getElement(form.getChild(Question.class, "walkOutdoorsNoLevel").getPath()).getRelevance());
+		Assert.assertFalse(
+				formRunner.getElement(form.getChild(Question.class, "walkOutdoorsNoLevel").getPath()).isVisible());
+
+		System.out.println(formRunner.getFormResult().toJson());
 	}
 }

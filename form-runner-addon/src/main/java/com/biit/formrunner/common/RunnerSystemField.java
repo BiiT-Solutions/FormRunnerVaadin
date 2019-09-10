@@ -21,9 +21,4 @@ public class RunnerSystemField extends RunnerStaticField {
 		}
 	}
 
-	@Override
-	public void setHiddenElement(boolean hiddenElement) {
-		// Do nothing.
-	}
-
 }

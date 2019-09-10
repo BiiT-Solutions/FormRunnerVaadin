@@ -16,7 +16,6 @@ public abstract class RunnerElement<T extends Component> extends CustomComponent
 	private final String name;
 	private final List<String> path;
 	protected boolean relevance;
-	protected boolean hiddenElement;
 
 	public RunnerElement(String name, Component component, Runner runner, List<String> path) {
 		super();
@@ -64,7 +63,7 @@ public abstract class RunnerElement<T extends Component> extends CustomComponent
 	@Override
 	public void setRelevance(boolean value) {
 		relevance = value;
-		setVisible(value && !isHiddenElement());
+		setVisible(value);
 	}
 
 	@Override
@@ -85,18 +84,5 @@ public abstract class RunnerElement<T extends Component> extends CustomComponent
 	@Override
 	public boolean getRelevance() {
 		return relevance;
-	}
-
-	@Override
-	public boolean isHiddenElement() {
-		return hiddenElement;
-	}
-
-	@Override
-	public void setHiddenElement(boolean hiddenElement) {
-		this.hiddenElement = hiddenElement;
-		if (hiddenElement) {
-			setVisible(false);
-		}
 	}
 }

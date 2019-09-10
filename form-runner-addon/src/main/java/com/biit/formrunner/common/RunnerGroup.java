@@ -37,9 +37,6 @@ public class RunnerGroup extends CustomComponent implements IRunnerElement {
 
 	private ImagePreview imagePreview;
 
-	private boolean relevance;
-	private boolean hiddenElement = false;
-
 	public RunnerGroup(String name, List<String> path) {
 		super();
 		setWidth(FULL);
@@ -246,8 +243,7 @@ public class RunnerGroup extends CustomComponent implements IRunnerElement {
 
 	@Override
 	public void setRelevance(boolean value) {
-		relevance = value;
-		setVisible(value && !isHiddenElement());
+		setVisible(value);
 	}
 
 	@Override
@@ -257,7 +253,7 @@ public class RunnerGroup extends CustomComponent implements IRunnerElement {
 
 	@Override
 	public boolean getRelevance() {
-		return relevance;
+		return isVisible();
 	}
 
 	@Override
@@ -286,18 +282,6 @@ public class RunnerGroup extends CustomComponent implements IRunnerElement {
 		setRelevance(false);
 	}
 
-	public void checkIsHiddenElement() {
-		Iterator<Component> itr = groupElementsLayout.iterator();
-		while (itr.hasNext()) {
-			IRunnerElement element = (IRunnerElement) itr.next();
-			if (!element.isHiddenElement()) {
-				setHiddenElement(false);
-				return;
-			}
-		}
-		setHiddenElement(true);
-	}
-
 	@Override
 	public void addValueChangedListeners(FieldValueChanged listener) {
 		for (IRunnerElement child : children) {
@@ -323,19 +307,6 @@ public class RunnerGroup extends CustomComponent implements IRunnerElement {
 		while (itr.hasNext()) {
 			IRunnerElement component = (IRunnerElement) itr.next();
 			component.setLocale(locale);
-		}
-	}
-
-	@Override
-	public boolean isHiddenElement() {
-		return hiddenElement;
-	}
-
-	@Override
-	public void setHiddenElement(boolean hiddenElement) {
-		this.hiddenElement = hiddenElement;
-		if (hiddenElement) {
-			setVisible(false);
 		}
 	}
 }

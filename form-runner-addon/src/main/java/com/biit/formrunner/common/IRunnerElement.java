@@ -20,10 +20,6 @@ public interface IRunnerElement extends Component {
 
 	public boolean getRelevance();
 
-	public boolean isHiddenElement();
-
-	public void setHiddenElement(boolean hiddenElement);
-
 	public boolean isValid();
 
 	public void clear();
