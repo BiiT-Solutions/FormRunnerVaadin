@@ -1,4 +1,4 @@
-package com.biit.demo;
+package com.biit.form.runner.mock;
 
 import com.biit.form.entity.BaseGroup;
 import com.biit.form.entity.TreeObject;
@@ -7,21 +7,17 @@ import com.biit.form.runner.common.Runner;
 import com.biit.form.runner.webforms.IWebformsRunnerGroup;
 import com.biit.form.runner.webforms.WebformsRunnerElementFactory;
 import com.biit.form.runner.webforms.WebformsRunnerGroup;
-import com.biit.webforms.persistence.entity.Group;
 
-public class DemoWebformRunnerGroup extends WebformsRunnerGroup implements IWebformsRunnerGroup {
-	private static final long serialVersionUID = -3485645350589558706L;
+public class TestFormRunnerGroup extends WebformsRunnerGroup implements IWebformsRunnerGroup {
+	private static final long serialVersionUID = 7493891422980426873L;
 
-	public DemoWebformRunnerGroup(BaseGroup group, Runner runner) {
+	public TestFormRunnerGroup(BaseGroup group, Runner runner) {
 		super(group, runner);
 	}
 
 	@Override
 	public IWebformsRunnerGroup getElement(BaseGroup group, Runner runner) {
-		if(((Group) group).isShownAsTable()) {
-			return new DemoWebformRunnerTable(group, runner);
-		}
-		return new DemoWebformRunnerGroup(group, runner);
+		return new TestFormRunnerGroup(group, runner);
 	}
 
 	@Override

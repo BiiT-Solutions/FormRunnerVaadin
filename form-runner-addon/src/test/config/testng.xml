@@ -8,8 +8,8 @@
 			</run>
 		</groups>
 		<classes>
-			<class name="com.biit.formrunner.tests.OrbeonFormRunnerMatcherTests" />
-			<class name="com.biit.formrunner.tests.HiddenElementsTests" />
+			<class name="com.biit.form.runner.tests.OrbeonFormRunnerMatcherTests" />
+			<class name="com.biit.form.runner.tests.HiddenElementsTests" />
 		</classes>
 	</test>
 </suite>

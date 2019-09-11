@@ -1,7 +1,7 @@
 package com.biit.demo;
 
-import com.biit.formrunner.webforms.IWebformsRunner;
-import com.biit.formrunner.webforms.WebformsRunner;
+import com.biit.form.runner.webforms.IWebformsRunner;
+import com.biit.form.runner.webforms.WebformsRunner;
 import com.biit.webforms.persistence.entity.Category;
 
 public class DemoWebformsRunner extends WebformsRunner<DemoWebformRunnerGroup> implements IWebformsRunner {
