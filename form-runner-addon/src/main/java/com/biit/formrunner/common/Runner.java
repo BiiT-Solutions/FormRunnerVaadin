@@ -193,7 +193,7 @@ public class Runner extends CustomComponent {
 		Iterator<Component> itr = formLayout.iterator();
 		while (itr.hasNext()) {
 			IRunnerElement component = (IRunnerElement) itr.next();
-			if (component.getRelevance()) {
+			if (component.getRelevance() || component.isHidden()) {
 				answers.addAll(component.getAnswers());
 			}
 		}

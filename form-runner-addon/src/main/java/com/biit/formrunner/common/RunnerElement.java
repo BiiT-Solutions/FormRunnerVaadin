@@ -16,12 +16,14 @@ public abstract class RunnerElement<T extends Component> extends CustomComponent
 	private final String name;
 	private final List<String> path;
 	protected boolean relevance;
+	private boolean hidden;
 
-	public RunnerElement(String name, Component component, Runner runner, List<String> path) {
+	public RunnerElement(String name, boolean hidden, Component component, Runner runner, List<String> path) {
 		super();
 		this.name = name;
 		this.runner = runner;
 		this.path = path;
+		this.hidden = hidden;
 		setSizeUndefined();
 		CssLayout rootLayout = new CssLayout();
 		rootLayout.addStyleName(CLASSNAME);
@@ -84,5 +86,13 @@ public abstract class RunnerElement<T extends Component> extends CustomComponent
 	@Override
 	public boolean getRelevance() {
 		return relevance;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
 	}
 }

@@ -25,7 +25,7 @@ public abstract class WebformsRunnerGroup extends RunnerGroup {
 	public WebformsRunnerGroup(BaseGroup group, Runner runner) {
 		super(group.getName(), group.getPath());
 		this.runner = runner;
-
+		setHidden(group.isHiddenElement());
 		setCaption(group.getLabel());
 
 		if (group instanceof BaseRepeatableGroup) {
@@ -37,7 +37,8 @@ public abstract class WebformsRunnerGroup extends RunnerGroup {
 		// Add image if needed.
 		setImageLayoutUnvisible();
 		try {
-			if (runner.isImagesEnabled() && UI.getCurrent() != null && UI.getCurrent().getPage().getBrowserWindowWidth() >= WebformsRunner.IMAGE_MINIMUM_WIDTH) {
+			if (runner.isImagesEnabled() && UI.getCurrent() != null
+					&& UI.getCurrent().getPage().getBrowserWindowWidth() >= WebformsRunner.IMAGE_MINIMUM_WIDTH) {
 				if (group instanceof ElementWithImage) {
 					// Exists image and room enough to represent it.
 					if (((ElementWithImage) group).getImage() != null) {

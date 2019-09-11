@@ -47,6 +47,7 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 	private final BaseGroup group;
 
 	private ImagePreview imagePreview;
+	private boolean hidden;
 
 	public RunnerTable(String name, List<String> path, BaseGroup group) {
 		super();
@@ -217,7 +218,7 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 					Component tableComponent = tableElementsLayout.getComponent(column, row);
 					if (tableComponent instanceof IRunnerElement) {
 						IRunnerElement component = (IRunnerElement) tableComponent;
-						if (component.getRelevance()) {
+						if (component.getRelevance() || component.isHidden()) {
 							rowAnswers.addAnswers(component.getAnswers());
 						}
 					}
@@ -427,6 +428,22 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 			}
 		}
 		throw new PathDoesNotExist(path);
+	}
+
+	@Override
+	public boolean isHidden() {
+		boolean allChildsAreHidden = true;
+		for (IRunnerElement child : children) {
+			if (!child.isHidden()) {
+				allChildsAreHidden = false;
+			}
+		}
+		return hidden || allChildsAreHidden;
+	}
+
+	@Override
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
 	}
 
 }

@@ -8,8 +8,6 @@ import com.vaadin.ui.Component;
 
 public interface IRunnerElement extends Component {
 
-	// New functions
-
 	public String getName();
 
 	public List<String> getPath();
@@ -41,5 +39,10 @@ public interface IRunnerElement extends Component {
 	public void setLocale(Locale locale);
 
 	public void setDescription(String string);
+
+	/** Hidden elements are not used in the form flow, but included in the json */
+	public boolean isHidden();
+
+	public void setHidden(boolean hidden);
 
 }

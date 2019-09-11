@@ -36,6 +36,7 @@ public class RunnerGroup extends CustomComponent implements IRunnerElement {
 	private final List<IRunnerElement> children;
 
 	private ImagePreview imagePreview;
+	private boolean hidden;
 
 	public RunnerGroup(String name, List<String> path) {
 		super();
@@ -143,7 +144,7 @@ public class RunnerGroup extends CustomComponent implements IRunnerElement {
 		Iterator<Component> itr = groupElementsLayout.iterator();
 		while (itr.hasNext()) {
 			IRunnerElement component = (IRunnerElement) itr.next();
-			if (component.getRelevance()) {
+			if (component.getRelevance() || component.isHidden()) {
 				groupAnswer.addAnswers(component.getAnswers());
 			}
 		}
@@ -308,5 +309,20 @@ public class RunnerGroup extends CustomComponent implements IRunnerElement {
 			IRunnerElement component = (IRunnerElement) itr.next();
 			component.setLocale(locale);
 		}
+	}
+
+	@Override
+	public boolean isHidden() {
+		boolean allChildsAreHidden = true;
+		for (IRunnerElement child : children) {
+			if (!child.isHidden()) {
+				allChildsAreHidden = false;
+			}
+		}
+		return hidden || allChildsAreHidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
 	}
 }

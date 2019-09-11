@@ -121,4 +121,15 @@ public class RunnerElementWithImage extends CustomComponent implements IRunnerEl
 	public void setTabIndex(int tabIndex) {
 		elementComponent.setTabIndex(tabIndex);
 	}
+
+	@Override
+	public boolean isHidden() {
+		return elementComponent.isHidden();
+	}
+
+	@Override
+	public void setHidden(boolean hidden) {
+		elementComponent.setHidden(hidden);
+	}
+
 }

@@ -68,7 +68,7 @@ public class HiddenElementsTests {
 	}
 
 	@Test
-	public void checkFormulasAreHidden() throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException,
+	public void checkFormulasExists() throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException,
 			NotValidChildException, ElementIsReadOnly, FieldTooLongException, CharacterNotAllowedException {
 		String jsonString = FileReader.getResource("EnergyBalance.json", Charset.defaultCharset());
 		Form form = Form.fromJson(jsonString);
@@ -88,7 +88,30 @@ public class HiddenElementsTests {
 		// Check Formulas category has values.
 		FormResult formResult = formRunner.getFormResult();
 		Assert.assertNotNull(formResult);
-		Assert.assertNull(((QuestionWithValueResult) formRunner.getFormResult().getChild(question.getPath())));
+		Assert.assertNotNull(((QuestionWithValueResult) formRunner.getFormResult().getChild(question.getPath())));
+	}
+
+	@Test
+	public void checkFormulasAreExported()
+			throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException {
+		String jsonString = FileReader.getResource("LEC VO2MAX.json", Charset.defaultCharset());
+		Form form = Form.fromJson(jsonString);
+
+		TestFormRunner formRunner = new TestFormRunner();
+		formRunner.loadForm(form);
+
+		// No flow defined.
+		Question question = form.getChild(Question.class, "Type");
+		formRunner.setAnswers(question.getPath(), Arrays.asList(new String[] { "Treadmill" }));
+		formRunner.evaluate();
+
+		formRunner.evaluate();
+
+		String formResultAsJson = formRunner.getFormResult().toJson();
+		// Check formulas category is there and also its questions with default values.
+		Assert.assertTrue(formResultAsJson.contains("\"name\": \"Formulas\""));
+		Assert.assertTrue(formResultAsJson.contains("\"name\": \"MetWaarde\""));
+		Assert.assertTrue(formResultAsJson.contains("\"name\": \"MaximumVO2\""));
 	}
 
 	@Test
@@ -114,8 +137,7 @@ public class HiddenElementsTests {
 
 	@Test
 	public void checkSliderHasNoDefaultValues()
-			throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException, NotValidChildException,
-			ElementIsReadOnly, FieldTooLongException, CharacterNotAllowedException {
+			throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException {
 		String jsonString = FileReader.getResource("LEC PSK.json", Charset.defaultCharset());
 		Form form = Form.fromJson(jsonString);
 
@@ -137,6 +159,7 @@ public class HiddenElementsTests {
 		Assert.assertFalse(
 				formRunner.getElement(form.getChild(Question.class, "walkOutdoorsNoLevel").getPath()).isVisible());
 
-		System.out.println(formRunner.getFormResult().toJson());
+		// System.out.println(formRunner.getFormResult().toJson());
 	}
+
 }

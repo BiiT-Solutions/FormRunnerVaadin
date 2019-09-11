@@ -26,6 +26,7 @@ public abstract class WebformsRunnerTable extends RunnerTable {
 	public WebformsRunnerTable(BaseGroup group, Runner runner) {
 		super(group.getName(), group.getPath(), group);
 		this.runner = runner;
+		setHidden(group.isHiddenElement());
 
 		setCaption(group.getLabel());
 

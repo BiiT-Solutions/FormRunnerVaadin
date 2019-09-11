@@ -15,12 +15,12 @@ public class RunnerSelection<T extends AbstractSelect> extends RunnerElement<T> 
 	private static final long serialVersionUID = 2621769528581225023L;
 	private final Set<FieldValueChanged> valueChangedListeners;
 
-	public RunnerSelection(String name, T component, String description, boolean isMandatory, String requiredCaption,
-			Runner runner, List<String> path) {
-		super(name, component, runner, path);
+	public RunnerSelection(String name, T component, String description, boolean mandatory, boolean hidden,
+			String requiredCaption, Runner runner, List<String> path) {
+		super(name, hidden, component, runner, path);
 		valueChangedListeners = new HashSet<>();
 		component.setDescription(description);
-		component.setRequired(isMandatory);
+		component.setRequired(mandatory);
 		component.setRequiredError(requiredCaption);
 		component.addValueChangeListener(new ValueChangeListener() {
 			private static final long serialVersionUID = -8108931765995013712L;
@@ -45,7 +45,7 @@ public class RunnerSelection<T extends AbstractSelect> extends RunnerElement<T> 
 	@Override
 	public List<Result> getAnswers() {
 		List<Result> answers = new ArrayList<Result>();
-		if (getComponent().getValue() == null || !getRelevance()) {
+		if (getComponent().getValue() == null || !(getRelevance() || isHidden())) {
 			return answers;
 		}
 		if (getComponent().getValue() instanceof Set) {

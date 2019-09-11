@@ -11,7 +11,7 @@ public class RunnerStaticField extends RunnerElement<Component> {
 	private static final String DEFAULT_WIDTH = "400px";
 
 	public RunnerStaticField(String name, Component component, Runner runner, List<String> path) {
-		super(name, component, runner, path);
+		super(name, true, component, runner, path);
 		component.setWidth(DEFAULT_WIDTH);
 	}
 

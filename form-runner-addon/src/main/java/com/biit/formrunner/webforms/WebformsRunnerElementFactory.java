@@ -125,8 +125,8 @@ public class WebformsRunnerElementFactory {
 			return generateInputField(element, runner);
 		case TEXT_AREA:
 			return new RunnerTextArea(element.getName(), element.getLabel(), element.getDescription(),
-					runner.getRequiredCaption(), element.isMandatory(), element.getDefaultValue(), runner,
-					element.getPath());
+					runner.getRequiredCaption(), element.isMandatory(), element.isHiddenElement(),
+					element.getDefaultValue(), runner, element.getPath());
 		case SINGLE_SELECTION_LIST:
 			return generateComboboxList(element, runner);
 		case SINGLE_SELECTION_RADIO:
@@ -189,7 +189,7 @@ public class WebformsRunnerElementFactory {
 			}
 		}
 		return new RunnerSelection<OptionGroup>(element.getName(), option, element.getDescription(),
-				element.isMandatory(), requiredCaption, runner, element.getPath());
+				element.isMandatory(), element.isHiddenElement(), requiredCaption, runner, element.getPath());
 	}
 
 	private static IRunnerElement generateComboboxList(Question element, Runner runner) {
@@ -201,7 +201,7 @@ public class WebformsRunnerElementFactory {
 			combobox.setValue(element.getDefaultValueAnswer().getName());
 		}
 		return new RunnerSelection<ComboBox>(element.getName(), combobox, element.getDescription(),
-				element.isMandatory(), requiredCaption, runner, element.getPath());
+				element.isMandatory(), element.isHiddenElement(), requiredCaption, runner, element.getPath());
 	}
 
 	private static IRunnerElement generateInputField(Question element, Runner runner) {
@@ -223,10 +223,10 @@ public class WebformsRunnerElementFactory {
 				break;
 			}
 			return new RunnerField<TextField>(element.getName(), textField, element.getDescription(),
-					element.isMandatory(), requiredCaption, runner, element.getPath());
+					element.isMandatory(), element.isHiddenElement(), requiredCaption, runner, element.getPath());
 		case DATE:
 			RunnerDateField field = new RunnerDateField(element.getName(), element.getLabel(), element.getDescription(),
-					element.isMandatory(), requiredCaption, runner, element.getPath());
+					element.isMandatory(), element.isHiddenElement(), requiredCaption, runner, element.getPath());
 			// field.setCaption(element.getLabel());
 			if (element.getDefaultValueTime() != null) {
 				field.getComponent().setValue(element.getDefaultValueTime());
@@ -243,7 +243,8 @@ public class WebformsRunnerElementFactory {
 			numberField.setValue(element.getDefaultValue());
 			numberField.setMaxLength(QuestionWithValueResult.MAX_LENGTH);
 			RunnerField<?> runnerNumberField = new RunnerField<TextField>(element.getName(), numberField,
-					element.getDescription(), element.isMandatory(), requiredCaption, runner, element.getPath());
+					element.getDescription(), element.isMandatory(), element.isHiddenElement(), requiredCaption, runner,
+					element.getPath());
 			switch (element.getAnswerSubformat()) {
 			case NUMBER:
 				numberField.addValidator(new LongValidator(runner.getInvalidCaption(), RealRangeLong.fullRange()));
@@ -279,7 +280,7 @@ public class WebformsRunnerElementFactory {
 			postalCodeField.setMaxLength(QuestionWithValueResult.MAX_LENGTH);
 			postalCodeField.addValidator(new RegexpValidator(runner.getPostalCodeRegex(), runner.getInvalidCaption()));
 			return new RunnerField<TextField>(element.getName(), postalCodeField, element.getDescription(),
-					element.isMandatory(), requiredCaption, runner, element.getPath());
+					element.isMandatory(), element.isHiddenElement(), requiredCaption, runner, element.getPath());
 		}
 		throw new UnsupportedOperationException("Question '" + element.getName()
 				+ "' has an unsupported answer format '" + element.getAnswerFormat() + "'");
@@ -299,7 +300,7 @@ public class WebformsRunnerElementFactory {
 		List<TreeObject> answers = element.getChildren();
 		if (answers.isEmpty()) {
 			return new RunnerSlider(element.getName(), element.getLabel(), 0d, 0d, element.getDescription(), null,
-					element.isMandatory(), 0d, runner, element.getPath());
+					element.isMandatory(), element.isHiddenElement(), 0d, runner, element.getPath());
 		}
 		String minValueLabel = answers.get(0).getLabel();
 		double minValue = Double.parseDouble(minValueLabel);
@@ -312,7 +313,7 @@ public class WebformsRunnerElementFactory {
 		}
 		double defaultValue = minValue;
 		return new RunnerSlider(element.getName(), element.getLabel(), minValue, maxValue, element.getDescription(),
-				null, element.isMandatory(), defaultValue, runner, element.getPath());
+				null, element.isMandatory(), element.isHiddenElement(), defaultValue, runner, element.getPath());
 	}
 
 }
