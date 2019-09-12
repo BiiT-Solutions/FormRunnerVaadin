@@ -272,8 +272,9 @@ public class RunnerTable extends CustomComponent implements IRunnerElement {
 		boolean valid = true;
 		Iterator<Component> itr = tableElementsLayout.iterator();
 		while (itr.hasNext()) {
-			if (itr.next() instanceof IRunnerElement) {
-				IRunnerElement component = (IRunnerElement) itr.next();
+			Component nextComponent = itr.next();
+			if (nextComponent instanceof IRunnerElement) {
+				IRunnerElement component = (IRunnerElement) nextComponent;
 				valid = valid && component.isValid();
 			}
 		}
