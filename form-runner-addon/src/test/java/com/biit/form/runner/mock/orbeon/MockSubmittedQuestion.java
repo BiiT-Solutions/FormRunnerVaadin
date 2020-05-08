@@ -118,4 +118,9 @@ public class MockSubmittedQuestion implements ISubmittedQuestion, IQuestionWithA
 		return null;
 	}
 
+	@Override
+	public <T> List<T> getChildrenRecursive(Class<T> arg0) {
+		return null;
+	}
+
 }
