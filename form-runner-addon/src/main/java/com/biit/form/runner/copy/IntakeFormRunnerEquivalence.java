@@ -3,7 +3,7 @@ package com.biit.form.runner.copy;
 
 public class IntakeFormRunnerEquivalence extends FormRunnerEquivalence {
 	// Orbeon format: 1985-12-12
-	private final static String ORBEON_DATE_FORMAT = "yyy-MM-dd";
+	private final static String DATE_FORMAT = "yyy-MM-dd";
 
 	public IntakeFormRunnerEquivalence(String orbeonPath, String formRunnerPath, String operator) {
 		setSourcePath(orbeonPath);
@@ -13,7 +13,7 @@ public class IntakeFormRunnerEquivalence extends FormRunnerEquivalence {
 
 	@Override
 	protected String getDateFormat() {
-		return ORBEON_DATE_FORMAT;
+		return DATE_FORMAT;
 	}
 
 	@Override
