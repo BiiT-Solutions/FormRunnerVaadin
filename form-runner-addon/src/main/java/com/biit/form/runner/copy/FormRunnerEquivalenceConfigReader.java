@@ -20,7 +20,7 @@ import com.biit.utils.configuration.SystemVariableTextSourceFile;
 import com.biit.utils.file.FileReader;
 
 public class FormRunnerEquivalenceConfigReader {
-	private static final String SYSTEM_VARIABLE_CONFIG = "ORBEON_MATCHER_CONFIG";
+	private static final String SYSTEM_VARIABLE_CONFIG = "INTAKE_MATCHER_CONFIG";
 
 	private final static String XML_QUESTION_NODE = "question";
 	private final static String SOURCE_PATH_NODE = "source";
@@ -41,7 +41,7 @@ public class FormRunnerEquivalenceConfigReader {
 				SystemVariableTextSourceFile xmlFileReader = new SystemVariableTextSourceFile(SYSTEM_VARIABLE_CONFIG, fileName);
 				xmlText = xmlFileReader.loadFile();
 			} catch (FileNotFoundException fnf) {
-				FormRunnerLogger.warning(FormRunnerEquivalenceConfigReader.class.getName(), "Orbeon equivalence system variable not found!");
+				FormRunnerLogger.warning(FormRunnerEquivalenceConfigReader.class.getName(), "Intake equivalence system variable not found!");
 			}
 			if (xmlText == null) {
 				xmlText = FileReader.getResource(fileName, StandardCharsets.UTF_8);
@@ -53,13 +53,13 @@ public class FormRunnerEquivalenceConfigReader {
 			// Add all question maps.
 			for (Iterator<?> formChildren = formElement.elementIterator(XML_QUESTION_NODE); formChildren.hasNext();) {
 				final Element questionElement = (Element) formChildren.next();
-				String orbenPath = questionElement.attributeValue(SOURCE_PATH_NODE);
+				String intakePath = questionElement.attributeValue(SOURCE_PATH_NODE);
 				String formRunnerPath = questionElement.attributeValue(FORM_RUNNER_PATH_NODE);
 				String operator = questionElement.attributeValue(OPERATOR_NODE);
-				OrbeonFormRunnerEquivalence orbeonFormRunnerEquivalence = new OrbeonFormRunnerEquivalence(orbenPath, formRunnerPath, operator);
+				IntakeFormRunnerEquivalence intakeFormRunnerEquivalence = new IntakeFormRunnerEquivalence(intakePath, formRunnerPath, operator);
 				try {
 					Integer priority = Integer.parseInt(questionElement.attributeValue(PRIORITY_NODE));
-					orbeonFormRunnerEquivalence.setPriority(priority);
+					intakeFormRunnerEquivalence.setPriority(priority);
 				} catch (Exception e) {
 					// Do nothing.
 				}
@@ -72,18 +72,18 @@ public class FormRunnerEquivalenceConfigReader {
 					String text = translationElement.attributeValue(TECHNICAL_NAME_TEXT);
 					translations.put(technicalName, text);
 				}
-				orbeonFormRunnerEquivalence.setTranslations(translations);
+				intakeFormRunnerEquivalence.setTranslations(translations);
 
-				configuration.add(orbeonFormRunnerEquivalence);
+				configuration.add(intakeFormRunnerEquivalence);
 			}
 
 		} catch (FileNotFoundException fnf) {
-			FormRunnerLogger.warning(FormRunnerEquivalenceConfigReader.class.getName(), "Orbeon equivalence with Form Runner file not found!");
+			FormRunnerLogger.warning(FormRunnerEquivalenceConfigReader.class.getName(), "Intake equivalence with Form Runner file not found!");
 		} catch (UnsupportedEncodingException | DocumentException e) {
 			FormRunnerLogger.errorMessage(FormRunnerEquivalenceConfigReader.class.getName(), e);
 		}
-		FormRunnerMatcher orbeonFormRunnerMatcher = new FormRunnerMatcher();
-		orbeonFormRunnerMatcher.setEquivalences(configuration);
-		return orbeonFormRunnerMatcher;
+		FormRunnerMatcher formRunnerMatcher = new FormRunnerMatcher();
+		formRunnerMatcher.setEquivalences(configuration);
+		return formRunnerMatcher;
 	}
 }

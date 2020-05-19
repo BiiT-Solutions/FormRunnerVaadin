@@ -113,7 +113,7 @@ public class FormRunnerEquivalence {
 			Date now = new Date();
 			return getDiffYears(orbeonDate, now) + "";
 		} catch (ParseException e) {
-			FormRunnerLogger.errorMessage(OrbeonFormRunnerEquivalence.class.getName(), e);
+			FormRunnerLogger.errorMessage(IntakeFormRunnerEquivalence.class.getName(), e);
 		}
 		return "";
 	}
