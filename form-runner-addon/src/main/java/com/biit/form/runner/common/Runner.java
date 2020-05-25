@@ -176,11 +176,12 @@ public class Runner extends CustomComponent {
 		IRunnerElement element = getElement(path);
 		element.setRelevance(value);
 		try {
-			((RunnerGroup) getElement(path.subList(0, path.size() - 1))).checkRelevance();
+			//Update relevance for all parent groups.
+			for (int i = path.size() - 1; i > 0; i--) {
+				((RunnerGroup) getElement(path.subList(0, i))).checkRelevance();
+			}
 		} catch (PathDoesNotExist | ClassCastException e) {
-			((RunnerTable) getElement(path.subList(0, path.size() - 2))).checkRelevance();
 		}
-
 	}
 
 	public boolean getRelevance(List<String> path) throws PathDoesNotExist {
