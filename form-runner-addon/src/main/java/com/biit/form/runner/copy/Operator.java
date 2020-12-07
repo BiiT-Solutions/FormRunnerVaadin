@@ -7,7 +7,9 @@ public enum Operator {
 	GET("get"),
 	
 	// Useful to convert birthday to age.
-	YEARS_TO_NOW("yearsToNow");
+	YEARS_TO_NOW("yearsToNow"),
+
+	PROFILE("userProfile");
 
 	private String tag;
 

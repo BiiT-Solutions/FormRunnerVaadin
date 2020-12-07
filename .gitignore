@@ -16,3 +16,5 @@ release.properties
 pom.xml.versionsBackup
 pom.xml.releaseBackup
 pom.xml.orig
+*.iml
+.idea
