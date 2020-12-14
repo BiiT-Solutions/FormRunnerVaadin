@@ -14,6 +14,10 @@ import com.biit.form.entity.IQuestionWithAnswers;
 public class FormRunnerMatcher {
     private Set<FormRunnerEquivalence> equivalences;
 
+    public FormRunnerMatcher(Set<FormRunnerEquivalence> equivalences){
+        setEquivalences(equivalences);
+    }
+
     /**
      * Returns the form equivalence with answer and highest priority. Also
      * updates the form values in the equivalences.
@@ -66,8 +70,8 @@ public class FormRunnerMatcher {
 
     public Set<FormRunnerEquivalence> getFormRunnerEquivalences(String formSourcePath) {
         Set<FormRunnerEquivalence> equivalencesFound = new HashSet<>();
-        if (equivalences != null) {
-            for (FormRunnerEquivalence equivalence : equivalences) {
+        if (getEquivalences() != null) {
+            for (FormRunnerEquivalence equivalence : getEquivalences()) {
                 if (equivalence.getSourcePath().equals(formSourcePath)) {
                     // Has value, use it. If not, skip to a second equivalence
                     // definition.
@@ -120,4 +124,7 @@ public class FormRunnerMatcher {
         return equivalences != null && !equivalences.isEmpty();
     }
 
+    protected Set<FormRunnerEquivalence> getEquivalences() {
+        return equivalences;
+    }
 }

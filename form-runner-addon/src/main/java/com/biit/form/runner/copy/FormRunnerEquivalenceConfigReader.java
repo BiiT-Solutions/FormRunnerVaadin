@@ -32,7 +32,7 @@ public class FormRunnerEquivalenceConfigReader {
 	private final static String TECHNICAL_NAME_NODE = "technicalName";
 	private final static String TECHNICAL_NAME_TEXT = "text";
 
-	public static FormRunnerMatcher readConfig(String fileName) {
+	public static Set<FormRunnerEquivalence> readConfig(String fileName) {
 		Set<FormRunnerEquivalence> configuration = new HashSet<>();
 
 		try {
@@ -82,8 +82,6 @@ public class FormRunnerEquivalenceConfigReader {
 		} catch (UnsupportedEncodingException | DocumentException e) {
 			FormRunnerLogger.errorMessage(FormRunnerEquivalenceConfigReader.class.getName(), e);
 		}
-		FormRunnerMatcher formRunnerMatcher = new FormRunnerMatcher();
-		formRunnerMatcher.setEquivalences(configuration);
-		return formRunnerMatcher;
+		return configuration;
 	}
 }
