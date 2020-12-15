@@ -1,9 +1,6 @@
 package com.biit.form.runner.copy;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import com.biit.form.entity.IFormWithAnswers;
 import com.biit.form.entity.IQuestionWithAnswers;
@@ -14,7 +11,7 @@ import com.biit.form.entity.IQuestionWithAnswers;
 public class FormRunnerMatcher {
     private Set<FormRunnerEquivalence> equivalences;
 
-    public FormRunnerMatcher(Set<FormRunnerEquivalence> equivalences){
+    public FormRunnerMatcher(Set<FormRunnerEquivalence> equivalences) {
         setEquivalences(equivalences);
     }
 
@@ -26,7 +23,7 @@ public class FormRunnerMatcher {
      * @param operator a specific operator to search
      * @return the form element.
      */
-    public Set<FormRunnerEquivalence> getFormRunnerEquivalences(IQuestionWithAnswers question, Operator operator) {
+    public Set<FormRunnerEquivalence> getFormRunnerEquivalences(IQuestionWithAnswers question, Operator... operator) {
         if (question == null) {
             return new HashSet<>();
         }
@@ -45,7 +42,7 @@ public class FormRunnerMatcher {
         return getFormRunnerEquivalences(question, null);
     }
 
-    public Set<FormRunnerEquivalence> getFormRunnerEquivalences(String formDestinationPath, Operator operator) {
+    public Set<FormRunnerEquivalence> getFormRunnerEquivalences(String formDestinationPath, Operator... operator) {
         Set<FormRunnerEquivalence> equivalencesFound = new HashSet<>();
         if (equivalences != null) {
             for (FormRunnerEquivalence equivalence : equivalences) {
@@ -55,7 +52,7 @@ public class FormRunnerMatcher {
                     try {
                         if (equivalence.getSourceQuestion() != null && equivalence.getSourceQuestion().getAnswers() != null
                                 && !equivalence.getSourceQuestion().getAnswers().iterator().next().isEmpty()) {
-                            if (operator == null || Objects.equals(operator, equivalence.getOperator())) {
+                            if (operator == null || Arrays.asList(operator).contains(equivalence.getOperator())) {
                                 equivalencesFound.add(equivalence);
                             }
                         }

@@ -3,6 +3,8 @@ package com.biit.form.runner.copy;
 public enum Operator {
 
 	COPY("copy"),
+
+	COPY_FROM_PREVIOUS("copyFromPrevious"),
 	
 	GET("get"),
 	
