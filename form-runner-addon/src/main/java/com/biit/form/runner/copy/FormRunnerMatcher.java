@@ -46,7 +46,7 @@ public class FormRunnerMatcher {
         Set<FormRunnerEquivalence> equivalencesFound = new HashSet<>();
         if (equivalences != null) {
             for (FormRunnerEquivalence equivalence : equivalences) {
-                if (equivalence.getDestinationPath().equals(formDestinationPath)) {
+                if (equivalence != null && Objects.equals(equivalence.getDestinationPath(), formDestinationPath)) {
                     // Has value, use it. If not, skip to a second equivalence
                     // definition.
                     try {
