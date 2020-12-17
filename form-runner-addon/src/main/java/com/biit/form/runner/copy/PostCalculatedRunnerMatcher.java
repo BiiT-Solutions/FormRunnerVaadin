@@ -5,8 +5,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class ProfileRunnerMatcher extends FormRunnerMatcher {
-    public ProfileRunnerMatcher(Set<FormRunnerEquivalence> equivalences) {
+/**
+ * Equivalences not stores yet data that must be copied.
+ */
+public class PostCalculatedRunnerMatcher extends FormRunnerMatcher {
+    public PostCalculatedRunnerMatcher(Set<FormRunnerEquivalence> equivalences) {
         super(equivalences);
     }
 
