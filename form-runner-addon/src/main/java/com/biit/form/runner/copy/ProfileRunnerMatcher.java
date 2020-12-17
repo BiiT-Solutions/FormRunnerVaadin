@@ -1,5 +1,6 @@
 package com.biit.form.runner.copy;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -9,7 +10,8 @@ public class ProfileRunnerMatcher extends FormRunnerMatcher {
         super(equivalences);
     }
 
-    public Set<FormRunnerEquivalence> getFormRunnerEquivalences(String formDestinationPath, Operator operator) {
+    @Override
+    public Set<FormRunnerEquivalence> getFormRunnerEquivalences(String formDestinationPath, Operator... operator) {
         Set<FormRunnerEquivalence> equivalencesFound = new HashSet<>();
         if (getEquivalences() != null) {
             for (FormRunnerEquivalence equivalence : getEquivalences()) {
@@ -17,7 +19,7 @@ public class ProfileRunnerMatcher extends FormRunnerMatcher {
                     // Has value, use it. If not, skip to a second equivalence
                     // definition.
                     try {
-                        if (operator == null || Objects.equals(operator, equivalence.getOperator())) {
+                        if (operator == null || Arrays.asList(operator).contains(equivalence.getOperator())) {
                             equivalencesFound.add(equivalence);
                         }
                     } catch (NullPointerException npe) {
