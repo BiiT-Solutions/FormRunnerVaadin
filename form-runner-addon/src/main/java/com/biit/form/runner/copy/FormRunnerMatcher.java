@@ -51,7 +51,7 @@ public class FormRunnerMatcher {
                     // definition.
                     try {
                         if (equivalence.getSourceQuestion() != null && equivalence.getSourceQuestion().getAnswers() != null
-                                && !equivalence.getSourceQuestion().getAnswers().iterator().next().isEmpty()) {
+                                && !equivalence.getSourceQuestion().getAnswers().isEmpty()) {
                             if (operator == null || Arrays.asList(operator).contains(equivalence.getOperator())) {
                                 equivalencesFound.add(equivalence);
                             }
