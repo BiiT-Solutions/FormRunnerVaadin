@@ -54,6 +54,14 @@ public class FormRunnerEquivalence {
         return Arrays.asList(newPath);
     }
 
+    public List<String> getSourcePathAsList() {
+        if (sourcePath == null) {
+            return null;
+        }
+        String[] newPath = sourcePath.split(PATH_DELIMITATOR);
+        return Arrays.asList(newPath);
+    }
+
     public void setDestinationPath(String destinationPath) {
         this.destinationPath = destinationPath;
     }
