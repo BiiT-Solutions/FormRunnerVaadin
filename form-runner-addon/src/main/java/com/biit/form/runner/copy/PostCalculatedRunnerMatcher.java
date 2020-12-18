@@ -22,9 +22,14 @@ public class PostCalculatedRunnerMatcher extends FormRunnerMatcher {
                     // Has value, use it. If not, skip to a second equivalence
                     // definition.
                     try {
-                        if (operator == null || Arrays.asList(operator).contains(equivalence.getOperator())) {
+                        //Form equivalence
+                        if (equivalence.getOperator().isFormBaseOperator()) {
                             equivalencesFound.add(equivalence);
-                        }
+                        } else
+                            //Question equivalence
+                            if (operator == null || Arrays.asList(operator).contains(equivalence.getOperator())) {
+                                equivalencesFound.add(equivalence);
+                            }
                     } catch (NullPointerException npe) {
                         // No answer selected.
                     }
