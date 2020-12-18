@@ -50,12 +50,17 @@ public class FormRunnerMatcher {
                     // Has value, use it. If not, skip to a second equivalence
                     // definition.
                     try {
-                        if (equivalence.getSourceQuestion() != null && equivalence.getSourceQuestion().getAnswers() != null
-                                && !equivalence.getSourceQuestion().getAnswers().isEmpty()) {
-                            if (operator == null || Arrays.asList(operator).contains(equivalence.getOperator())) {
-                                equivalencesFound.add(equivalence);
+                        //Form equivalence
+                        if (equivalence.getOperator().isFormBaseOperator()) {
+                            equivalencesFound.add(equivalence);
+                        } else
+                            //Question equivalence
+                            if (equivalence.getSourceQuestion() != null && equivalence.getSourceQuestion().getAnswers() != null
+                                    && !equivalence.getSourceQuestion().getAnswers().isEmpty()) {
+                                if (operator == null || Arrays.asList(operator).contains(equivalence.getOperator())) {
+                                    equivalencesFound.add(equivalence);
+                                }
                             }
-                        }
                     } catch (NullPointerException npe) {
                         // No answer selected.
                     }

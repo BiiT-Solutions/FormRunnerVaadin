@@ -1,34 +1,51 @@
 package com.biit.form.runner.copy;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public enum Operator {
 
-	COPY("copy"),
+    COPY("copy"),
 
-	COPY_FROM_PREVIOUS("copyFromPrevious"),
-	
-	GET("get"),
-	
-	// Useful to convert birthday to age.
-	YEARS_TO_NOW("yearsToNow"),
+    COPY_FORM("copyForm"),
 
-	PROFILE("profile");
+    COPY_FROM_PREVIOUS("copyFromPrevious"),
 
-	private String tag;
+    COPY_PREVIOUS_FORM("copyPreviousForm"),
 
-	Operator(String tag) {
-		this.tag = tag;
-	}
+    GET("get"),
 
-	public static Operator get(String tag) {
-		for (Operator operator : Operator.values()) {
-			if (operator.getTag().equals(tag)) {
-				return operator;
-			}
-		}
-		return COPY;
-	}
+    // Useful to convert birthday to age.
+    YEARS_TO_NOW("yearsToNow"),
 
-	public String getTag() {
-		return tag;
-	}
+    PROFILE("profile");
+
+    private String tag;
+
+    Operator(String tag) {
+        this.tag = tag;
+    }
+
+    public static Operator get(String tag) {
+        for (Operator operator : Operator.values()) {
+            if (operator.getTag().equals(tag)) {
+                return operator;
+            }
+        }
+        return COPY;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public static List<Operator> getFormBasedOperatos() {
+        return Arrays.asList(Operator.COPY_PREVIOUS_FORM, Operator.COPY_FORM);
+    }
+
+    public boolean isFormBaseOperator(){
+        return getFormBasedOperatos().contains(this);
+    }
 }
