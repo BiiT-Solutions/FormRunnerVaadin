@@ -22,9 +22,9 @@ import com.biit.utils.file.FileReader;
 public class FormRunnerEquivalenceConfigReader {
     private static final String SYSTEM_VARIABLE_CONFIG = "INTAKE_MATCHER_CONFIG";
 
-    private final static String XML_QUESTION_NODE = "question";
+    private final static String XML_ROOT_NODE = "equivalence";
     private final static String SOURCE_PATH_NODE = "source";
-    private final static String FORM_RUNNER_PATH_NODE = "formRunner";
+    private final static String FORM_RUNNER_PATH_NODE = "destination";
     private final static String OPERATOR_NODE = "operator";
     private final static String PRIORITY_NODE = "priority";
 
@@ -51,7 +51,7 @@ public class FormRunnerEquivalenceConfigReader {
             final Element formElement = document.getRootElement();
 
             // Add all question maps.
-            for (Iterator<?> formChildren = formElement.elementIterator(XML_QUESTION_NODE); formChildren.hasNext(); ) {
+            for (Iterator<?> formChildren = formElement.elementIterator(XML_ROOT_NODE); formChildren.hasNext(); ) {
                 final Element questionElement = (Element) formChildren.next();
                 String intakePath = questionElement.attributeValue(SOURCE_PATH_NODE);
                 String formRunnerPath = questionElement.attributeValue(FORM_RUNNER_PATH_NODE);
