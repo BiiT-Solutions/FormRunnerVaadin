@@ -93,7 +93,7 @@ public class Runner extends CustomComponent {
 		mainImageLayout.setVisible(true);
 	}
 
-	protected void setImageLayoutUnvisible() {
+	protected void setImageLayoutInvisible() {
 		mainImageLayout.setVisible(false);
 	}
 

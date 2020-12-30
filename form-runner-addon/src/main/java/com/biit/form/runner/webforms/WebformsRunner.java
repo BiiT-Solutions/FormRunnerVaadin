@@ -114,7 +114,7 @@ public abstract class WebformsRunner<FormGroup extends IWebformsRunnerGroup> ext
 			setImageLayoutVisible();
 			setImage(form.getImage());
 		} else {
-			setImageLayoutUnvisible();
+			setImageLayoutInvisible();
 		}
 	}
 
