@@ -4,7 +4,7 @@
 	<groupId>com.biit</groupId>
 	<artifactId>form-runner</artifactId>
 	<packaging>pom</packaging>
-	<version>1.3.60-SNAPSHOT</version>
+	<version>1.4.1-SNAPSHOT</version>
 	<name>Form Runner Project</name> 
 	
 	<properties>
@@ -21,9 +21,9 @@
 		<jetty.plugin.version>9.2.3.v20140905</jetty.plugin.version>
 		<servlet-api.version>2.5</servlet-api.version>
 		<!-- BiiT Custom properties --> 
-		<biit-common-utils.version>[1.0,1.1)</biit-common-utils.version>
-		<biit-vaadin-common.version>[0.4,0.5)</biit-vaadin-common.version>
-		<webforms-persistence.version>[2.12,2.13)</webforms-persistence.version>
+		<biit-common-utils.version>[1.1,1.2)</biit-common-utils.version>
+		<biit-vaadin-common.version>[1.0,1.1)</biit-vaadin-common.version>
+		<webforms-persistence.version>[2.13,2.14)</webforms-persistence.version>
 	</properties>
 
 	<modules>
