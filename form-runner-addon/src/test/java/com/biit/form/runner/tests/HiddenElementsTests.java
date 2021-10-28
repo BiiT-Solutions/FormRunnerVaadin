@@ -1,26 +1,20 @@
 package com.biit.form.runner.tests;
 
-import java.io.FileNotFoundException;
-import java.nio.charset.Charset;
-import java.util.Arrays;
-
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
-import com.biit.form.exceptions.CharacterNotAllowedException;
-import com.biit.form.exceptions.ElementIsReadOnly;
-import com.biit.form.exceptions.NotValidChildException;
 import com.biit.form.exceptions.TooManyResultsFoundException;
 import com.biit.form.result.FormResult;
-import com.biit.form.result.QuestionWithValueResult;
 import com.biit.form.runner.common.exceptions.PathDoesNotExist;
 import com.biit.form.runner.mock.TestFormRunner;
-import com.biit.persistence.entity.exceptions.FieldTooLongException;
 import com.biit.utils.file.FileReader;
 import com.biit.webforms.persistence.entity.Form;
 import com.biit.webforms.persistence.entity.Group;
 import com.biit.webforms.persistence.entity.Question;
 import com.biit.webforms.persistence.entity.SystemField;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import java.io.FileNotFoundException;
+import java.nio.charset.Charset;
+import java.util.Collections;
 
 @Test(groups = "hiddenElements")
 public class HiddenElementsTests {
@@ -51,8 +45,7 @@ public class HiddenElementsTests {
     }
 
     @Test
-    public void readSliderWithInOperator() throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException,
-            NotValidChildException, ElementIsReadOnly, FieldTooLongException, CharacterNotAllowedException {
+    public void readSliderWithInOperator() throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException {
         String jsonString = FileReader.getResource("SliderInTest.json", Charset.defaultCharset());
         Assert.assertTrue(jsonString.length() > 0);
         Form form = Form.fromJson(jsonString);
@@ -61,7 +54,7 @@ public class HiddenElementsTests {
 
         // Slider value between 1 and 5, first question visible.
         Question question = form.getChild(Question.class, "question");
-        formRunner.setAnswers(question.getPath(), Arrays.asList(new String[]{"3"}));
+        formRunner.setAnswers(question.getPath(), Collections.singletonList("3"));
         formRunner.evaluate();
 
         Assert.assertFalse(
@@ -80,7 +73,7 @@ public class HiddenElementsTests {
 
         // No flow defined.
         Question question = form.getChild(Question.class, "EnergyBalance");
-        formRunner.setAnswers(question.getPath(), Arrays.asList(new String[]{"1"}));
+        formRunner.setAnswers(question.getPath(), Collections.singletonList("1"));
         formRunner.evaluate();
 
         Assert.assertFalse(
@@ -90,7 +83,7 @@ public class HiddenElementsTests {
         // Check Formulas category has values.
         FormResult formResult = formRunner.getFormResult();
         Assert.assertNotNull(formResult);
-        Assert.assertNotNull(((QuestionWithValueResult) formRunner.getFormResult().getChild(question.getPath())));
+        Assert.assertNotNull((formRunner.getFormResult().getChild(question.getPath())));
     }
 
     @Test
@@ -105,7 +98,7 @@ public class HiddenElementsTests {
 
         // No flow defined.
         Question question = form.getChild(Question.class, "Type");
-        formRunner.setAnswers(question.getPath(), Arrays.asList(new String[]{"Treadmill"}));
+        formRunner.setAnswers(question.getPath(), Collections.singletonList("Treadmill"));
         formRunner.evaluate();
 
         formRunner.evaluate();
@@ -118,8 +111,7 @@ public class HiddenElementsTests {
     }
 
     @Test
-    public void checkSystemFieldsAndFlow() throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException,
-            NotValidChildException, ElementIsReadOnly, FieldTooLongException, CharacterNotAllowedException {
+    public void checkSystemFieldsAndFlow() throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException {
         String jsonString = FileReader.getResource("LEC VO2MAX.json", Charset.defaultCharset());
         Assert.assertTrue(jsonString.length() > 0);
         Form form = Form.fromJson(jsonString);
@@ -129,7 +121,7 @@ public class HiddenElementsTests {
 
         // No flow defined.
         Question question = form.getChild(Question.class, "Type");
-        formRunner.setAnswers(question.getPath(), Arrays.asList(new String[]{"Treadmill"}));
+        formRunner.setAnswers(question.getPath(), Collections.singletonList("Treadmill"));
         formRunner.evaluate();
 
         Assert.assertTrue(formRunner.getElement(form.getChild(Group.class, "Treadmill").getPath()).getRelevance());
@@ -152,7 +144,7 @@ public class HiddenElementsTests {
         // No flow defined.
         Question question = form.getChild(Question.class, "walking");
         Assert.assertNotNull(question);
-        formRunner.setAnswers(question.getPath(), Arrays.asList(new String[]{"climbing-stairs"}));
+        formRunner.setAnswers(question.getPath(), Collections.singletonList("climbing-stairs"));
         formRunner.evaluate();
 
         Assert.assertTrue(
