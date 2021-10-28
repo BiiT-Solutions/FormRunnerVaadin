@@ -139,7 +139,11 @@ public class HiddenElementsTests {
 	public void checkSliderHasNoDefaultValues()
 			throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException {
 		String jsonString = FileReader.getResource("LEC PSK.json", Charset.defaultCharset());
+		System.out.println("--------------------------------------------------");
+		System.out.println(jsonString);
+		System.out.println("--------------------------------------------------");
 		Form form = Form.fromJson(jsonString);
+		System.out.println(form);
 
 		TestFormRunner formRunner = new TestFormRunner();
 		formRunner.loadForm(form);
