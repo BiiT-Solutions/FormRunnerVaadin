@@ -4,7 +4,6 @@ import com.biit.form.exceptions.TooManyResultsFoundException;
 import com.biit.form.result.FormResult;
 import com.biit.form.runner.common.exceptions.PathDoesNotExist;
 import com.biit.form.runner.mock.TestFormRunner;
-import com.biit.utils.file.FileReader;
 import com.biit.webforms.persistence.entity.Form;
 import com.biit.webforms.persistence.entity.Group;
 import com.biit.webforms.persistence.entity.Question;
@@ -12,8 +11,11 @@ import com.biit.webforms.persistence.entity.SystemField;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.io.FileNotFoundException;
-import java.nio.charset.Charset;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Collections;
 
 @Test(groups = "hiddenElements")
@@ -21,8 +23,8 @@ public class HiddenElementsTests {
 
     @Test
     public void readFormAndCheckFirstElement()
-            throws FileNotFoundException, TooManyResultsFoundException, PathDoesNotExist {
-        String jsonString = FileReader.getResource("EnergyBalance.json", Charset.defaultCharset());
+            throws IOException, TooManyResultsFoundException, PathDoesNotExist, URISyntaxException {
+        String jsonString = readFileFromResources("EnergyBalance.json");
         Assert.assertTrue(jsonString.length() > 0);
         Form form = Form.fromJson(jsonString);
         TestFormRunner formRunner = new TestFormRunner();
@@ -34,8 +36,8 @@ public class HiddenElementsTests {
 
     @Test
     public void readFormAndCheckFirstElementNotHidden()
-            throws FileNotFoundException, TooManyResultsFoundException, PathDoesNotExist {
-        String jsonString = FileReader.getResource("EnergyBalance_personalHidden.json", Charset.defaultCharset());
+            throws IOException, TooManyResultsFoundException, PathDoesNotExist, URISyntaxException {
+        String jsonString = readFileFromResources("EnergyBalance_personalHidden.json");
         Assert.assertTrue(jsonString.length() > 0);
         Form form = Form.fromJson(jsonString);
         TestFormRunner formRunner = new TestFormRunner();
@@ -45,8 +47,8 @@ public class HiddenElementsTests {
     }
 
     @Test
-    public void readSliderWithInOperator() throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException {
-        String jsonString = FileReader.getResource("SliderInTest.json", Charset.defaultCharset());
+    public void readSliderWithInOperator() throws IOException, PathDoesNotExist, TooManyResultsFoundException, URISyntaxException {
+        String jsonString = readFileFromResources("SliderInTest.json");
         Assert.assertTrue(jsonString.length() > 0);
         Form form = Form.fromJson(jsonString);
         TestFormRunner formRunner = new TestFormRunner();
@@ -63,8 +65,8 @@ public class HiddenElementsTests {
     }
 
     @Test
-    public void checkFormulasExists() throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException {
-        String jsonString = FileReader.getResource("EnergyBalance.json", Charset.defaultCharset());
+    public void checkFormulasExists() throws IOException, PathDoesNotExist, TooManyResultsFoundException, URISyntaxException {
+        String jsonString = readFileFromResources("EnergyBalance.json");
         Assert.assertTrue(jsonString.length() > 0);
         Form form = Form.fromJson(jsonString);
 
@@ -88,8 +90,8 @@ public class HiddenElementsTests {
 
     @Test
     public void checkFormulasAreExported()
-            throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException {
-        String jsonString = FileReader.getResource("LEC VO2MAX.json", Charset.defaultCharset());
+            throws IOException, PathDoesNotExist, TooManyResultsFoundException, URISyntaxException {
+        String jsonString = readFileFromResources("LEC VO2MAX.json");
         Assert.assertTrue(jsonString.length() > 0);
         Form form = Form.fromJson(jsonString);
 
@@ -111,8 +113,8 @@ public class HiddenElementsTests {
     }
 
     @Test
-    public void checkSystemFieldsAndFlow() throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException {
-        String jsonString = FileReader.getResource("LEC VO2MAX.json", Charset.defaultCharset());
+    public void checkSystemFieldsAndFlow() throws IOException, PathDoesNotExist, TooManyResultsFoundException, URISyntaxException {
+        String jsonString = readFileFromResources("LEC VO2MAX.json");
         Assert.assertTrue(jsonString.length() > 0);
         Form form = Form.fromJson(jsonString);
 
@@ -133,8 +135,8 @@ public class HiddenElementsTests {
 
     @Test
     public void checkSliderHasNoDefaultValues()
-            throws FileNotFoundException, PathDoesNotExist, TooManyResultsFoundException {
-        String jsonString = FileReader.getResource("LEC PSK.json", Charset.defaultCharset());
+            throws IOException, PathDoesNotExist, TooManyResultsFoundException, URISyntaxException {
+        String jsonString = readFileFromResources("LEC PSK.json");
         Assert.assertTrue(jsonString.length() > 0);
         Form form = Form.fromJson(jsonString);
 
@@ -157,6 +159,12 @@ public class HiddenElementsTests {
                 formRunner.getElement(form.getChild(Question.class, "walkOutdoorsNoLevel").getPath()).isVisible());
 
         // System.out.println(formRunner.getFormResult().toJson());
+    }
+
+    public static String readFileFromResources(String filename) throws URISyntaxException, IOException {
+        URL resource = HiddenElementsTests.class.getClassLoader().getResource(filename);
+        byte[] bytes = Files.readAllBytes(Paths.get(resource.toURI()));
+        return new String(bytes);
     }
 
 }
