@@ -66,7 +66,6 @@
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>${org.testng.version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -74,14 +73,12 @@
 		<dependency>
 			<groupId>com.biit</groupId>
 			<artifactId>common-utils</artifactId>
-			<version>${biit-common-utils.version}</version>
 		</dependency>
 		<!-- Form Result Dependencies -->
 		<!-- WebForms Persistence and Parser -->
 		<dependency>
 			<groupId>com.biit</groupId>
 			<artifactId>webforms-parser</artifactId>
-			<version>${webforms-persistence.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.hibernate</groupId>
@@ -96,7 +93,6 @@
 		<dependency>
 			<groupId>com.biit</groupId>
 			<artifactId>vaadin-common-widgetset</artifactId>
-			<version>${biit-vaadin-common.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.biit</groupId>
@@ -106,19 +102,17 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
-			<version>${servlet-api.version}</version>
+			<version>${javax.servlet-api.version}</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.dom4j</groupId>
+			<artifactId>dom4j</artifactId>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -134,7 +128,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3.1</version>
+				<version>${maven-jar-plugin.version}</version>
 				<configuration>
 					<archive>
 						<index>true</index>

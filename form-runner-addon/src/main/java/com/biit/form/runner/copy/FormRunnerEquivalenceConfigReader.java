@@ -4,20 +4,16 @@ import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 
 import com.biit.form.runner.logger.FormRunnerLogger;
 import com.biit.utils.configuration.SystemVariableTextSourceFile;
 import com.biit.utils.file.FileReader;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
 public class FormRunnerEquivalenceConfigReader {
 	private static final String SYSTEM_VARIABLE_CONFIG = "INTAKE_MATCHER_CONFIG";
