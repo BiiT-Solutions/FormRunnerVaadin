@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>com.biit</groupId>
 		<artifactId>form-runner</artifactId>
-		<version>1.4.21</version>
+		<version>1.4.22-SNAPSHOT</version>
 	</parent>
 
 	<repositories>
