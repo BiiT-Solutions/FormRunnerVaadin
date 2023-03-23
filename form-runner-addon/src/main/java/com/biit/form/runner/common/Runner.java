@@ -180,7 +180,7 @@ public class Runner extends CustomComponent {
 			for (int i = path.size() - 1; i > 0; i--) {
 				((RunnerGroup) getElement(path.subList(0, i))).checkRelevance();
 			}
-		} catch (PathDoesNotExist | ClassCastException e) {
+		} catch (PathDoesNotExist | ClassCastException ignored) {
 		}
 	}
 
