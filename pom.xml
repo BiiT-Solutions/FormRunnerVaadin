@@ -34,8 +34,8 @@
     </distributionManagement>
 
     <scm>
-        <connection>scm:git:git.biit-solutions.com:BiiT/FormRunner.git</connection>
-        <developerConnection>scm:git:git.biit-solutions.com:BiiT/FormRunner.git</developerConnection>
+        <connection>scm:git:git.biit-solutions.com:Java/FormRunner.git</connection>
+        <developerConnection>scm:git:git.biit-solutions.com:Java/FormRunner.git</developerConnection>
         <tag>form-runner-root-1.1.1</tag>
     </scm>
 
