@@ -4,7 +4,7 @@
     <groupId>com.biit</groupId>
     <artifactId>form-runner</artifactId>
     <packaging>pom</packaging>
-    <version>1.4.32</version>
+    <version>1.4.33-SNAPSHOT</version>
     <name>Form Runner Project</name>
 
     <parent>
@@ -36,7 +36,7 @@
     <scm>
         <connection>scm:git:git.biit-solutions.com:Java/FormRunner.git</connection>
         <developerConnection>scm:git:git.biit-solutions.com:Java/FormRunner.git</developerConnection>
-        <tag>form-runner-1.4.32</tag>
+        <tag>form-runner-root-1.1.1</tag>
     </scm>
 
     <profiles>
