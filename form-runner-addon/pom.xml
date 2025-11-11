@@ -6,7 +6,7 @@
 	<name>Form Runner Add-on</name>
 
 	<parent>
-		<groupId>com.biit</groupId>
+		<groupId>com.biit-solutions</groupId>
 		<artifactId>form-runner</artifactId>
 		<version>1.4.33-SNAPSHOT</version>
 	</parent>
@@ -71,13 +71,13 @@
 
 		<!-- File access and logger -->
 		<dependency>
-			<groupId>com.biit</groupId>
+			<groupId>com.biit-solutions</groupId>
 			<artifactId>common-utils</artifactId>
 		</dependency>
 		<!-- Form Result Dependencies -->
 		<!-- WebForms Persistence and Parser -->
 		<dependency>
-			<groupId>com.biit</groupId>
+			<groupId>com.biit-solutions</groupId>
 			<artifactId>webforms-parser</artifactId>
 			<exclusions>
 				<exclusion>
@@ -85,17 +85,17 @@
 					<artifactId>hibernate-ehcache</artifactId>
 				</exclusion>
 				<exclusion>
-					<groupId>com.biit.liferay</groupId>
+					<groupId>com.biit-solutions.liferay</groupId>
 					<artifactId>liferay-service-common</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>com.biit</groupId>
+			<groupId>com.biit-solutions.vaadin</groupId>
 			<artifactId>vaadin-common-widgetset</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.biit</groupId>
+			<groupId>com.biit-solutions</groupId>
 			<artifactId>form-runner-logger</artifactId>
 			<version>${project.version}</version>
 		</dependency>
